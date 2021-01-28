@@ -1,0 +1,39 @@
+page {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-size: 32rpx;
+  background: #f8f8f9;
+}
+
+.v-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.v-flex-h100 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.vpx-24 {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+/** v-card */
+.v-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+
+.v-card .v-card__body,
+.v-card .v-card__title,
+.v-card .v-card__footer {
+  padding: 24rpx 24rpx;
+}
+
+

@@ -1,0 +1,51 @@
+<!--pages/home/index.wxml-->
+<view class="v-container">
+  <view class="vp-main">
+    <view class="v-card v-did-card">
+      <view class="v-card__body v-did-card--body">
+        <view class="v-didtext-col">
+          <text class="id-text"> 身份证号： 12445566667777 </text>
+        </view>
+        <view class="v-qrcode-wrap">
+          <view class="v-qrcode-box">
+            <image src="{{'/images/demo-qrcode.png'}}" mode="{{'aspectFit'}}" class="qrcode-image"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="v-spacer-row-24"></view>
+    <view class="v-card">
+      <view class="v-card__title">
+        <text class="v-title" style="font-weight: 500">便民服务</text>
+        <view class="v-row-line"></view>
+      </view>
+      <view class="v-card__body v-flex-row">
+        <view class="v-icon-region">
+          <view class="v-line-inner">
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/notice_icon.png'}}"></image>
+          </view>
+          <view class="region-line region-text">
+            <text>公告</text>
+          </view>
+        </view>
+        <view class="v-icon-region">
+          <view class="v-line-inner">
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hospital_icon.png'}}"></image>
+          </view>
+          <view class="region-text">
+            <text>挂号预约</text>
+          </view>
+        </view>
+        <view class="v-icon-region">
+          <view class="v-line-inner">
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hotel_icon.png'}}"></image>
+          </view>
+
+          <view class="region-text">
+            <text>酒店预约</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+<!--pages/creator/generator/index.wxml-->
+<l-message top="{{20}}"></l-message>
+<l-toast />
+<view class="v-container v-flex-h100">
+  <view class="v-sheet vpx-24">
+    <view class="v-logo-wrap">
+      <v-logo size="{{140}}"></v-logo>
+    </view>
+    <text class="v-generator-title">创建身份</text>
+  </view>
+  <view class="v-sheet v-body">
+    <l-form name="creator" id="creator" bind:linsubmit="generateSubmit">
+      <lv-form-item name="creatorPassword">
+        <l-input
+          type="password"
+          id="creatorPassword"
+          hide-label
+          model:value="{{password}}"
+          placeholder="输入密码"
+          showEye
+        >
+        </l-input>
+      </lv-form-item>
+      <lv-form-item name="confirm" tipType="message">
+        <l-input type="password" id="confirm" hide-label model:value="{{confirm}}" placeholder="再次输入" showEye>
+        </l-input>
+      </lv-form-item>
+      <lv-form-item slot="submit">
+        <l-button size="long">创建</l-button>
+      </lv-form-item>
+    </l-form>
+  </view>
+  <view class="v-sheet v-generator--footer vpx-24">
+    <text class="v-tips">提示:</text>
+    <text class="v-tips-desc"> 本身份为区块链身份系统，创建时无网络无需验证，无密码找回功能 </text>
+  </view>
+</view>

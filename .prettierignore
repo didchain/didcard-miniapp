@@ -1,0 +1,8 @@
+.vscode
+node_modules
+miniprogram_npm
+package.json
+sitemap.json
+project.config.json
+package-lock.json
+yarn.lock

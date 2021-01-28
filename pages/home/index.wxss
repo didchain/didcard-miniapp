@@ -1,0 +1,112 @@
+/* pages/home/index.wxss */
+.vp-main {
+  padding: 24rpx;
+}
+
+
+
+/** id card */
+.v-did-card {
+  height: 128px;
+  background: linear-gradient(225deg, #f6c330 0%, #f5cd73 100%);
+  box-shadow: 0px 2px 6px 2px rgba(12, 18, 61, 0.06);
+}
+
+.v-did-card--body {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  padding: 12rpx auto;
+}
+
+.v-did-card--body > .v-didtext-col {
+  flex: 1 1;
+}
+
+.v-didtext-col .id-text {
+  flex: 0 1 auto;
+  font-size: 36rpx;
+  font-weight: 500;
+}
+
+.v-qrcode-wrap {
+  display: flex;
+  flex: 0 1;
+  justify-content: center;
+  justify-items: center;
+}
+
+.v-qrcode-wrap {
+  display: flex;
+  flex: 0 1;
+  justify-items: center;
+  justify-content: center;
+}
+
+.v-qrcode-box .qrcode-image {
+  background: #fff;
+  padding: 4px;
+  width: 96px;
+  height: 96px;
+}
+
+/* 便民服务 */
+/** serice */
+.v-card__body .v-flex-row {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  justify-items: center;
+}
+.v-icon-region {
+  display: flex;
+  flex: 1 1 33.3333%;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+}
+.v-icon-region .region-text {
+  padding-top: 24rpx;
+  justify-content: center;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.v-icon-region .v-line-inner .image-region {
+  width: 100%;
+  justify-content: center;
+  justify-items: center;
+}
+
+.image-region {
+  text-align: center;
+  width: 43px;
+  height: 43px;
+}
+.v-row-line {
+  height: 12rpx;
+  width: 100%;
+  border-bottom: 1px solid rgba(240, 241, 243, 1);
+}
+
+.v-spacer-row-24 {
+  width: 100%;
+  height: 48rpx;
+}
+/* .vp-main .v-card {
+  padding-bottom: 48rpx;
+} */
+
+.v-card__title > .v-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 44rpx;
+}
+
+.v-flex-row {
+  display: flex;
+  flex-direction: row;
+}

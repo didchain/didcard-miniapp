@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "创建账号",
+  "usingComponents": {
+    "l-button": "/libs/lin-ui/button/index",
+    "l-input": "/libs/lin-ui/input/index",
+    "lv-form-item": "/libs/lin-ui/vform-item/index"
+  }
+}

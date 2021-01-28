@@ -1,0 +1,15 @@
+<!--pages/creator/index/index.wxml-->
+<view class="v-container v-flex-h100">
+  <view class="v-acc-banner">
+    <view class="v-image-bg"></view>
+  </view>
+  <view class="v-sheet">
+    <view class="v-row-item">
+      <l-button size="long" bind:lintap="gotoGenerator">创建账号</l-button>
+    </view>
+
+    <view class="v-row-item">
+      <l-button size="long" bgColor="#0C123D" bind:lintap="gotoHome">导入账户</l-button>
+    </view>
+  </view>
+</view>

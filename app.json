@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/midoperator/index",
+    "pages/logs/logs",
+    "pages/wcenter/index/index",
+    "pages/wcenter/import/index",
+    "pages/wcenter/ceator/index",
+    "pages/creator/index/index",
+    "pages/creator/generator/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "身份证钱包",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "rgba(12, 18, 61, 1)",
+    "selectedColor": "#F6C330",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "images/nav/home_off_icon@3x.png",
+        "selectedIconPath": "images/nav/home_on_icon@3x.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/midoperator/index",
+        "iconPath": "images/nav/Qr_tab_icon@3x.png",
+        "selectedIconPath": "images/nav/Qr_tab_icon@3x.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/wcenter/index/index",
+        "iconPath": "images/nav/acc_off_icon@3x.png",
+        "selectedIconPath": "images/nav/acc_on_icon@3x.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "useExtendedLib": {
+    "weui": false
+  },
+  "usingComponents": {
+    "l-toast": "/libs/lin-ui/toast/index",
+    "l-icon": "/libs/lin-ui/icon/index",
+    "l-message": "/libs/lin-ui/message/index",
+    "l-button": "/libs/lin-ui/button/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

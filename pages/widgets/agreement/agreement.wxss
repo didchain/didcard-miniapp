@@ -1,0 +1,17 @@
+/* pages/widgets/agreement/agreement.wxss */
+.agree-container {
+  width: 100%;
+  display: flex;
+  padding: 0;
+}
+
+.agree-container .inner-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  justify-content: start;
+}
+.checkbox-wrap {
+  flex: 0 0 50rpx;
+  font-size: 18rpx;
+}

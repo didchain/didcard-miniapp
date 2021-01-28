@@ -1,0 +1,24 @@
+/* pages/creator/generator/index.wxss */
+.v-generator-title {
+  font-size: 48rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #0c123d;
+  line-height: 66rpx;
+}
+
+.v-sheet .v-body {
+  padding: 24rpx 0;
+  flex: 1 1 35%;
+}
+
+.v-generator--footer {
+  flex: 0 1 280rpx;
+  justify-items: flex-start;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #7d7f80;
+  line-height: 40rpx;
+  padding-top: 48rpx;
+}

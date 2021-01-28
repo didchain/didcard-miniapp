@@ -1,0 +1,17 @@
+<!--pages/widgets/agreement/agreement.wxml-->
+<view class="agree-container">
+  <view class="inner-box">
+    <view class="checkbox-wrap">
+      <checkbox value="agree" checked="{{isAgree}}"></checkbox>
+    </view>
+    <checkbox-group>
+      <label class="weui-cell weui-check__label">
+        <view class="weui-cell__hd">
+          <checkbox value="agree" checked="{{isAgree}}" />
+        </view>
+        <view class="weui-cell__bd"> hsdfsdf </view>
+      </label>
+    </checkbox-group>
+    <view class="checkbox--appender"> </view>
+  </view>
+</view>
