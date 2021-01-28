@@ -1,4 +1,39 @@
 <!--pages/wcenter/index/index.wxml-->
 <view class="v-container">
-  
+  <view class="vp-main vpx-24">
+    <view class="v-spacer-row-12"></view>
+    <view class="v-card">
+      <view class="v-card__body">
+        <text-rect label="姓名:">
+          这个世界会好吗?
+        </text-rect>
+        <text-rect label="身份证号:" content="110827***162" />
+
+        <text-rect-action label="授权他人:">
+          黑色信封
+        </text-rect-action>
+      </view>
+
+    </view>
+
+    <view class="v-spacer-row-12"></view>
+    <!-- state card -->
+    <view class="v-card">
+      <view class="v-card__title">
+        <view class="v-inner">
+          <text>状态</text> 
+        </view>
+        <view class="v-inner ">
+          <span class="v-capsule">
+            未认证
+          </span>
+        </view>
+      </view>
+      <view class="v-card--splitor"></view>
+      <view class="v-card__body">
+        <l-list title="身份管理" icon="backward"></l-list>
+        <l-icon name="duihao" l-class="iconfont"></l-icon>
+      </view>
+    </view>
+  </view>
 </view>

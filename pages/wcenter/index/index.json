@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "text-rect": "/pages/widgets/textrect/textrect",
+    "text-rect-action":"/pages/widgets/textrect-action/index"
+  }
 }

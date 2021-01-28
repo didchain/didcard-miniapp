@@ -92,13 +92,6 @@
   border-bottom: 1px solid rgba(240, 241, 243, 1);
 }
 
-.v-spacer-row-24 {
-  width: 100%;
-  height: 48rpx;
-}
-/* .vp-main .v-card {
-  padding-bottom: 48rpx;
-} */
 
 .v-card__title > .v-title {
   font-size: 32rpx;

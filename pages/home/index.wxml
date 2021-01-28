@@ -4,7 +4,8 @@
     <view class="v-card v-did-card">
       <view class="v-card__body v-did-card--body">
         <view class="v-didtext-col">
-          <text class="id-text"> 身份证号： 12445566667777 </text>
+          <view class="id-text"> 身份证号： </view>
+          <text class="id-text"> 12445566667777 </text>
         </view>
         <view class="v-qrcode-wrap">
           <view class="v-qrcode-box">
@@ -17,8 +18,8 @@
     <view class="v-card">
       <view class="v-card__title">
         <text class="v-title" style="font-weight: 500">便民服务</text>
-        <view class="v-row-line"></view>
       </view>
+      <view class="v-card--splitor"></view>
       <view class="v-card__body v-flex-row">
         <view class="v-icon-region">
           <view class="v-line-inner">

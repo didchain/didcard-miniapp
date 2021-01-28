@@ -19,6 +19,7 @@ page {
   padding-left: 24rpx;
   padding-right: 24rpx;
 }
+
 /** v-card */
 .v-card {
   width: 100%;
@@ -36,4 +37,31 @@ page {
   padding: 24rpx 24rpx;
 }
 
+.v-card .v-card--splitor {
+  height: 4rpx;
+  width: 100%;
+  border-bottom: 1px solid rgba(240, 241, 243, 1);
+}
+.v-card__title text,
+.v-card__title span {
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+.v-card .v-card__title {
+  display: flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+}
 
+/** row spacer */
+.v-spacer-row-24 {
+  width: 100%;
+  height: 48rpx;
+}
+
+.v-spacer-row-12 {
+  width: 100%;
+  height: 24rpx;
+}

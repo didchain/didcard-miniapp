@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('./vicons/iconfont.eot?t=1611817467260'); /* IE9 */
+  src: url('./vicons/iconfont.eot?t=1611817467260#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+      url('data:application/x-font-woff2;charset=utf-8;base64,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')
+      format('woff2'),
+    url('./vicons/iconfont.woff?t=1611817467260') format('woff'),
+    url('./vicons/iconfont.ttf?t=1611817467260') format('truetype'),
+    /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */ url('./vicons/iconfont.svg?t=1611817467260#iconfont')
+      format('svg'); /* iOS 4.1- */
+}
+
+.l-icon-duihao:before {
+  font-family: 'iconfont' !important;
+  color: red;
+  content: '\e50d';
+}
+
+.icon-fuchen:before {
+  content: '\e511';
+}
+
+.l-icon-next:before {
+  font-family: 'iconfont' !important;
+  content: '\e520';
+}
+
+.icon-switch_off:before {
+  content: '\e521';
+}
+
+.icon-switch_on:before {
+  content: '\e522';
+}

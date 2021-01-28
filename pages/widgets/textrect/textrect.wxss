@@ -1,0 +1,26 @@
+/* pages/widgets/textrect/textrect.wxss */
+.vtext-rect {
+  display: flex;
+  flex: 1 0 100%;
+  flex-direction: column;
+  margin-bottom: 24rpx;
+}
+
+.vtext-rect .vtext-rect-row {
+  flex-direction: row;
+}
+
+.vtext-rect .vlabel label {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #9b9c9f;
+}
+.vtext-rect .vtext {
+  font-size: 30rpx;
+  padding-top: 12rpx;
+}
+
+.vtext-rect .vtext > span {
+  font-weight: 500;
+  line-height: 42rpx;
+}

@@ -49,7 +49,8 @@
     "l-toast": "/libs/lin-ui/toast/index",
     "l-icon": "/libs/lin-ui/icon/index",
     "l-message": "/libs/lin-ui/message/index",
-    "l-button": "/libs/lin-ui/button/index"
+    "l-button": "/libs/lin-ui/button/index",
+    "l-list":"/libs/lin-ui/list/index"
   },
   "sitemapLocation": "sitemap.json"
 }
