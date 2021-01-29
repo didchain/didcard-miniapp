@@ -1,6 +1,6 @@
 <!--pages/wcenter/index/index.wxml-->
 <view class="v-container">
-  <view class="vp-main vpx-24">
+  <view class="vp-main vpx-12">
     <view class="v-spacer-row-12"></view>
     <view class="v-card">
       <view class="v-card__body">
@@ -31,8 +31,8 @@
       </view>
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
-        <l-list title="身份管理" icon="backward"></l-list>
-        <l-icon name="duihao" l-class="iconfont"></l-icon>
+        <v-list title="身份管理" url="{{'/pages/home/index'}}" linkType="switchTab"></v-list>
+        <v-list title="免密" linkType="navigateTo" bind:lintap="gotoInternalUrl" data-url="/pages/wcenter/settings/index"></v-list>
       </view>
     </view>
   </view>

@@ -15,9 +15,19 @@ page {
   display: flex;
   flex-direction: column;
 }
-.vpx-24 {
+.vpx-12 {
   padding-left: 24rpx;
   padding-right: 24rpx;
+}
+
+.vpx-24 {
+  padding-left: 48rpx;
+  padding-right: 48rpx;
+}
+
+.vpx-48 {
+  padding-left: 96rpx;
+  padding-right: 96rpx;
 }
 
 /** v-card */
@@ -64,4 +74,27 @@ page {
 .v-spacer-row-12 {
   width: 100%;
   height: 24rpx;
+}
+.v-spacer-row-shrink {
+  flex: 1 1 24rpx;
+}
+
+.vp-main {
+  flex: 1 1;
+}
+
+.v-footer-wrap {
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  width: 100%;
+  height: 360rpx;
+  justify-items: center;
+  justify-content: start;
+}
+
+.v-flex-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }

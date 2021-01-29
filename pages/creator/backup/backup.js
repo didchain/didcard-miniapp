@@ -1,23 +1,33 @@
-// pages/wcenter/index/index.js
+// pages/creator/backup/backup.js
 Page({
   /**
    * 页面的初始数据
    */
   data: {},
-  gotoInternalUrl(event) {
-    const { currentTarget = {} } = event;
-    const url = currentTarget.dataset?.url || '';
-    if (url) {
-      wx.navigateTo({
-        url,
-        fail: (err) => console.log(err),
-      });
-    }
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {},
+  /** Methods begin */
+  backupHandle() {
+    wx.lin.showMessage({
+      show: true,
+      content: '保存成功',
+      type: 'success',
+      duration: 1500,
+      mask: true,
+      success: () => {
+        console.log('success>>>>>');
+      },
+    });
+  },
+  navtoHome() {
+    wx.switchTab({
+      url: '/pages/home/index',
+    });
+  },
+  /** Methods end */
 
   /**
    * 生命周期函数--监听页面初次渲染完成

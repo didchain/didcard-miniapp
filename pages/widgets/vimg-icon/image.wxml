@@ -1,0 +1,4 @@
+<!--pages/widgets/vimg-icon/image.wxml-->
+<view class="vimg-icon" style="{{'width:'+size+'rpx;height:'+size+'rpx;'}}">
+  <view class="v-inner {{ name ? 'v-inner-'+name : '' }}"></view>
+</view>

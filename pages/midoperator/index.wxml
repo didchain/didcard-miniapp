@@ -1,2 +1,4 @@
 <!--pages/midoprator/index.wxml-->
-<view class="middle"> Middle Operator </view>
+<view class="middle">
+  <v-list url="/pages/creator/backup/backup" title="备份" isLink="{{true}}"></v-list>
+</view>

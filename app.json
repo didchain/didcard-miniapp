@@ -4,10 +4,11 @@
     "pages/midoperator/index",
     "pages/logs/logs",
     "pages/wcenter/index/index",
-    "pages/wcenter/import/index",
-    "pages/wcenter/ceator/index",
     "pages/creator/index/index",
-    "pages/creator/generator/index"
+    "pages/creator/generator/index",
+    "pages/wcenter/settings/index",
+    "pages/creator/backup/backup",
+    "pages/widgets/vimg-icon/image"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -46,11 +47,13 @@
     "weui": false
   },
   "usingComponents": {
+    "v-image-icon": "/pages/widgets/vimg-icon/image",
     "l-toast": "/libs/lin-ui/toast/index",
     "l-icon": "/libs/lin-ui/icon/index",
     "l-message": "/libs/lin-ui/message/index",
     "l-button": "/libs/lin-ui/button/index",
-    "l-list":"/libs/lin-ui/list/index"
+    "l-list": "/libs/lin-ui/list/index",
+    "v-list": "/libs/lin-ui/vlist/index"
   },
   "sitemapLocation": "sitemap.json"
 }

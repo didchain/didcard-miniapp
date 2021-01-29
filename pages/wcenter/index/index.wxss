@@ -6,3 +6,8 @@
   border-radius: 24rpx;
   line-height: 44rpx;
 }
+
+.v-right-icon {
+  font-size: 66rpx;
+  color: #0C123D;
+}
