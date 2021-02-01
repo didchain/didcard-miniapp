@@ -1,0 +1,12 @@
+<!--pages/manager/index.wxml-->
+<view class="v-container v-flex-h100 bg-white">
+  <view class="vp-main vpx-24">
+    <view class="v-spacer-row-12"></view>
+    <view class="inner-box">
+      <v-list title="新建身份"></v-list>
+      <v-list title="导入身份"></v-list>
+      <v-list title="导出身份" url="/pages/wcenter/idcard/index"></v-list>
+      <v-list title="修改密码"></v-list>
+    </view>
+  </view>
+</view>

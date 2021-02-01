@@ -6,9 +6,7 @@
       <view class="v-tips-icon">
         <v-image-icon name="warning" />
       </view>
-      <view class="v-tips-text">
-        提示
-      </view>
+      <view class="v-tips-text"> 提示 </view>
     </view>
     <view class="v-spacer-row-24"></view>
     <view class="v-tips-wrap v-flex-row">
@@ -23,14 +21,13 @@
       </ul>
     </view>
     <view class="v-spacer-row-shrink"></view>
-
   </view>
   <view class="v-footer-wrap">
     <view class="v-inner vpx-24">
       <l-button size="long" bind:lintap="backupHandle">备份到相册</l-button>
       <view class="inner-skip" bindtap="navtoHome">
         <view bindtap="navtoHome">
-          <span >跳过</span>
+          <span>跳过</span>
         </view>
       </view>
     </view>

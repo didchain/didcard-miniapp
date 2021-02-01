@@ -1,14 +1,73 @@
 // pages/midoprator/index.js
+import drawQrcode from '../../libs/qrcode/weapp.qrcode.js';
+const qrOpts = {
+  width: 260,
+  height: 260,
+  canvasId: 'idcardQrcode',
+  typeNumber: 8,
+  callback(e) {
+    // console.log(e);
+  },
+  image: {
+    imageResource: '../../images/icons/logo_center.png',
+    dx: 90,
+    dy: 90,
+    dWidth: 80,
+    dHeight: 80,
+  },
+};
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
-
+  data: {
+    qrText: '福利是的撒旦发送到发斯蒂芬',
+  },
+  /** Methods Begin */
+  draw() {
+    const options = Object.assign({}, qrOpts, { text: this.data.qrText });
+    drawQrcode(options);
+  },
+  redraw() {
+    const options = Object.assign({}, qrOpts, { text: this.data.qrText + new Date().getTime() });
+    drawQrcode(options);
+  },
+  download() {
+    wx.canvasToTempFilePath({
+      x: 0,
+      y: 0,
+      width: 260,
+      height: 260,
+      destHeight: 300,
+      destWidth: 300,
+      canvasId: 'idcardQrcode',
+      fileType: 'png',
+      success(res) {
+        let tempPath = res.tempFilePath;
+        wx.saveImageToPhotosAlbum({
+          filePath: tempPath,
+          success(res1) {
+            console.log(res1);
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 1500,
+            });
+          },
+        });
+      },
+      fail(err) {
+        console.log(err);
+      },
+    });
+  },
+  /** Methods End */
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    this.draw();
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

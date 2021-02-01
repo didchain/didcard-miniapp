@@ -3,7 +3,10 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    checked: false,
+  },
+  /** Methods begin */
   gotoInternalUrl(event) {
     const { currentTarget = {} } = event;
     const url = currentTarget.dataset?.url || '';
@@ -14,6 +17,19 @@ Page({
       });
     }
   },
+  toggleFinger() {
+    const nextState = !this.data.checked;
+    this.setData({
+      checked: nextState,
+    });
+  },
+  gotoIDManager() {
+    wx.navigateTo({
+      url: '/pages/manager/index',
+      fail: (err) => console.log(err),
+    });
+  },
+  /** Methods end */
   /**
    * 生命周期函数--监听页面加载
    */

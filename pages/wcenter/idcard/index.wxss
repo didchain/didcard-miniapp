@@ -1,0 +1,36 @@
+/* pages/wcenter/idcard/index.wxss */
+
+.footer-btns {
+  padding: 24rpx 48rpx;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.footer-btns .v-btn-wrap {
+  flex: 1 0 45%;
+  padding: 0 24rpx;
+}
+
+.v-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 280px;
+}
+
+.v-card__body .inner-box {
+  align-self: center;
+  padding: 6rpx;
+  border-radius: 2px;
+  border: 2px solid #f5c95c;
+}
+
+.inner-box {
+  display: flex;
+  padding: auto;
+  text-align: center;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+}

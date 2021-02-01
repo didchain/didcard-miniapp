@@ -1,4 +1,37 @@
 <!--pages/midoprator/index.wxml-->
-<view class="middle">
-  <v-list url="/pages/creator/backup/backup" title="备份" isLink="{{true}}"></v-list>
+<view class="v-container">
+  <view class="vp-main vpx-24">
+    <view class="v-spacer-row-12"></view>
+    <view class="v-card">
+      <view class="v-card__title">
+        <view class="v-title"> xxxx小区 </view>
+        <view class="v-card__title-action">
+          <view class="action-text">
+            <text>切换小区</text>
+          </view>
+          <view class="icon">
+            <image src="/images/icons/next_icon.png" style="width: 44rpx; height: 44rpx"></image>
+          </view>
+        </view>
+      </view>
+      <view class="v-card--splitor"></view>
+
+      <view class="v-card__body">
+        <view class="inner-box">
+          <canvas style="width: 260px; height: 260px" canvas-id="idcardQrcode"></canvas>
+        </view>
+      </view>
+
+      <view class="v-card__footer">
+        <view class="v-flex-row footer-btns">
+          <view class="v-btn-wrap">
+            <l-button size="long" height="80" bind:lintap="download">分享</l-button>
+          </view>
+          <view class="v-btn-wrap">
+            <l-button size="long" height="80" bgColor="#0C123D" bind:lintap="redraw">刷新</l-button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

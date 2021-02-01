@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "授权信息",
+  "usingComponents": {
+    "text-rect": "/pages/widgets/textrect/textrect"
+  }
+}

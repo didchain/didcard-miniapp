@@ -6,8 +6,6 @@
     <slot />
   </view>
   <view class="vtext" wx:else>
-    <span>
-      {{content}}
-    </span>
+    <span> {{content}} </span>
   </view>
 </view>

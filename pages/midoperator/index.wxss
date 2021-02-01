@@ -1,1 +1,71 @@
 /* pages/midoprator/index.wxss */
+.v-card__title {
+  justify-content: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.v-card__title .v-title {
+  flex: 1 1;
+  justify-self:self-start;
+  font-size: 36rpx;
+}
+.v-card__title-action {
+  display: flex;
+  justify-content: flex-end;
+  justify-items: flex-end;
+}
+
+.v-card__title-action view {
+  justify-self:center;
+}
+.action-text {
+  justify-self: center;
+  flex:1;
+}
+.action-text text {
+  font-size: 28rpx;
+}
+
+.v-card .v-card__body {
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  min-height: 320px;
+  justify-content: center;
+}
+
+.v-card__body .inner-box {
+  align-self: center;
+  padding: 6rpx;
+  border-radius: 2px;
+  border: 2px solid #f5c95c;
+}
+
+.inner-box {
+  display: flex;
+  padding: auto;
+  text-align: center;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+}
+
+.v-flex-row .footer-btns {
+  width: 100%;
+  justify-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.footer-btns .v-btn-wrap {
+  flex: 0 0 45%;
+  padding: 24rpx 12rpx;
+}
+
+.footer-btns .v-btn-wrap:last-child {
+  padding: 24rpx 24rpx;
+  padding-right: 12px;
+}

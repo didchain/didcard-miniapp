@@ -3,8 +3,6 @@
   padding: 24rpx;
 }
 
-
-
 /** id card */
 .v-did-card {
   height: 128px;
@@ -22,6 +20,8 @@
 }
 
 .v-did-card--body > .v-didtext-col {
+  justify-self: start;
+  padding-top: 30rpx;
   flex: 1 1;
 }
 
@@ -32,22 +32,27 @@
 }
 
 .v-qrcode-wrap {
+  min-height: 256rpx;
   display: flex;
+  flex-direction: column;
   flex: 0 1;
-  justify-content: center;
   justify-items: center;
+  justify-content: center;
 }
 
-.v-qrcode-wrap {
+.v-qrcode-wrap .v-qrcode-box {
   display: flex;
-  flex: 0 1;
+  flex-direction: column;
+  justify-self: center;
+  background: #fff;
+  padding: 4px;
+  border-radius: 2px;
+  border: 1px solid #0c123d;
   justify-items: center;
   justify-content: center;
 }
 
 .v-qrcode-box .qrcode-image {
-  background: #fff;
-  padding: 4px;
   width: 96px;
   height: 96px;
 }
@@ -91,7 +96,6 @@
   width: 100%;
   border-bottom: 1px solid rgba(240, 241, 243, 1);
 }
-
 
 .v-card__title > .v-title {
   font-size: 32rpx;

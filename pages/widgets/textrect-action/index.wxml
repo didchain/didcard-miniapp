@@ -7,14 +7,12 @@
       <slot />
     </view>
     <view class="vtext" wx:else>
-      <span>
-        {{content}}
-      </span>
+      <span> {{content}} </span>
     </view>
   </view>
   <view class="vtext-tail-action">
     <view class="v-action-inner">
-      <view class="v-icon">
+      <view class="v-icon" mut-bind:tap="tapaction" data-v-url="{{vurl}}" data-v-type="{{vtype}}">
         <view class="v-icon-circle"></view>
       </view>
     </view>

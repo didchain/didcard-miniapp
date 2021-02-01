@@ -2,18 +2,12 @@
 <view class="v-container">
   <view class="vp-main vpx-12">
     <view class="v-spacer-row-12"></view>
-    <view class="v-card">
+    <view class="v-card head-bg">
       <view class="v-card__body">
-        <text-rect label="姓名:">
-          这个世界会好吗?
-        </text-rect>
+        <text-rect label="姓名:"> 这个世界会好吗? </text-rect>
         <text-rect label="身份证号:" content="110827***162" />
-
-        <text-rect-action label="授权他人:">
-          黑色信封
-        </text-rect-action>
+        <text-rect-action label="授权他人:" vurl="/pages/authorization/index/index"> 黑色信封 </text-rect-action>
       </view>
-
     </view>
 
     <view class="v-spacer-row-12"></view>
@@ -21,18 +15,45 @@
     <view class="v-card">
       <view class="v-card__title">
         <view class="v-inner">
-          <text>状态</text> 
+          <text>状态</text>
         </view>
-        <view class="v-inner ">
-          <span class="v-capsule">
-            未认证
-          </span>
+        <view class="v-inner" bindtap="gotoIDManager">
+          <span class="v-capsule"> 未认证 </span>
         </view>
       </view>
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
         <v-list title="身份管理" url="{{'/pages/home/index'}}" linkType="switchTab"></v-list>
-        <v-list title="免密" linkType="navigateTo" bind:lintap="gotoInternalUrl" data-url="/pages/wcenter/settings/index"></v-list>
+        <v-list
+          title="免密"
+          linkType="navigateTo"
+          bind:lintap="gotoInternalUrl"
+          data-url="/pages/wcenter/settings/index"
+        >
+        </v-list>
+        <v-list title="指纹识别" isLink="{{false}}" bottomLine="{{false}}">
+          <view slot="right-section">
+            <switch
+              bindchange="toggleFinger"
+              class="v-switch"
+              checked="{{checked}}"
+              color="{{checked ? '#0C123D' :'#F8F8F9'}}"
+              type="switch"
+            >
+            </switch>
+          </view>
+        </v-list>
+      </view>
+    </view>
+
+    <!-- Help center -->
+    <view class="v-spacer-row-12"></view>
+    <view class="v-card">
+      <view class="v-card__body">
+        <v-list title="客服"></v-list>
+        <v-list title="意见反馈"></v-list>
+        <v-list title="关于我们"></v-list>
+        <v-list title="帮助" linkType="switchTab" bottomLine="{{false}}"></v-list>
       </view>
     </view>
   </view>

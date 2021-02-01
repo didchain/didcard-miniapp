@@ -1,2 +1,7 @@
 <!--pages/wcenter/settings/index.wxml-->
-
+<l-message top="{{20}}"></l-message>
+<l-toast />
+<view class="v-container">
+  <view class="vp-main vpx-12">Hello</view>
+  <view class="vp-footer vpx-12"></view>
+</view>

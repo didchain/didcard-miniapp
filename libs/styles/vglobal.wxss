@@ -4,10 +4,19 @@ page {
   background: #f8f8f9;
 }
 
+/** Layout begin */
 .v-container {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.vp-main {
+  display: flex;
+  flex-direction: column;
+}
+.vp-footer {
+  display: flex;
 }
 
 .v-flex-h100 {
@@ -15,6 +24,41 @@ page {
   display: flex;
   flex-direction: column;
 }
+
+.v-flex-h100 .vp-main {
+  flex: 1 1;
+}
+
+.v-flex-h100 .vp-footer {
+  flex : 0 0;
+  min-height: 360rpx;
+  justify-items: center;
+  justify-content: center;
+}
+
+.v-flex-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+
+.v-flex-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+}
+
+.v-flex-col > view {
+  width: 100%;
+}
+
+/** Layout end */
+
 .vpx-12 {
   padding-left: 24rpx;
   padding-right: 24rpx;
@@ -44,7 +88,7 @@ page {
 .v-card .v-card__body,
 .v-card .v-card__title,
 .v-card .v-card__footer {
-  padding: 24rpx 24rpx;
+  padding: 12px 12px 6px 12px;
 }
 
 .v-card .v-card--splitor {
@@ -66,21 +110,22 @@ page {
 }
 
 /** row spacer */
+.v-spacer-row-12 {
+  width: 100%;
+  height: 24rpx;
+}
+
 .v-spacer-row-24 {
   width: 100%;
   height: 48rpx;
 }
 
-.v-spacer-row-12 {
+.v-spacer-row-48 {
   width: 100%;
-  height: 24rpx;
+  height: 96rpx;
 }
 .v-spacer-row-shrink {
   flex: 1 1 24rpx;
-}
-
-.vp-main {
-  flex: 1 1;
 }
 
 .v-footer-wrap {
@@ -93,8 +138,4 @@ page {
   justify-content: start;
 }
 
-.v-flex-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
+

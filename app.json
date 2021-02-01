@@ -8,7 +8,12 @@
     "pages/creator/generator/index",
     "pages/wcenter/settings/index",
     "pages/creator/backup/backup",
-    "pages/widgets/vimg-icon/image"
+    "pages/widgets/vimg-icon/image",
+    "pages/manager/index",
+    "pages/manager/qrimportor/import",
+    "pages/wcenter/idcard/index",
+    "pages/authorization/authorize",
+    "pages/authorization/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

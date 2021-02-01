@@ -1,0 +1,29 @@
+<!--pages/authorization/index/index.wxml-->
+<view class="v-container">
+  <view class="vp-main vpx-12">
+    <view class="v-spacer-row-12"></view>
+    <view class="v-card">
+      <view class="v-card__body">
+        <view class="inner-box v-flex-row flex-space-between">
+          <view class="left-text"> 被授权人地址 </view>
+          <view class="right-icon">
+            <image src="/images/icons/scan_icon.png" style="width: 44rpx; height: 44rpx"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="v-spacer-row-12"></view>
+    <view class="v-card">
+      <view class="v-card__body">
+        <v-list title="xxx小区" isLink="{{false}}"></v-list>
+        <v-list title="富丽园C区" isLink="{{false}}"></v-list>
+        <v-list title="华润西山" isLink="{{false}}"></v-list>
+        <v-list title="HelloKitty 社区" isLink="{{false}}"></v-list>
+      </view>
+      <view class="v-card__footer">
+        <l-button size="long">添加</l-button>
+      </view>
+    </view>
+  </view>
+</view>

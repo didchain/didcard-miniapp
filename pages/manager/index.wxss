@@ -1,0 +1,4 @@
+/* pages/manager/index.wxss */
+.bg-white {
+  background: #fff;
+}
