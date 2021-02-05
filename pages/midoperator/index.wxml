@@ -2,17 +2,21 @@
 <view class="v-container">
   <view class="vp-main vpx-24">
     <view class="v-spacer-row-12"></view>
+
     <view class="v-card">
+
       <view class="v-card__title">
-        <view class="v-title"> xxxx小区 </view>
-        <view class="v-card__title-action">
-          <view class="action-text">
-            <text>切换小区</text>
+        <view class="v-title"> 当前小区: </view>
+        <picker value="{{index}}" range="{{xqs}}" bindchange="changeArea">
+          <view class="v-card__title-action">
+            <view class="v-area-picker action-text">
+              {{xqs[index]}}
+            </view>
+            <view class="icon">
+              <image src="/images/icons/next_icon.png" style="width: 44rpx; height: 44rpx"></image>
+            </view>
           </view>
-          <view class="icon">
-            <image src="/images/icons/next_icon.png" style="width: 44rpx; height: 44rpx"></image>
-          </view>
-        </view>
+        </picker>
       </view>
       <view class="v-card--splitor"></view>
 
@@ -34,4 +38,5 @@
       </view>
     </view>
   </view>
+
 </view>

@@ -1,9 +1,13 @@
 // pages/creator/index/index.js
+const { storeCnsts } = require('../../../config/app-cnst');
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    password: '',
+    scanKeystore: null,
+  },
   /** Method begin */
   gotoGenerator() {
     wx.navigateTo({
@@ -13,6 +17,56 @@ Page({
   gotoHome() {
     wx.switchTab({
       url: '/pages/home/index',
+    });
+  },
+  scanHandle() {
+    const _that = this;
+    wx.scanCode({
+      onlyFromCamera: true,
+      scanType: ['barCode', 'qrCode'],
+      success(res) {
+        try {
+          console.log('>>>>>>>>>>>>>>', res.result);
+          const keystore = JSON.parse(res.result);
+          _that.setData({ scanKeystore: keystore });
+        } catch (err) {
+          wx.showToast({
+            title: '二维码格式不正确',
+            duration: 3000,
+          });
+        }
+      },
+    });
+  },
+  importHandle() {
+    // TODO set
+    try {
+      wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
+        enshort: this.data.password,
+        entype: 'base64',
+      });
+      wx.setStorageSync(storeCnsts.INITIALIZED_BKEY, true);
+      wx.setStorageSync(storeCnsts.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
+      wx.lin.showMessage({
+        type: 'success',
+        content: '创建成功',
+        duration: 1000,
+        success() {
+          wx.switchTab({
+            url: '/pages/home/index',
+          });
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      this.showErrorMsg('创建失败', 3000);
+    }
+  },
+  showErrorMsg(msg = '', duration = 2500) {
+    wx.lin.showMessage({
+      type: 'error',
+      content: msg,
+      duration: duration,
     });
   },
   /** Method End */

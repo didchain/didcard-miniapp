@@ -1,36 +1,25 @@
-// pages/creator/backup/backup.js
+// pages/webview/index.js
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
-
+  data: {
+    basurl: 'https://wechat.baschain.cn/index.html',
+    wxurl: 'https://mp.weixin.qq.com/',
+  },
+  /** Methods Begin */
+  innerLoad(e) {},
+  innerError(e) {},
+  postMessage(e) {},
+  /** Methods End */
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
-  /** Methods begin */
-  backupHandle() {
-    //todo save
-    wx.lin.showMessage({
-      show: true,
-      content: '保存成功',
-      type: 'success',
-      duration: 1000,
-      mask: true,
-      success: () => {
-        wx.switchTab({
-          url: '/pages/home/index',
-        });
-      },
-    });
+  onLoad: function (options) {
+    const url = app.globalData.externalUrl;
+    console.log('webViewUrl>>>>>>>>>>>>>>>>>>>>>>>>>>>>', options.webViewUrl, url);
   },
-  navtoHome() {
-    wx.switchTab({
-      url: '/pages/home/index',
-    });
-  },
-  /** Methods end */
 
   /**
    * 生命周期函数--监听页面初次渲染完成

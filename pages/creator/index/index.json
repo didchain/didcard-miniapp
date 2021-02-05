@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "腰牌",
   "usingComponents": {
-    "lv-form-item": "/libs/lin-ui/vform-item/index"
+    "l-form-item": "/libs/lin-ui/vform-item/index",
+    "l-input": "/libs/lin-ui/input/index"
   }
 }

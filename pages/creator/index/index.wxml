@@ -1,15 +1,28 @@
 <!--pages/creator/index/index.wxml-->
+<l-message top="{{20}}"></l-message>
+<l-toast />
 <view class="v-container v-flex-h100">
   <view class="v-acc-banner">
     <view class="v-image-bg"></view>
   </view>
-  <view class="v-sheet">
+  <view wx:if="{{ !scanKeystore }}" class="v-sheet">
     <view class="v-row-item">
       <l-button size="long" bind:lintap="gotoGenerator">创建账号</l-button>
     </view>
-
     <view class="v-row-item">
-      <l-button size="long" bgColor="#0C123D" bind:lintap="gotoHome">导入账户</l-button>
+      <l-button size="long" bgColor="#0C123D" bind:lintap="scanHandle">扫码导入</l-button>
+    </view>
+  </view>
+
+  <view wx:else class="v-sheet">
+    <view class="v-row-item">
+      <l-form-item nopadding="{{true}}" name="password" tipType="message">
+        <l-input type="password" id="creatorPassword" hide-label model:value="{{password}}" placeholder="输入密码" showEye>
+        </l-input>
+      </l-form-item>
+    </view>
+    <view class="v-row-item">
+      <l-button size="long" bgColor="#0C123D" bind:lintap="importHandle">导入</l-button>
     </view>
   </view>
 </view>

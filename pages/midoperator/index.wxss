@@ -8,12 +8,13 @@
 .v-card__title .v-title {
   flex: 1 1;
   justify-self:self-start;
-  font-size: 36rpx;
+  font-size: 30rpx;
 }
 .v-card__title-action {
   display: flex;
   justify-content: flex-end;
   justify-items: flex-end;
+  font-size: 30rpx;
 }
 
 .v-card__title-action view {

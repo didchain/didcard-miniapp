@@ -35,8 +35,11 @@ Page({
         content: '创建成功',
         duration: 1000,
         success() {
-          wx.switchTab({
-            url: '/pages/home/index',
+          // wx.switchTab({
+          //   url: '/pages/home/index',
+          // });
+          wx.navigateTo({
+            url: '/pages/creator/backup/backup',
           });
         },
       });

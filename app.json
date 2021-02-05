@@ -13,7 +13,10 @@
     "pages/manager/qrimportor/import",
     "pages/wcenter/idcard/index",
     "pages/authorization/authorize",
-    "pages/authorization/index/index"
+    "pages/authorization/index/index",
+    "pages/webview/index",
+    "pages/qrcodeshow/index/index",
+    "pages/creator/scaner/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,7 +37,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/midoperator/index",
+        "pagePath": "pages/webview/index",
         "iconPath": "images/nav/Qr_tab_icon@3x.png",
         "selectedIconPath": "images/nav/Qr_tab_icon@3x.png",
         "text": ""

@@ -1,5 +1,6 @@
 // pages/midoprator/index.js
 import drawQrcode from '../../libs/qrcode/weapp.qrcode.js';
+// import bls from '../../libs/bls/bls.js';
 const qrOpts = {
   width: 260,
   height: 260,
@@ -16,20 +17,23 @@ const qrOpts = {
     dHeight: 80,
   },
 };
+const xqs = ['XXX小区', '明天末日小区', '天上人小区', '富力城C区', '东方A区'];
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     qrText: '福利是的撒旦发送到发斯蒂芬',
+    index: 0,
+    xqs,
   },
   /** Methods Begin */
   draw() {
-    const options = Object.assign({}, qrOpts, { text: this.data.qrText });
+    const options = Object.assign({}, qrOpts, { text: this.data.xqs[this.data.index] });
     drawQrcode(options);
   },
   redraw() {
-    const options = Object.assign({}, qrOpts, { text: this.data.qrText + new Date().getTime() });
+    const options = Object.assign({}, qrOpts, { text: this.data.xqs[this.data.index] + new Date().getTime() });
     drawQrcode(options);
   },
   download() {
@@ -60,6 +64,13 @@ Page({
         console.log(err);
       },
     });
+  },
+  changeArea(e) {
+    const { detail } = e;
+    console.log(detail);
+    const idx = detail.value ? parseInt(detail.value) : 0;
+    this.setData({ index: idx });
+    this.redraw()
   },
   /** Methods End */
   /**

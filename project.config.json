@@ -18,8 +18,8 @@
     "newFeature": false,
     "coverView": true,
     "nodeModules": true,
-    "autoAudits": false,
-    "showShadowRootInWxmlPanel": false,
+    "autoAudits": true,
+    "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "uglifyFileName": false,
     "checkInvalidKey": true,
@@ -45,7 +45,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.14.1",
+  "libVersion": "2.15.0",
   "appid": "wx2d8b7c09b025d8f0",
   "projectname": "didcard-miniapp",
   "debugOptions": {
