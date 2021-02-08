@@ -20,5 +20,10 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "@wecrpto/ed2curve": "^0.1.0",
+    "@wecrpto/nacl": "^0.1.0",
+    "@wecrpto/nacl-util": "^0.1.0"
   }
 }

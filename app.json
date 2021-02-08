@@ -16,7 +16,8 @@
     "pages/authorization/index/index",
     "pages/webview/index",
     "pages/qrcodeshow/index/index",
-    "pages/creator/scaner/index"
+    "pages/creator/scaner/index",
+    "pages/test/nacl/generator"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -37,7 +38,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/webview/index",
+        "pagePath": "pages/test/nacl/generator",
         "iconPath": "images/nav/Qr_tab_icon@3x.png",
         "selectedIconPath": "images/nav/Qr_tab_icon@3x.png",
         "text": ""

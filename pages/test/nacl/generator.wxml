@@ -1,0 +1,62 @@
+<!--pages/test/nacl/generator.wxml-->
+<view class="v-container">
+  <view class="vp-header vpx-12 vp-justify-center">
+    <view class="vp-header-title">
+      <span>Test NACL</span>
+    </view>
+  </view>
+  <view class="vp-main vpx-12">
+    <view class="vp-form-item required">
+      <view class="vp-label">
+        <label>Private Key</label>
+      </view>
+      <view class="vp-form-control">
+        <textarea name="priKey" id="priKey" auto-height="{{true}}" placeholder="privateKey" cols="30"
+          rows="1"></textarea>
+      </view>
+    </view>
+
+    <view class="vp-form-item required">
+      <view class="vp-label">
+        <label>Public Key</label>
+      </view>
+      <view class="vp-form-control">
+        <input name="pubKey" id="pubKey" placeholder="public key" type="text" rows="1"></input>
+      </view>
+    </view>
+
+    <view class="vp-form-item vp-btns-group">
+      <button class="vp-btn" type="primary" plain bindtap="generateWallet">random</button>
+      <button class="vp-btn" type="primary">sign</button>
+      <button class="vp-btn" type="primary">verify</button>
+
+    </view>
+
+    <view class="vp-form-item">
+      <view class="vp-label">
+        <label>Message</label>
+      </view>
+      <view class="vp-form-control">
+        <input name="msg" id="msg" placeholder="Message" type="text"></input>
+      </view>
+    </view>
+
+    <view class="vp-form-item">
+      <view class="vp-label">
+        <label>Sign Text</label>
+      </view>
+      <view class="vp-form-control">
+        <input name="signText" id="signText" placeholder="Message Sign" type="text"></input>
+      </view>
+    </view>
+
+    <view class="vp-form-item">
+      <view class="vp-label">
+        <label>Verify Result</label>
+      </view>
+      <view class="vp-form-control">
+        <input name="verifyRes" id="verifyRes" placeholder="Verify Result" type="text"></input>
+      </view>
+    </view>
+  </view>
+</view>

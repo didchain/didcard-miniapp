@@ -28,6 +28,23 @@
   resolved "https://registry.npm.taobao.org/@types/parse-json/download/@types/parse-json-4.0.0.tgz?cache=0&sync_timestamp=1605054922030&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fparse-json%2Fdownload%2F%40types%2Fparse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA=
 
+"@wecrpto/ed2curve@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/@wecrpto/ed2curve/download/@wecrpto/ed2curve-0.1.0.tgz?cache=0&sync_timestamp=1612780090304&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40wecrpto%2Fed2curve%2Fdownload%2F%40wecrpto%2Fed2curve-0.1.0.tgz#0edb208dcf4716984d4abf93c03100b28e870a09"
+  integrity sha1-Dtsgjc9HFphNSr+TwDEAso6HCgk=
+  dependencies:
+    "@wecrpto/nacl" "^0.1.0"
+
+"@wecrpto/nacl-util@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/@wecrpto/nacl-util/download/@wecrpto/nacl-util-0.1.0.tgz?cache=0&sync_timestamp=1612778445112&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40wecrpto%2Fnacl-util%2Fdownload%2F%40wecrpto%2Fnacl-util-0.1.0.tgz#112ac7e4cc5618394dbc2de0583b7d99c41ad1c9"
+  integrity sha1-ESrH5MxWGDlNvC3gWDt9mcQa0ck=
+
+"@wecrpto/nacl@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@wecrpto/nacl/-/nacl-0.1.0.tgz#f73b46410b77f0f195e597cc3d0259df917caddc"
+  integrity sha512-s1hCT0tyT3KNuwpQ+qVHrrAqAbNw/gG9AbSZhzo+WTYj+c7156Wdv2fmgi4pgyuAYvdy9sxwk7RSc3U2F2oA8w==
+
 aggregate-error@^3.0.0:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/aggregate-error/download/aggregate-error-3.1.0.tgz#92670ff50f5359bdb7a3e0d40d0ec30c5737687a"
