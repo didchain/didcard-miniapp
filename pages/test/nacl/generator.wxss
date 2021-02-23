@@ -33,3 +33,7 @@
 .vp-btns-group button:not(:first-child) {
   margin-left: 12px;
 }
+
+.break-all {
+  word-break: break-all;
+}

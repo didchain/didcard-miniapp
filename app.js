@@ -1,11 +1,23 @@
 // app.js
 const { storeCnsts } = require('./config/app-cnst');
+
+const { randomBytes } = require('./utils/util');
+let nacl = require('@wecrpto/nacl');
+nacl.setPRNG(randomBytes); //make sure random key
+nacl.util = require('@wecrpto/nacl-util');
+import { init as weaccInit, helper, tools, importKeyStore } from '@wecrpto/weaccount';
+
 App({
   onLaunch() {
+    // bind wx
+    this.bindHelper();
+    const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
+    wx.$webox = weaccInit(cfg);
+
     //has initialized verify
-    console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.SHORT_SECRET_OKEY));
-    if (wx.getStorageSync(storeCnsts.INITIALIZED_BKEY)) {
-      console.log('has account>>>>');
+    console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
+    if (wx.getStorageSync(storeCnsts.WALLET_V3_OKEY)) {
+      console.log('has account>>>>', wx.getStorageSync(storeCnsts.INITIALIZED_BKEY));
     } else {
       console.log('Wallet not initialization.');
       wx.navigateTo({
@@ -45,7 +57,15 @@ App({
     });
   },
   globalData: {
+    keypair: null,
     userInfo: null,
     externalUrl: 'https://wechat.baschain.cn/test.html',
+  },
+  /** private methods */
+  bindHelper() {
+    wx.$nacl = nacl;
+    helper && (wx.helper = helper);
+    tools && (wx.tools = tools);
+    tools && tools.enc && (wx.Enc = tools.enc);
   },
 });

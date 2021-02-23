@@ -1,22 +1,18 @@
 // pages/test/nacl/generator.js
-let nacl = require('@wecrpto/nacl');
-nacl.util = require('@wecrpto/nacl-util');
-// nacl.setPRNG(function (x, arr) {
-//   for (var i = 0, len = arr.length; i < len; i++) {
-//     x[i] = Math.floor(Math.random() * 256);
-//   }
-//   return x;
-// });
-const ed2curve = require('@wecrpto/ed2curve');
-// const { decodeUTF8, encodeUTF8, encodeBase64, decodeBase64 } = require('tweetnacl-util');
+
+import { helper, tools, enc } from '@wecrpto/weaccount';
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    pwd: 'abc3&$_',
     privateKey: null,
     publicKey: null,
-    msg: '',
+    did: '',
+    msg: '你萨达符合',
+    signature: '',
+    verified: '',
   },
 
   /**
@@ -61,10 +57,50 @@ Page({
 
   /** Methods begin */
   generateWallet() {
-    var signPair = nacl.sign.keyPair();
-    console.log('hellp>>>>>>>>>>>>>>>', signPair, ed2curve.convertKeyPair);
-    const ed2curveKeypair = ed2curve.convertKeyPair(signPair);
+    this.makesureKeypair();
+    const webox = wx.$webox;
+    this.setData({ verified: '' });
+    this.setData({ did: webox.wallet.did });
+    const pubbase64 = helper.uint8ArrayToBase64(webox.keypair.publicKey);
+    this.setData({ publicKey: pubbase64 });
+    const pribase64 = helper.uint8ArrayToBase64(webox.keypair.secretKey);
+    this.setData({ privateKey: pribase64 });
+  },
+  signMessage() {
+    const webox = wx.$webox;
+    const message = this.data.msg;
+    if (!webox.hasWallet()) {
+      throw new Error('no wallet.');
+    }
+    this.setData({ verified: '' });
+    const signature = helper.signMessage(message, webox.getKeypair().secretKey);
+    console.log('>>>>', signature);
+    this.setData({ signature: signature });
+  },
+  verifyMessage() {
+    const signBase64 = this.data.signature;
+    const webox = wx.$webox;
+    if (!signBase64) {
+      console.warn('no signature message.');
+      return;
+    }
 
-    console.log('ed2curveKeypair>>>>>>>>>>>>>>>', ed2curveKeypair);
+    if (!webox.hasWallet()) throw new Error('no wallet.');
+    console.log('verify>>>>>>>>>>>>>>>>', signBase64, this.data.msg);
+
+    try {
+      const pubkey = webox.getKeypair().publicKey;
+      const verified = helper.verifyMessage(signBase64, this.data.msg, pubkey);
+      console.log('verified>>>>', verified);
+      this.setData({ verified: verified ? 'passed' : 'fail' });
+    } catch (e) {
+      console.log('verify fail>>>>>>', e);
+      this.setData({ verified: e.message });
+    }
+  },
+  /** ============= Methods ================ */
+  makesureKeypair() {
+    console.log('Check Wallet >>>>', wx.$webox.hasWallet());
+    !wx.$webox.hasWallet() && wx.$webox.generate(this.data.pwd);
   },
 });

@@ -8,11 +8,11 @@
   <view class="vp-main vpx-12">
     <view class="vp-form-item required">
       <view class="vp-label">
-        <label>Private Key</label>
+        <label>Private Key [used auth: {{pwd}}] </label>
       </view>
       <view class="vp-form-control">
         <textarea name="priKey" id="priKey" auto-height="{{true}}" placeholder="privateKey" cols="30"
-          rows="1"></textarea>
+          rows="1" model:value="{{privateKey}}"></textarea>
       </view>
     </view>
 
@@ -21,32 +21,38 @@
         <label>Public Key</label>
       </view>
       <view class="vp-form-control">
-        <input name="pubKey" id="pubKey" placeholder="public key" type="text" rows="1"></input>
+        <input name="pubKey" id="pubKey" placeholder="public key" type="text" rows="1" model:value="{{publicKey}}"></input>
       </view>
     </view>
-
-    <view class="vp-form-item vp-btns-group">
-      <button class="vp-btn" type="primary" plain bindtap="generateWallet">random</button>
-      <button class="vp-btn" type="primary">sign</button>
-      <button class="vp-btn" type="primary">verify</button>
-
+    <view class="vp-form-item">
+      <view class="vp-label">
+        <label>ID</label>
+      </view>
+      <view class="vp-form-control break-all">
+        {{did}}
+      </view>
     </view>
-
     <view class="vp-form-item">
       <view class="vp-label">
         <label>Message</label>
       </view>
       <view class="vp-form-control">
-        <input name="msg" id="msg" placeholder="Message" type="text"></input>
+        <input name="msg" id="msg" placeholder="Message" type="text" model:value="{{msg}}"></input>
       </view>
+    </view>
+
+    <view class="vp-form-item vp-btns-group">
+      <button class="vp-btn" type="primary" plain bindtap="generateWallet">random</button>
+      <button class="vp-btn" type="primary" bindtap="signMessage">sign</button>
+      <button class="vp-btn" type="primary" bindtap="verifyMessage">verify</button>
     </view>
 
     <view class="vp-form-item">
       <view class="vp-label">
         <label>Sign Text</label>
       </view>
-      <view class="vp-form-control">
-        <input name="signText" id="signText" placeholder="Message Sign" type="text"></input>
+      <view class="vp-form-control break-all">
+       {{signature}}
       </view>
     </view>
 
@@ -55,7 +61,7 @@
         <label>Verify Result</label>
       </view>
       <view class="vp-form-control">
-        <input name="verifyRes" id="verifyRes" placeholder="Verify Result" type="text"></input>
+        {{verified}}
       </view>
     </view>
   </view>
