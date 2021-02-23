@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
   WALLET_V3_OKEY: 'WalletKeystoreKey',
   SHORT_SECRET_OKEY: 'ShortSecretKey',
 };
+const weaccConfig = { idPrefix: 'Did', remembered: true, useSigned: true };
 
 module.exports = {
   APP_NAME: '腰牌',

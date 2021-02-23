@@ -22,7 +22,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "身份证钱包",
+    "navigationBarTitleText": "易ID",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

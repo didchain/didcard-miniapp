@@ -27,8 +27,13 @@
 
 .v-didtext-col .id-text {
   flex: 0 1 auto;
-  font-size: 36rpx;
+  padding: 4rpx 0rpx;
+  font-size: 24rpx;
   font-weight: 500;
+  word-break: break-all;
+}
+.id-text {
+  padding-right:16rpx;
 }
 
 .v-qrcode-wrap {
@@ -107,3 +112,4 @@
   display: flex;
   flex-direction: row;
 }
+

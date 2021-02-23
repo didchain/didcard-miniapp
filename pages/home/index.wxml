@@ -4,8 +4,8 @@
     <view class="v-card v-did-card">
       <view class="v-card__body v-did-card--body">
         <view class="v-didtext-col">
-          <view class="id-text"> 身份证号： </view>
-          <text class="id-text"> 12445566667777 </text>
+          <view class="id-text"> 易ID： </view>
+          <text class="id-text">{{did}}</text>
         </view>
         <view class="v-qrcode-wrap">
           <view class="v-qrcode-box">

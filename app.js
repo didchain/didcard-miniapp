@@ -15,9 +15,11 @@ App({
     wx.$webox = weaccInit(cfg);
 
     //has initialized verify
+    const safeWallet = wx.getStorageSync(storeCnsts.WALLET_V3_OKEY);
     console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
-    if (wx.getStorageSync(storeCnsts.WALLET_V3_OKEY)) {
-      console.log('has account>>>>', wx.getStorageSync(storeCnsts.INITIALIZED_BKEY));
+    if (safeWallet) {
+      console.log('has account>>>>', safeWallet);
+      wx.$webox.loadSafeWallet(safeWallet);
     } else {
       console.log('Wallet not initialization.');
       wx.navigateTo({

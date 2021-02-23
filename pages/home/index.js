@@ -3,12 +3,19 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    did: '',
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    const safeWallet = wx.$webox.getSafeWallet();
+    if (safeWallet) {
+      this.setData({ did: safeWallet.did });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

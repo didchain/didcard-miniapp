@@ -13,23 +13,32 @@ Page({
   },
   /** Cust methods begin */
   generateSubmit(event) {
-    console.log('>>>>>>>>>>>>>>', event);
-    if (!this.data.password || !this.data.confirm) {
+    const webox = wx.$webox;
+    console.log('>>>>>>>>>>>>>>', webox, wx.Enc);
+    const password = this.data.password;
+    if (!password || !this.data.confirm) {
       this.showErrorMsg('请输入密码');
       return;
     }
-    if (this.data.password !== this.data.confirm) {
+    if (password !== this.data.confirm) {
       this.showErrorMsg('俩次密码不一致');
       return;
     }
     const _this = this;
     try {
-      wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
-        enshort: this.data.password,
-        entype: 'base64',
-      });
-      wx.setStorageSync(storeCnsts.INITIALIZED_BKEY, true);
-      wx.setStorageSync(storeCnsts.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
+      const inst = webox.generate(password);
+
+      const safeWallet = inst.getSafeWallet();
+      if(!safeWallet){
+        throw new Error('Generate Account Error');
+      }
+      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet)
+      // wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
+      //   enshort: this.data.password,
+      //   entype: 'base64',
+      // });
+      // wx.setStorageSync(storeCnsts.INITIALIZED_BKEY, true);
+      // wx.setStorageSync(storeCnsts.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
       wx.lin.showMessage({
         type: 'success',
         content: '创建成功',
