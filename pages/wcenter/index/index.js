@@ -5,6 +5,8 @@ Page({
    */
   data: {
     checked: false,
+    fingerSupport: false,
+    facialSupport: false,
   },
   /** Methods begin */
   gotoInternalUrl(event) {
@@ -29,11 +31,23 @@ Page({
       fail: (err) => console.log(err),
     });
   },
+  checkoutSoter() {
+    wx.checkIsSupportSoterAuthentication({
+      success: (result) => {
+        console.log('>>>>>>', result);
+      },
+      fail: (err) => {
+        console.log('err', err);
+      },
+    });
+  },
   /** Methods end */
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    this.checkoutSoter();
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

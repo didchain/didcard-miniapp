@@ -8,6 +8,6 @@ const STORAGE_KEYS = {
 const weaccConfig = { idPrefix: 'Did', remembered: true, useSigned: true };
 
 module.exports = {
-  APP_NAME: '腰牌',
+  APP_NAME: '易ID', //腰牌
   storeCnsts: STORAGE_KEYS,
 };

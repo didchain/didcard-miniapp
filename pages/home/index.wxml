@@ -1,20 +1,43 @@
 <!--pages/home/index.wxml-->
 <view class="v-container">
-  <view class="vp-main">
-    <view class="v-card v-did-card">
-      <view class="v-card__body v-did-card--body">
-        <view class="v-didtext-col">
-          <view class="id-text"> 易ID： </view>
-          <text class="id-text">{{did}}</text>
-        </view>
-        <view class="v-qrcode-wrap">
-          <view class="v-qrcode-box">
-            <image src="{{'/images/demo-qrcode.png'}}" mode="{{'aspectFit'}}" class="qrcode-image"></image>
-          </view>
+  <view class="home-header home-header-bg">
+    <view class="inner-box">
+      <view class="app-title"><span>{{appTitle}}</span></view>
+      <view class="sub-title text-dark--light">{{subtitle}}</view>
+      <view class="did-warp">
+        <view class="did-text">
+          {{did}}
         </view>
       </view>
     </view>
-    <view class="v-spacer-row-24"></view>
+  </view>
+
+  <view class="home-qrcode-warp">
+    <view class="inner-box did-box-bg">
+      <view class="qrcode-box">
+        <view class="qrcode-box--inner">
+          <view wx:if="{{!opened}}" class="locked-icon-box">
+            <image src="{{'/images/icons/lock_icon.png'}}"></image>
+          </view>
+          <view wx:if="{{!opened}}" class="locked-desc">
+            点击解锁二维码
+          </view>
+          <view wx:if="{{opened}}" class="qrcode-did">
+            <canvas style="width: 200px; height: 200px" canvas-id="signatureQrcode"></canvas>
+            <!-- <image src="{{'/images/demo-qrcode.png'}}" style="width: 180px; height: 180px"></image> -->
+          </view>
+        </view>
+      </view>
+      <view class="bottom-desc text-dark--light">
+        {{qrcodeTips}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 便民服务 -->
+
+  <view class="vp-main">
+    <!-- <view class="v-spacer-row-12"></view> -->
     <view class="v-card">
       <view class="v-card__title">
         <text class="v-title" style="font-weight: 500">便民服务</text>

@@ -203,3 +203,8 @@ page {
 .v-flex-3 {
   flex: 0 1 33.333333%;
 }
+
+/* Font Styles */
+.text-dark--light {
+  color: #9B9C9F;
+}

@@ -38,7 +38,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/test/nacl/generator",
+        "pagePath": "pages/midoperator/index",
         "iconPath": "images/nav/Qr_tab_icon@3x.png",
         "selectedIconPath": "images/nav/Qr_tab_icon@3x.png",
         "text": ""

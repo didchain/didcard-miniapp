@@ -34,7 +34,7 @@
         <v-list title="身份管理" url="{{'/pages/home/index'}}" linkType="switchTab"></v-list>
         <v-list title="免密" linkType="navigateTo" bind:lintap="gotoInternalUrl" data-url="/pages/wcenter/settings/index">
         </v-list>
-        <v-list title="指纹识别" isLink="{{false}}" bottomLine="{{false}}">
+        <v-list wx:if="{{fingerSupport}}" title="指纹识别" isLink="{{false}}" bottomLine="{{false}}">
           <view slot="right-section">
             <switch bindchange="toggleFinger" class="v-switch" checked="{{checked}}"
               color="{{checked ? '#0C123D' :'#F8F8F9'}}" type="switch">
