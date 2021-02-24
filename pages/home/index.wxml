@@ -23,7 +23,11 @@
             点击解锁二维码
           </view>
           <view wx:if="{{opened}}" class="qrcode-did">
-            <canvas style="width: 200px; height: 200px" canvas-id="signatureQrcode"></canvas>
+            <view class="qrcode-show-box">
+              <image mode="scaleToFill" src="{{imagePath}}" ></image>
+            </view>
+            <!-- <canvas style="width: 200px; height: 200px" canvas-id="signatureQrcode"></canvas> -->
+            
             <!-- <image src="{{'/images/demo-qrcode.png'}}" style="width: 180px; height: 180px"></image> -->
           </view>
         </view>
@@ -37,7 +41,6 @@
   <!-- 便民服务 -->
 
   <view class="vp-main">
-    <!-- <view class="v-spacer-row-12"></view> -->
     <view class="v-card">
       <view class="v-card__title">
         <text class="v-title" style="font-weight: 500">便民服务</text>
@@ -72,4 +75,8 @@
       </view>
     </view>
   </view>
+</view>
+
+<view class="canvas-box">
+  <canvas style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas" />
 </view>

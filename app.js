@@ -1,10 +1,10 @@
 // app.js
 const { storeCnsts } = require('./config/app-cnst');
-
+const { Buffer } = require('buffer/index');
 const { randomBytes } = require('./utils/util');
 let nacl = require('@wecrpto/nacl');
 nacl.setPRNG(randomBytes); //make sure random key
-nacl.util = require('@wecrpto/nacl-util');
+// nacl.util = require('@wecrpto/nacl-util');
 import { init as weaccInit, helper, tools, importKeyStore } from '@wecrpto/weaccount';
 
 App({
@@ -16,10 +16,13 @@ App({
 
     //has initialized verify
     const safeWallet = wx.getStorageSync(storeCnsts.WALLET_V3_OKEY);
-    console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
+    // console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
     if (safeWallet) {
-      console.log('has account>>>>', safeWallet);
+      // console.log('has account>>>>', safeWallet);
       wx.$webox.loadSafeWallet(safeWallet);
+      // wx.navigateTo({
+      //   url: 'pages/test/qrcode/index',
+      // });
     } else {
       console.log('Wallet not initialization.');
       wx.navigateTo({
@@ -65,6 +68,8 @@ App({
   },
   /** private methods */
   bindHelper() {
+    wx.Buffer = Buffer;
+    // console.log('Buffer>>>>', Buffer);
     wx.$nacl = nacl;
     helper && (wx.helper = helper);
     tools && (wx.tools = tools);

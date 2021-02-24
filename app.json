@@ -17,7 +17,8 @@
     "pages/webview/index",
     "pages/qrcodeshow/index/index",
     "pages/creator/scaner/index",
-    "pages/test/nacl/generator"
+    "pages/test/nacl/generator",
+    "pages/test/qrcode/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -53,7 +54,7 @@
   },
   "style": "v2",
   "useExtendedLib": {
-    "weui": false
+    "weui": true
   },
   "usingComponents": {
     "v-image-icon": "/pages/widgets/vimg-icon/image",

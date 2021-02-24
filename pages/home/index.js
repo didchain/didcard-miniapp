@@ -1,24 +1,9 @@
 // pages/home/index.js
 import { APP_NAME } from '../../config/app-cnst';
-import drawQrcode from '../../libs/qrcode/weapp.qrcode.js';
-import QrCode from '../../libs/qrcode/weqrcode';
-const qrOpts = {
-  width: 200,
-  height: 200,
-  canvasId: 'signatureQrcode',
-  typeNumber: 8,
-  correctLevel: 3,
-  callback(e) {
-    // console.log(e);
-  },
-  image: {
-    imageResource: '../../images/icons/logo_center.png',
-    dx: 70,
-    dy: 70,
-    dWidth: 60,
-    dHeight: 60,
-  },
-};
+//see https://github.com/demi520/wxapp-qrcode
+const QR = require('../../libs/qrcode/weqrcode');
+const canvasId = 'mycanvas';
+
 Page({
   /**
    * 页面的初始数据
@@ -28,39 +13,34 @@ Page({
     subtitle: '身份证号:',
     did: '',
     qrcodeTips: '身份证二维码被锁定请输入二维码解锁',
-    opened: true,
-    signJson: {
-      did: '',
-    },
+    opened: false,
+    imagePath: '',
+    maskHidden: true,
+    signJson: {},
   },
-  /** Method Begin */
-  draw(signText) {
-    const text = signText || JSON.stringify(this.data.signJson);
-    const options = Object.assign({}, qrOpts, { text: text });
-    console.log('draw Qrcode');
-    drawQrcode(options);
-  },
-  drawQr(signText) {
-    let qrinst = new QrCode('signatureQrcode', Object.assign({}, qrOpts, { text: signText }));
-    console.log(qrinst);
-  },
-  initPageData() {
-    this.setData({ appTitle: APP_NAME });
-    const safeWallet = wx.$webox.getSafeWallet();
-    if (safeWallet) {
-      this.setData({ did: safeWallet.did });
-      const text = JSON.stringify(safeWallet.did);
-      console.log('json', text);
-      this.draw(text);
-      // this.drawQr(text);
-    }
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+    //
+    // this.setData({ appTitle: APP_NAME });
+
     this.initPageData();
+
+    // this.initPageData();
+  },
+
+  initPageData: function () {
+    let size = this.setCanvasSize();
+    const safeWallet = wx.$webox.getSafeWallet();
+    console.log('>>>>>>>', size, safeWallet);
+    if (safeWallet) {
+      this.setData({ opened: true });
+      this.setData({ did: safeWallet.did });
+      const jsonContent = JSON.stringify(safeWallet) || '';
+      this.createQrCode(jsonContent, size.w, size.h);
+    }
   },
 
   /**
@@ -72,7 +52,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('Home show');
     this.initPageData();
   },
 
@@ -100,4 +79,62 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  /** Method Begin */
+  //自适应屏幕
+  setCanvasSize() {
+    var size = {
+      w: 488,
+      h: 488,
+    };
+    try {
+      var res = wx.getSystemInfoSync();
+      var scale = 375 / 343; //不同屏幕下canvas的适配比例；设计稿是750宽
+      var width = res.windowWidth / scale;
+      var height = width; //canvas画布为正方形
+      size.w = width;
+      size.h = height;
+    } catch (e) {
+      // Do something when catch error
+      console.log('获取设备信息失败' + e);
+    }
+    return size;
+  },
+  createQrCode: function (content, w, h) {
+    console.log('>>>>>>>content>>>>>>>', content);
+    QR.api.draw(content, 'mycanvas', w, h, this, this.canvasToTempImage);
+  },
+  canvasToTempImage: function () {
+    const that = this;
+    console.log('canvasToTempImage', that);
+
+    wx.canvasToTempFilePath(
+      {
+        canvasId: 'mycanvas',
+        success: function (res) {
+          var tempFilePath = res.tempFilePath;
+          console.log(tempFilePath);
+          that.setData({ imagePath: tempFilePath });
+        },
+        fail: function (res) {
+          console.log('fail', res);
+        },
+      },
+      that
+    );
+  },
+  qrDrawCallback(canvasId) {
+    console.log('qr draw ', canvasId);
+  },
+  drawQr(signText) {},
+  // initPageData() {
+  //   this.setData({ appTitle: APP_NAME });
+  //   const safeWallet = wx.$webox.getSafeWallet();
+  //   if (safeWallet) {
+  //     this.setData({ did: safeWallet.did });
+  //     const text = JSON.stringify(safeWallet);
+  //     console.log('json', text);
+  //     this.draw(text);
+  //     // this.drawQr(text);
+  //   }
+  // },
 });

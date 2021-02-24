@@ -6,3 +6,4 @@ sitemap.json
 project.config.json
 package-lock.json
 yarn.lock
+libs/qrcode/
