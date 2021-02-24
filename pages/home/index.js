@@ -100,19 +100,19 @@ Page({
     return size;
   },
   createQrCode: function (content, w, h) {
-    console.log('>>>>>>>content>>>>>>>', content);
+    // console.log('>>>>>>>content>>>>>>>', content);
     QR.api.draw(content, 'mycanvas', w, h, this, this.canvasToTempImage);
   },
   canvasToTempImage: function () {
     const that = this;
-    console.log('canvasToTempImage', that);
+    // console.log('canvasToTempImage', that);
 
     wx.canvasToTempFilePath(
       {
         canvasId: 'mycanvas',
         success: function (res) {
           var tempFilePath = res.tempFilePath;
-          console.log(tempFilePath);
+          // console.log(tempFilePath);
           that.setData({ imagePath: tempFilePath });
         },
         fail: function (res) {
@@ -122,19 +122,11 @@ Page({
       that
     );
   },
-  qrDrawCallback(canvasId) {
-    console.log('qr draw ', canvasId);
+  previewImg: function (e) {
+    const img = this.data.imagePath;
+    wx.previewImage({
+      current: img,
+      urls: [img],
+    });
   },
-  drawQr(signText) {},
-  // initPageData() {
-  //   this.setData({ appTitle: APP_NAME });
-  //   const safeWallet = wx.$webox.getSafeWallet();
-  //   if (safeWallet) {
-  //     this.setData({ did: safeWallet.did });
-  //     const text = JSON.stringify(safeWallet);
-  //     console.log('json', text);
-  //     this.draw(text);
-  //     // this.drawQr(text);
-  //   }
-  // },
 });
