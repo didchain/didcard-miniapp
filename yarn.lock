@@ -35,10 +35,10 @@
   dependencies:
     "@wecrpto/nacl" "^0.1.0"
 
-"@wecrpto/nacl-util@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npm.taobao.org/@wecrpto/nacl-util/download/@wecrpto/nacl-util-0.1.0.tgz#112ac7e4cc5618394dbc2de0583b7d99c41ad1c9"
-  integrity sha1-ESrH5MxWGDlNvC3gWDt9mcQa0ck=
+"@wecrpto/nacl-util@^0.1.1":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@wecrpto/nacl-util/-/nacl-util-0.1.2.tgz#323aa9654934e9e7e56be654e86d38c99f71a9f5"
+  integrity sha512-QnQbRG82FSDJRd18y4w+l6uobEeGiugfmevi68pdPyW/IeVym4zciL0PWzXWoCFGt48VIdO4xN5/P36yzwcx3A==
 
 "@wecrpto/nacl@^0.1.0":
   version "0.1.0"
