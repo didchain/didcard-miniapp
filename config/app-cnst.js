@@ -4,6 +4,10 @@ const STORAGE_KEYS = {
   WALLET_ADDR_SKEY: 'WalletAddressKey',
   WALLET_V3_OKEY: 'WalletKeystoreKey',
   SHORT_SECRET_OKEY: 'ShortSecretKey',
+  KEYPAIR_OKEY: 'KeypairKey',
+  AESKEY_HKEY: 'AeskeyHex',
+  NO_SECRET_BKEY: 'NoSecretRequired',
+  DID_SKEY: 'DidKey',
 };
 const weaccConfig = { idPrefix: 'Did', remembered: true, useSigned: true };
 

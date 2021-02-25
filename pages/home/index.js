@@ -1,9 +1,13 @@
 // pages/home/index.js
-import { APP_NAME } from '../../config/app-cnst';
+import { promisifyAll, promisify } from 'miniprogram-api-promise';
+import { APP_NAME, storeCnsts } from '../../config/app-cnst';
+const { buildSignData, appendSignature } = require('../../utils/util');
 //see https://github.com/demi520/wxapp-qrcode
 const QR = require('../../libs/qrcode/weqrcode');
 const canvasId = 'mycanvas';
-
+const app = getApp();
+const wxp = {};
+promisifyAll(wx, wxp);
 Page({
   /**
    * 页面的初始数据
@@ -17,30 +21,92 @@ Page({
     imagePath: '',
     maskHidden: true,
     signJson: {},
+    authError: '需要位置授权',
+    hasLocationPermission: false,
+    modalHide: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    //
-    // this.setData({ appTitle: APP_NAME });
-
-    this.initPageData();
-
-    // this.initPageData();
+  onLoad: async function (options) {
+    const that = this;
+    const hasLocation = await this.checkLocationPermission.call(this);
+    this.setData({ hasLocationPermission: hasLocation });
+    this.setData({ did: app.globalData[storeCnsts.DID_SKEY] || '' });
+  },
+  checkLocationPermission: async () => {
+    try {
+      const setDataRes = await wxp.getSetting({});
+      return Boolean(setDataRes.authSetting['scope.userLocation']);
+    } catch (e) {
+      console.log('checkLocationPermission fail', e);
+      return false;
+    }
   },
 
-  initPageData: function () {
-    let size = this.setCanvasSize();
-    const safeWallet = wx.$webox.getSafeWallet();
-    console.log('>>>>>>>', size, safeWallet);
-    if (safeWallet) {
-      this.setData({ opened: true });
-      this.setData({ did: safeWallet.did });
-      const jsonContent = JSON.stringify(safeWallet) || '';
-      this.createQrCode(jsonContent, size.w, size.h);
+  initPageData: () => {
+    const keypair = app.globalData[storeCnsts.KEYPAIR_OKEY];
+    console.log('key', keypair);
+    // if (!!keypair) {
+    //   this.setData({ opened: true });
+    //   const locationData = this.getLocation();
+    //   console.log('locationData>>>>>', locationData);
+    //   //TODO create qrcode
+    //   // this.createNewQrcode(keypair);
+    // }
+    // const locationData = this.getLocation();
+    // console.log('locationData>>>>>', locationData);
+    // this.createNewQrcode(keypair);
+    // let size = this.setCanvasSize();
+    // const safeWallet = wx.$webox.getSafeWallet();
+    // // console.log('>>>>>>>', size, safeWallet);
+    // if (safeWallet) {
+    //   this.setData({ opened: true });
+    //   this.setData({ did: safeWallet.did });
+    //   const jsonContent = JSON.stringify(safeWallet) || '';
+    //   this.createQrCode(jsonContent, size.w, size.h);
+    // }
+  },
+  checkAuth: async (next) => {
+    const settingData = await wxp.getSetting({});
+    if (!settingData.authSetting || !settingData.authSetting['scope.userLocation']) {
+      const that = this;
+      wx.authorize({
+        scope: 'scope.userLocation',
+        success: () => {
+          if (typeof next === 'function') {
+            next.call(that);
+          }
+        },
+      });
     }
+  },
+  getLocation: async () => {
+    console.log('setData>>>>>', setData);
+
+    return await promisify(wx.getLocation)({
+      type: 'gcj02',
+      altitude: false,
+    });
+  },
+  createNewQrcode: async function (keypair) {
+    const safeWallet = app.globalData[storeCnsts.WALLET_V3_OKEY];
+    const did = app.globalData[storeCnsts.DID_SKEY];
+
+    wx.getLocation({
+      type: 'gcj02',
+      altitude: false,
+      success: (res) => {
+        console.log('locations>>>>', res);
+        const latitude = res.latitude;
+        const longitude = res.longitude;
+      },
+      fail: (e) => {
+        console.log('location fail:', e);
+      },
+    });
+    const signData = buildSignData(did, latitude, longitude);
   },
 
   /**
@@ -51,10 +117,21 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    this.initPageData();
+  onShow: async function () {
+    this.setData({ did: app.globalData[storeCnsts.DID_SKEY] || '' });
+    // console.log(this.setData({ opened: true }));
+    //check wallet Open
+    const globalData = app.globalData;
+    if (globalData[storeCnsts.WALLET_V3_OKEY] && globalData[storeCnsts.KEYPAIR_OKEY]) {
+      console.log(this.setData);
+      this.setData({ opened: true });
+      //TODO qrcode
+    } else {
+      this.setData({ opened: false });
+    }
   },
 
+  validOpen() {},
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -128,5 +205,15 @@ Page({
       current: img,
       urls: [img],
     });
+  },
+  openWalletHandle: () => {
+    console.log('OpenWallet Handle>>>>');
+  },
+  showModalHandle() {
+    this.setData({ modalHide: false });
+  },
+  hideModalHandle() {
+    console.log('>>>>>>>>>>>>>hideModalHandle>');
+    this.setData({ modalHide: true });
   },
 });

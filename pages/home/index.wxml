@@ -17,17 +17,17 @@
       <view class="qrcode-box">
         <view class="qrcode-box--inner">
           <view wx:if="{{!opened}}" class="locked-icon-box">
-            <image src="{{'/images/icons/lock_icon.png'}}"></image>
+            <image bindtap="showModalHandle" src="{{'/images/icons/lock_icon.png'}}"></image>
           </view>
           <view wx:if="{{!opened}}" class="locked-desc">
             点击解锁二维码
           </view>
           <view wx:if="{{opened}}" class="qrcode-did">
             <view class="qrcode-show-box">
-              <image mode="scaleToFill" src="{{imagePath}}" ></image>
+              <image mode="scaleToFill" src="{{imagePath}}"></image>
             </view>
             <!-- <canvas style="width: 200px; height: 200px" canvas-id="signatureQrcode"></canvas> -->
-            
+
             <!-- <image src="{{'/images/demo-qrcode.png'}}" style="width: 180px; height: 180px"></image> -->
           </view>
         </view>
@@ -79,4 +79,22 @@
 
 <view class="canvas-box">
   <canvas style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas" />
+</view>
+
+<!-- Modal Box -->
+<view class="v-modal-mask" wx:if="{{!modalHide}}" bindtap="hideModalHandle"></view>
+<view class="v-modal-box" wx:if="{{!modalHide}}">
+  <view class="modal-inner">
+    <view class="modal-title">
+      请输入密码
+    </view>
+    <view class="v-modal-form">
+      <view class="v-input">
+        <input type="text" name="password" placeholder="请输入密码"/>
+      </view>
+    </view>
+    <view class="v-modal-actions">
+      <l-button size="long" bind:lintap="openWalletHandle">解锁</l-button>
+    </view>
+  </view>
 </view>

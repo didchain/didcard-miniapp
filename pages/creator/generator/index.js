@@ -1,6 +1,7 @@
 // pages/creator/generator/index.js
 const { storeCnsts } = require('../../../config/app-cnst');
 const { pwdRules } = require('../../../config/validator-rules');
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -29,10 +30,14 @@ Page({
       const inst = webox.generate(password);
 
       const safeWallet = inst.getSafeWallet();
-      if(!safeWallet){
+      if (!safeWallet) {
         throw new Error('Generate Account Error');
       }
-      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet)
+      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet);
+      getApp().globalData[storeCnsts.KEYPAIR_OKEY] = inst.getKeypair();
+      getApp().globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
+      getApp().globalData[storeCnsts.DID_SKEY] = safeWallet.did;
+
       // wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
       //   enshort: this.data.password,
       //   entype: 'base64',

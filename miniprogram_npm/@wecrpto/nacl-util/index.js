@@ -4,7 +4,9 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1614147497889, function(require, module, exports) {
+__DEFINE__(1614208881780, function(require, module, exports) {
+/* eslint-disable block-scoped-var */
+/* eslint-disable no-redeclare */
 // Written in 2014-2016 by Dmitry Chestnykh and Devi Mandiri.
 // Public domain.
 (function(root, f) {
@@ -15,7 +17,7 @@ __DEFINE__(1614147497889, function(require, module, exports) {
     root.nacl = {};
     root.nacl.util = f();
   }
-}(this, function() {
+}(this, function(Buffer) {
   
 
   var util = {};
@@ -42,7 +44,7 @@ __DEFINE__(1614147497889, function(require, module, exports) {
   if (typeof atob === 'undefined') {
     // Node.js
 
-    if (typeof Buffer.from !== 'undefined') {
+    if (Buffer && typeof Buffer.from !== 'undefined') {
        // Node v6 and later
       util.encodeBase64 = function(arr) { // v6 and later
           return Buffer.from(arr).toString('base64');
@@ -54,6 +56,7 @@ __DEFINE__(1614147497889, function(require, module, exports) {
       };
 
     } else {
+      var Buffer = require('buffer');
       // Node earlier than v6
       util.encodeBase64 = function(arr) { // v6 and later
         return (new Buffer(arr)).toString('base64');
@@ -88,6 +91,6 @@ __DEFINE__(1614147497889, function(require, module, exports) {
 }));
 
 }, function(modId) {var map = {}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1614147497889);
+return __REQUIRE__(1614208881780);
 })()
 //# sourceMappingURL=index.js.map

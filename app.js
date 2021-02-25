@@ -1,4 +1,5 @@
 // app.js
+import { promisifyAll } from 'miniprogram-api-promise';
 const { storeCnsts } = require('./config/app-cnst');
 const { Buffer } = require('buffer/index');
 const { randomBytes } = require('./utils/util');
@@ -7,6 +8,8 @@ nacl.setPRNG(randomBytes); //make sure random key
 // nacl.util = require('@wecrpto/nacl-util');
 import { init as weaccInit, helper, tools, importKeyStore } from '@wecrpto/weaccount';
 
+const wxp = {};
+promisifyAll(wx, wxp);
 App({
   onLaunch() {
     // bind wx
@@ -14,15 +17,13 @@ App({
     const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
     wx.$webox = weaccInit(cfg);
 
-    //has initialized verify
+    // //has initialized verify
     const safeWallet = wx.getStorageSync(storeCnsts.WALLET_V3_OKEY);
-    // console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
+    // // console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
     if (safeWallet) {
-      // console.log('has account>>>>', safeWallet);
       wx.$webox.loadSafeWallet(safeWallet);
-      // wx.navigateTo({
-      //   url: 'pages/test/qrcode/index',
-      // });
+      this.globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
+      this.globalData[storeCnsts.DID_SKEY] = safeWallet.did;
     } else {
       console.log('Wallet not initialization.');
       wx.navigateTo({
@@ -35,34 +36,40 @@ App({
     // logs.unshift(Date.now());
     // wx.setStorageSync('logs', logs);
     // 登录
-    wx.login({
-      success: (res) => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      },
-    });
-    // 获取用户信息
-    wx.getSetting({
-      success: (res) => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: (res) => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo;
+    // wx.login({
+    //   success: (res) => {
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //   },
+    // });
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res);
-              }
-            },
-          });
+    // 获取用户信息
+    this.checkUserAuth();
+  },
+  checkUserAuth: () => {
+    wx.getSetting({
+      success: async (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          try {
+            const uRes = await wxp.getUserInfo({
+              lang: 'en',
+            });
+            console.log('>>>>>>>>>>>>>>>', uRes);
+            this.globalData.userInfo = uRes.userInfo;
+          } catch (error) {
+            wx.showToast({
+              icon: 'error',
+              title: '您取消了用户授权',
+            });
+          }
         }
       },
+      fail: (e) => {},
     });
   },
+
   globalData: {
-    keypair: null,
+    [storeCnsts.KEYPAIR_OKEY]: null, //keypair
+    [storeCnsts.WALLET_V3_OKEY]: null, //safWallet
     userInfo: null,
     externalUrl: 'https://wechat.baschain.cn/test.html',
   },
