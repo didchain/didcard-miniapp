@@ -36,9 +36,15 @@
     "@wecrpto/nacl" "^0.1.0"
 
 "@wecrpto/nacl-util@^0.1.1":
+<<<<<<< HEAD
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/@wecrpto/nacl-util/download/@wecrpto/nacl-util-0.1.1.tgz#3e248201a400ab48dbb283a142c57080aa5602d4"
   integrity sha1-PiSCAaQAq0jbsoOhQsVwgKpWAtQ=
+=======
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@wecrpto/nacl-util/-/nacl-util-0.1.2.tgz#323aa9654934e9e7e56be654e86d38c99f71a9f5"
+  integrity sha512-QnQbRG82FSDJRd18y4w+l6uobEeGiugfmevi68pdPyW/IeVym4zciL0PWzXWoCFGt48VIdO4xN5/P36yzwcx3A==
+>>>>>>> f8887efb7fbbbe52a02b05b571083e4d29c36b1a
 
 "@wecrpto/nacl@^0.1.0":
   version "0.1.0"

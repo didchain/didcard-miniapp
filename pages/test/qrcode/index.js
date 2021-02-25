@@ -1,4 +1,3 @@
-// pages/main/index.js
 var QR = require('../../../libs/qrcode/weqrcode');
 Page({
   data: {
