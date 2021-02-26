@@ -20,7 +20,8 @@
             <image bindtap="showModalHandle" src="{{'/images/icons/lock_icon.png'}}"></image>
           </view>
           <view wx:if="{{!opened}}" class="locked-desc">
-            点击解锁二维码
+            <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback" class="v-auth-btn">点击授权</button> -->
+            <button open-type="openSetting" bindgetuserinfo="getUserInfoCallback"  class="v-auth-btn">需要位置授权</button>
           </view>
           <view wx:if="{{opened}}" class="qrcode-did">
             <view class="qrcode-show-box">
@@ -90,11 +91,12 @@
     </view>
     <view class="v-modal-form">
       <view class="v-input">
-        <input type="text" name="password" placeholder="请输入密码"/>
+        <input type="text" name="auth" model:value="{{auth}}" bindinput="setAuth" placeholder="请输入密码"/>
       </view>
     </view>
     <view class="v-modal-actions">
-      <l-button size="long" bind:lintap="openWalletHandle">解锁</l-button>
+      <!-- <button type="warn" bindtap="openWalletHandle" class="v-btn-warn">解锁</button> -->
+      <l-button size="long" bind:lintap="openWalletHandle" l-class="open-btn" disabled="{{!auth}}" type="warning" style="color:#0C123D;">解锁</l-button>
     </view>
   </view>
 </view>

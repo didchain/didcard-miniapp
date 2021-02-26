@@ -1,6 +1,7 @@
 // pages/home/index.js
 import { promisifyAll, promisify } from 'miniprogram-api-promise';
 import { APP_NAME, storeCnsts } from '../../config/app-cnst';
+import { helper, tools } from '@wecrpto/weaccount';
 const { buildSignData, appendSignature } = require('../../utils/util');
 //see https://github.com/demi520/wxapp-qrcode
 const QR = require('../../libs/qrcode/weqrcode');
@@ -8,32 +9,72 @@ const canvasId = 'mycanvas';
 const app = getApp();
 const wxp = {};
 promisifyAll(wx, wxp);
+const ERR_CODES = {
+  NO_WALLET: 'Did账号不存在',
+  PWD_INCORRECT: '密码不正确',
+  NEED_LOC_AUTH: '需要位置授权',
+  SIGN_FAIL: '签名失败',
+};
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    precheckLocationed: false,
     appTitle: APP_NAME,
     subtitle: '身份证号:',
     did: '',
     qrcodeTips: '身份证二维码被锁定请输入二维码解锁',
     opened: false,
+    auth: '',
     imagePath: '',
     maskHidden: true,
     signJson: {},
     authError: '需要位置授权',
     hasLocationPermission: false,
-    modalHide: false,
+    modalHide: true,
+    openBtnDisabled: false,
+    loading: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    const that = this;
-    const hasLocation = await this.checkLocationPermission.call(this);
-    this.setData({ hasLocationPermission: hasLocation });
+    // const hasLocation = await this.checkLocationPermission.call(this);
+    // this.setData({ hasLocationPermission: hasLocation });
     this.setData({ did: app.globalData[storeCnsts.DID_SKEY] || '' });
+    const initQrcodeWhenOpen = async function (res) {
+      console.log('Callback>>>>', this, res);
+    };
+    this.precheckLocation(initQrcodeWhenOpen);
+
+    // 检查size
+    const size = this.setCanvasSize();
+    this.setData({ size: size });
+  },
+  /**
+   * 加载时检查
+   * @param {*} cb
+   */
+  precheckLocation(cb) {
+    const that = this;
+    if (!this.data.precheckLocationed) {
+      wx.getSetting({
+        success: function (res) {
+          if (res.authSetting['scope.userLocation'] === undefined) {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              complete: function () {
+                typeof cb === 'function' && cb.call(that, {});
+              },
+            });
+          }
+        },
+      });
+    } else {
+      typeof cb === 'function' && cb.call(that, {});
+    }
   },
   checkLocationPermission: async () => {
     try {
@@ -74,7 +115,7 @@ Page({
       const that = this;
       wx.authorize({
         scope: 'scope.userLocation',
-        success: () => {
+        success: (resLoc) => {
           if (typeof next === 'function') {
             next.call(that);
           }
@@ -82,14 +123,7 @@ Page({
       });
     }
   },
-  getLocation: async () => {
-    console.log('setData>>>>>', setData);
 
-    return await promisify(wx.getLocation)({
-      type: 'gcj02',
-      altitude: false,
-    });
-  },
   createNewQrcode: async function (keypair) {
     const safeWallet = app.globalData[storeCnsts.WALLET_V3_OKEY];
     const did = app.globalData[storeCnsts.DID_SKEY];
@@ -122,9 +156,11 @@ Page({
     // console.log(this.setData({ opened: true }));
     //check wallet Open
     const globalData = app.globalData;
+    console.log('>>>>>', globalData);
     if (globalData[storeCnsts.WALLET_V3_OKEY] && globalData[storeCnsts.KEYPAIR_OKEY]) {
       console.log(this.setData);
-      this.setData({ opened: true });
+      // this.setData({ opened: true });
+      // this.setData({modalHide:true})
       //TODO qrcode
     } else {
       this.setData({ opened: false });
@@ -145,7 +181,9 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () {
+    console.log('onPullDownRefresh>>>>>>>>>>' + new Date());
+  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -206,14 +244,170 @@ Page({
       urls: [img],
     });
   },
-  openWalletHandle: () => {
-    console.log('OpenWallet Handle>>>>');
+
+  showQrcode: async function (did, keypair) {
+    try {
+      const locationData = await this.getLocation();
+
+      const latitude = locationData.latitude;
+      const longitude = locationData.longitude;
+
+      const signData = buildSignData(did, latitude, longitude);
+      const content = JSON.stringify(signData);
+      const sig = helper.signMessage(content, keypair.secretKey);
+      // const signature =
+      const signedResult = appendSignature(signData, sig);
+      console.log('Location>>>>', signData, sig, signedResult);
+
+      this.setData({ opened: true });
+    } catch (err) {
+      // wx.lo
+      this.setData({ opened: false });
+      console.error('err', err);
+    }
   },
-  showModalHandle() {
-    this.setData({ modalHide: false });
+  checkLocationAuth: async function () {
+    const settings = await promisify(wx.getSetting)();
+    console.log('>>>settings>>>>>>', settings.authSetting);
+    let hasLocation = settings.authSetting['scope.userLocation'];
+    // if (!settings.authSetting['scope.userInfo']) {
+    //   const resd = await promisify(wx.getUserInfo)({});
+    //   console.log('>>>>>>resd>>>>>>>>>', resd);
+    // }
+    // if (!hasLocation) {
+    //   const res = await promisify(wx.openSetting)({ withSubscriptions: false });
+    //   hasLocation = res.authSetting['scope.userLocation'];
+    // }
+
+    if (!hasLocation) {
+      const locationData = await this.getLocation();
+    }
+    return hasLocation;
+  },
+  getUserInfoCallback: function (data) {
+    console.log('getUserInfoCallback>>>', data);
+  },
+  getUserInfo: async function () {
+    const settings = await promisify(wx.getSetting)();
+  },
+  checkUserAuth: function () {
+    wx.getSetting({
+      success: async (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          try {
+            const uRes = await wxp.getUserInfo({
+              lang: 'en',
+            });
+            console.log('>>>>>>>>>>>>>>>', uRes);
+            app.globalData.userInfo = uRes.userInfo;
+          } catch (error) {
+            wx.showToast({
+              icon: 'error',
+              title: '您取消了用户授权',
+            });
+          }
+        }
+      },
+      fail: (e) => {},
+    });
+  },
+  getLocation: async function () {
+    try {
+      return await promisify(wx.getLocation)({
+        type: 'gcj02',
+        altitude: false,
+      });
+    } catch (error) {
+      throw new Error('Location auth fail');
+    }
+  },
+  showModalHandle: async function () {
+    try {
+      const hasLocation = await this.checkLocationAuth();
+      this.setData({ modalHide: !hasLocation });
+    } catch (e) {
+      console.log('ShowToast:', e);
+    }
   },
   hideModalHandle() {
     console.log('>>>>>>>>>>>>>hideModalHandle>');
     this.setData({ modalHide: true });
+  },
+  setAuth(e) {
+    this.data.auth = e.detail.value;
+  },
+  /**
+   *
+   * @param {*} e
+   */
+  openWalletHandle: async function (e) {
+    try {
+      const auth = this.data.auth;
+      const latitude = this.data.latitude;
+      const longitude = this.data.longitude;
+      const qrcodeText = await this.builddrawQrcodeText(latitude, longitude, auth);
+      // TODO Draw QRcode
+      console.log('W>>>>>>>>', qrcodeText);
+    } catch (e) {
+      console.log('openWalletHandle>>>>>>>', e);
+      // throw err;
+      if (e && e.errCode) {
+        wx.showToast({
+          icon: 'error',
+          title: ERR_CODES[e.errCode],
+        });
+      }
+    }
+
+    // try {
+    //   const auth = this.data.auth;
+    //   // console.log('OpenWallet Handle>>>>', e, auth);
+    //   if (auth !== undefined && auth.trim().length > 0) {
+    //     const wallet = wx.$webox.open(auth);
+    //     app.globalData[storeCnsts.keypair] = wx.$webox.getKeypair();
+    //     // const signData =
+    //     console.log('Wallet>>>', wallet); //
+    //     await this.showQrcode(wallet.did, wallet.key);
+    //     //TODO creat Qrcode
+
+    //     this.setData({ modalHide: true });
+    //   }
+    // } catch (e) {
+    //   console.log('>>>>El>>>>', e.message);
+    //   let msg = '密码不正确';
+    //   if (e && e.message.startsWith('Location auth fail')) {
+    //     msg = '需要位置授权';
+    //   }
+    //   wx.showToast({
+    //     icon: 'error',
+    //     title: msg,
+    //   });
+    // }
+  },
+  /**
+   * catch Error
+   */
+  builddrawQrcodeText: async function (latitude, longitude, auth) {
+    try {
+      const webox = wx.$webox;
+      const wallet = webox.open(auth);
+      const did = wallet.did;
+      this.setData({ did: did });
+
+      const pk = wallet.key.secretKey;
+
+      //build SignData
+      const signData = buildSignData(did, latitude, longitude);
+
+      const plaintext = JSON.stringify(signData);
+      const signature = helper.signMessage(plaintext, pk);
+
+      const qrcodeData = appendSignature(signData, signature);
+
+      return JSON.stringify(qrcodeData);
+    } catch (e) {
+      console.log('builddrawQrcode>>>>', e);
+      throw { errCode: 'PWD_INCORRECT' };
+    }
   },
 });

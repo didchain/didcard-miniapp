@@ -340,3 +340,8 @@
   margin-left: 24rpx;
   background: transparent;
 }
+
+button.v-auth-btn {
+  border:0px;
+  background:transparent;
+}
