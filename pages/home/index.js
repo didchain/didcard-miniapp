@@ -11,9 +11,16 @@ const wxp = {};
 promisifyAll(wx, wxp);
 const ERR_CODES = {
   NO_WALLET: 'Did账号不存在',
+  WALLET_CLOSED: '账号已锁定',
   PWD_INCORRECT: '密码不正确',
   NEED_LOC_AUTH: '需要位置授权',
+  ERR_OPEN_SETTINGS: '打开setting',
   SIGN_FAIL: '签名失败',
+};
+
+const Tips = {
+  unlock: '点击解锁',
+  locationAuth: '点击授权获取位置',
 };
 Page({
   /**
@@ -23,15 +30,18 @@ Page({
     precheckLocationed: false,
     appTitle: APP_NAME,
     subtitle: '身份证号:',
+    lockedTips: '点击解锁',
+    noLocationAuthTips: '点击授权获取位置',
     did: '',
-    qrcodeTips: '身份证二维码被锁定请输入二维码解锁',
+    qrcodeTips: '点击刷新开锁二维码',
+    hasLocationPermission: false,
     opened: false,
+    opentips: Tips.unlock,
     auth: '',
     imagePath: '',
     maskHidden: true,
     signJson: {},
     authError: '需要位置授权',
-    hasLocationPermission: false,
     modalHide: true,
     openBtnDisabled: false,
     loading: false,
@@ -41,9 +51,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    // const hasLocation = await this.checkLocationPermission.call(this);
-    // this.setData({ hasLocationPermission: hasLocation });
-    this.setData({ did: app.globalData[storeCnsts.DID_SKEY] || '' });
+    const id = wx.$webox.getSafeWallet() ? wx.$webox.getSafeWallet().did : '';
+    this.setData({ did: id || app.globalData[storeCnsts.DID_SKEY] || '' });
     const initQrcodeWhenOpen = async function (res) {
       console.log('Callback>>>>', this, res);
     };
@@ -65,6 +74,9 @@ Page({
           if (res.authSetting['scope.userLocation'] === undefined) {
             wx.authorize({
               scope: 'scope.userLocation',
+              success: function (res) {
+                that.setData({ hasLocationPermission: true });
+              },
               complete: function () {
                 typeof cb === 'function' && cb.call(that, {});
               },
@@ -86,63 +98,6 @@ Page({
     }
   },
 
-  initPageData: () => {
-    const keypair = app.globalData[storeCnsts.KEYPAIR_OKEY];
-    console.log('key', keypair);
-    // if (!!keypair) {
-    //   this.setData({ opened: true });
-    //   const locationData = this.getLocation();
-    //   console.log('locationData>>>>>', locationData);
-    //   //TODO create qrcode
-    //   // this.createNewQrcode(keypair);
-    // }
-    // const locationData = this.getLocation();
-    // console.log('locationData>>>>>', locationData);
-    // this.createNewQrcode(keypair);
-    // let size = this.setCanvasSize();
-    // const safeWallet = wx.$webox.getSafeWallet();
-    // // console.log('>>>>>>>', size, safeWallet);
-    // if (safeWallet) {
-    //   this.setData({ opened: true });
-    //   this.setData({ did: safeWallet.did });
-    //   const jsonContent = JSON.stringify(safeWallet) || '';
-    //   this.createQrCode(jsonContent, size.w, size.h);
-    // }
-  },
-  checkAuth: async (next) => {
-    const settingData = await wxp.getSetting({});
-    if (!settingData.authSetting || !settingData.authSetting['scope.userLocation']) {
-      const that = this;
-      wx.authorize({
-        scope: 'scope.userLocation',
-        success: (resLoc) => {
-          if (typeof next === 'function') {
-            next.call(that);
-          }
-        },
-      });
-    }
-  },
-
-  createNewQrcode: async function (keypair) {
-    const safeWallet = app.globalData[storeCnsts.WALLET_V3_OKEY];
-    const did = app.globalData[storeCnsts.DID_SKEY];
-
-    wx.getLocation({
-      type: 'gcj02',
-      altitude: false,
-      success: (res) => {
-        console.log('locations>>>>', res);
-        const latitude = res.latitude;
-        const longitude = res.longitude;
-      },
-      fail: (e) => {
-        console.log('location fail:', e);
-      },
-    });
-    const signData = buildSignData(did, latitude, longitude);
-  },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -152,21 +107,50 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
-    this.setData({ did: app.globalData[storeCnsts.DID_SKEY] || '' });
-    // console.log(this.setData({ opened: true }));
-    //check wallet Open
-    const globalData = app.globalData;
-    console.log('>>>>>', globalData);
-    if (globalData[storeCnsts.WALLET_V3_OKEY] && globalData[storeCnsts.KEYPAIR_OKEY]) {
-      console.log(this.setData);
-      // this.setData({ opened: true });
-      // this.setData({modalHide:true})
-      //TODO qrcode
-    } else {
-      this.setData({ opened: false });
+    const that = this;
+    that.initPageData();
+  },
+  initPageData: async function () {
+    const webox = wx.$webox;
+    const that = this;
+    try {
+      if (!webox.hasWallet()) throw { errCode: 'NO_WALLET' };
+      const id = webox.getSafeWallet().did;
+      this.setData({ did: id });
+      const locationData = await this.checkLocationAuth();
+      if (!webox.hasOpened()) {
+        throw { errCode: 'WALLET_CLOSED' };
+      }
+      const pk = webox.getKeypair().secretKey;
+      const qrcodeText = await that.builddrawQrcodeTextByPk(id, locationData, pk);
+
+      //draw QRcode
+      const size = this.setCanvasSize();
+      console.log('W>>>>>>>>', qrcodeText);
+      this.setData({ opened: true });
+      QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
+    } catch (err) {
+      console.log('initial fail', err);
+      if (err && err.errCode === 'NO_WALLET') {
+        // wx.navigateTo({
+        //   url: '',
+        // })
+      } else if (err && err.errCode === 'WALLET_CLOSED') {
+        this.setData({ opened: false });
+        this.setData({ opentips: Tips.unlock });
+      } else if (err && err.errCode === 'ERR_OPEN_SETTINGS') {
+        that.setData({ opened: false }); //
+        that.setData({ opentips: Tips.locationAuth });
+      } else {
+        const msg = err.errCode ? ERR_CODES[err.errCode] : err.message || '错误';
+        wx.showToast({
+          icon: 'error',
+          title: msg,
+          duration: 3000,
+        });
+      }
     }
   },
-
   validOpen() {},
   /**
    * 生命周期函数--监听页面隐藏
@@ -214,10 +198,7 @@ Page({
     }
     return size;
   },
-  createQrCode: function (content, w, h) {
-    // console.log('>>>>>>>content>>>>>>>', content);
-    QR.api.draw(content, 'mycanvas', w, h, this, this.canvasToTempImage);
-  },
+
   canvasToTempImage: function () {
     const that = this;
     // console.log('canvasToTempImage', that);
@@ -245,44 +226,24 @@ Page({
     });
   },
 
-  showQrcode: async function (did, keypair) {
-    try {
-      const locationData = await this.getLocation();
-
-      const latitude = locationData.latitude;
-      const longitude = locationData.longitude;
-
-      const signData = buildSignData(did, latitude, longitude);
-      const content = JSON.stringify(signData);
-      const sig = helper.signMessage(content, keypair.secretKey);
-      // const signature =
-      const signedResult = appendSignature(signData, sig);
-      console.log('Location>>>>', signData, sig, signedResult);
-
-      this.setData({ opened: true });
-    } catch (err) {
-      // wx.lo
-      this.setData({ opened: false });
-      console.error('err', err);
-    }
-  },
+  /**
+   *
+   */
   checkLocationAuth: async function () {
-    const settings = await promisify(wx.getSetting)();
-    console.log('>>>settings>>>>>>', settings.authSetting);
-    let hasLocation = settings.authSetting['scope.userLocation'];
-    // if (!settings.authSetting['scope.userInfo']) {
-    //   const resd = await promisify(wx.getUserInfo)({});
-    //   console.log('>>>>>>resd>>>>>>>>>', resd);
-    // }
-    // if (!hasLocation) {
-    //   const res = await promisify(wx.openSetting)({ withSubscriptions: false });
-    //   hasLocation = res.authSetting['scope.userLocation'];
-    // }
-
-    if (!hasLocation) {
+    try {
+      const settings = await promisify(wx.getSetting)();
+      let hasLocation = settings.authSetting['scope.userLocation'];
+      if (!hasLocation) throw new Error('no location auth.');
       const locationData = await this.getLocation();
+      if (!locationData || !locationData.latitude || !locationData.longitude) {
+        throw new Error('un get location data.');
+      }
+      this.setData({ hasLocationPermission: true });
+      return locationData;
+    } catch (err) {
+      this.setData({ hasLocationPermission: false });
+      throw { errCode: 'ERR_OPEN_SETTINGS' };
     }
-    return hasLocation;
   },
   getUserInfoCallback: function (data) {
     console.log('getUserInfoCallback>>>', data);
@@ -318,19 +279,26 @@ Page({
         altitude: false,
       });
     } catch (error) {
-      throw new Error('Location auth fail');
+      throw { errCode: 'NEED_LOC_AUTH' };
     }
   },
   showModalHandle: async function () {
+    const that = this;
     try {
-      const hasLocation = await this.checkLocationAuth();
-      this.setData({ modalHide: !hasLocation });
+      const locationData = await this.checkLocationAuth();
+      this.setData({ modalHide: false }); //show dialog
     } catch (e) {
-      console.log('ShowToast:', e);
+      wx.openSetting({
+        withSubscriptions: false,
+        success: function (res) {
+          const authSetting = res.authSetting;
+          const hasLocation = Boolean(authSetting['scope.userLocation']);
+          if (!!hasLocation) that.setData({ modalHide: true });
+        },
+      });
     }
   },
   hideModalHandle() {
-    console.log('>>>>>>>>>>>>>hideModalHandle>');
     this.setData({ modalHide: true });
   },
   setAuth(e) {
@@ -343,11 +311,19 @@ Page({
   openWalletHandle: async function (e) {
     try {
       const auth = this.data.auth;
-      const latitude = this.data.latitude;
-      const longitude = this.data.longitude;
+      const locationData = await this.getLocation();
+      const latitude = locationData.latitude;
+      const longitude = locationData.longitude;
       const qrcodeText = await this.builddrawQrcodeText(latitude, longitude, auth);
       // TODO Draw QRcode
-      console.log('W>>>>>>>>', qrcodeText);
+      const size = this.setCanvasSize();
+      console.log('W>>>>>>>>', qrcodeText, size);
+      QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, this, this.canvasToTempImage);
+
+      this.setData({ opened: true });
+      this.setData({ modalHide: true });
+
+      // this.
     } catch (e) {
       console.log('openWalletHandle>>>>>>>', e);
       // throw err;
@@ -358,31 +334,33 @@ Page({
         });
       }
     }
+  },
+  reDrawQrcodeHandle: async function () {
+    const webox = wx.$webox;
+    const that = this;
+    if (!this.data.hasLocationPermission) {
+      return;
+    }
 
-    // try {
-    //   const auth = this.data.auth;
-    //   // console.log('OpenWallet Handle>>>>', e, auth);
-    //   if (auth !== undefined && auth.trim().length > 0) {
-    //     const wallet = wx.$webox.open(auth);
-    //     app.globalData[storeCnsts.keypair] = wx.$webox.getKeypair();
-    //     // const signData =
-    //     console.log('Wallet>>>', wallet); //
-    //     await this.showQrcode(wallet.did, wallet.key);
-    //     //TODO creat Qrcode
-
-    //     this.setData({ modalHide: true });
-    //   }
-    // } catch (e) {
-    //   console.log('>>>>El>>>>', e.message);
-    //   let msg = '密码不正确';
-    //   if (e && e.message.startsWith('Location auth fail')) {
-    //     msg = '需要位置授权';
-    //   }
-    //   wx.showToast({
-    //     icon: 'error',
-    //     title: msg,
-    //   });
-    // }
+    if (!webox.hasWallet() || !webox.hasOpened()) {
+      return;
+    }
+    try {
+      const locationData = await this.getLocation();
+      const pk = webox.getKeypair().secretKey;
+      const id = webox.getSafeWallet().did;
+      const qrcodeText = await that.builddrawQrcodeTextByPk(id, locationData, pk);
+      const size = this.setCanvasSize();
+      console.log('W>>>>>>>>', qrcodeText);
+      this.setData({ opened: true });
+      QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
+    } catch (err) {
+      console.log('reDrawQrcodeHandle>>>>>>>', err);
+      this.setData({ opened: false });
+      wx.showToast({
+        title: '密码失效,请重试',
+      });
+    }
   },
   /**
    * catch Error
@@ -407,6 +385,30 @@ Page({
       return JSON.stringify(qrcodeData);
     } catch (e) {
       console.log('builddrawQrcode>>>>', e);
+      throw { errCode: 'PWD_INCORRECT' };
+    }
+  },
+
+  /**
+   *
+   * @param {string} did
+   * @param {Object} locationData
+   * @param {Uint8Array} pk
+   */
+  builddrawQrcodeTextByPk: async function (did, locationData, pk) {
+    try {
+      const latitude = locationData.latitude;
+      const longitude = locationData.longitude;
+      //build SignData
+      const signData = buildSignData(did, latitude, longitude);
+
+      const plaintext = JSON.stringify(signData);
+      const signature = helper.signMessage(plaintext, pk);
+
+      const qrcodeData = appendSignature(signData, signature);
+
+      return JSON.stringify(qrcodeData);
+    } catch (err) {
       throw { errCode: 'PWD_INCORRECT' };
     }
   },

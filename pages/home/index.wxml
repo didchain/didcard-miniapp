@@ -21,7 +21,8 @@
           </view>
           <view wx:if="{{!opened}}" class="locked-desc">
             <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback" class="v-auth-btn">点击授权</button> -->
-            <button open-type="openSetting" bindgetuserinfo="getUserInfoCallback"  class="v-auth-btn">需要位置授权</button>
+            <button open-type="openSetting" wx:if="{{!hasLocationPermission}}" bindgetuserinfo="getUserInfoCallback"  class="v-auth-btn">{{noLocationAuthTips}}</button>
+            <button  wx:if="{{hasLocationPermission}}" bindtap="showModalHandle"  class="v-auth-btn">{{lockedTips}}</button>
           </view>
           <view wx:if="{{opened}}" class="qrcode-did">
             <view class="qrcode-show-box">
@@ -33,8 +34,8 @@
           </view>
         </view>
       </view>
-      <view class="bottom-desc text-dark--light">
-        {{qrcodeTips}}
+      <view class="bottom-desc text-dark--light" bindtap="reDrawQrcodeHandle">
+          {{qrcodeTips}}
       </view>
     </view>
   </view>
