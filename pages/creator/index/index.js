@@ -1,5 +1,8 @@
 // pages/creator/index/index.js
+import { importKeyStore } from '@wecrpto/weaccount';
 const { storeCnsts } = require('../../../config/app-cnst');
+
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -22,13 +25,21 @@ Page({
   scanHandle() {
     const _that = this;
     wx.scanCode({
-      onlyFromCamera: true,
+      onlyFromCamera: false,
       scanType: ['barCode', 'qrCode'],
       success(res) {
         try {
-          console.log('>>>>>>>>>>>>>>', res.result);
           const keystore = JSON.parse(res.result);
-          _that.setData({ scanKeystore: keystore });
+          console.log('keystore>>>>', keystore);
+          if (typeof keystore !== 'object' || !keystore.did || !keystore.cipher_txt) {
+            wx.showToast({
+              icon: 'error',
+              title: '易ID账户格式不对',
+              duration: 3000,
+            });
+          } else {
+            _that.setData({ scanKeystore: keystore });
+          }
         } catch (err) {
           wx.showToast({
             title: '二维码格式不正确',
@@ -38,28 +49,61 @@ Page({
       },
     });
   },
+
   importHandle() {
     // TODO set
-    try {
-      wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
-        enshort: this.data.password,
-        entype: 'base64',
+    const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
+    const pwd = this.data.password;
+    if (!pwd) {
+      wx.showToast({
+        icon: 'error',
+        title: '请输入密码',
+        duration: 3000,
       });
-      wx.setStorageSync(storeCnsts.INITIALIZED_BKEY, true);
-      wx.setStorageSync(storeCnsts.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
-      wx.lin.showMessage({
-        type: 'success',
-        content: '创建成功',
-        duration: 1000,
-        success() {
+      return;
+    }
+
+    try {
+      const keystore = this.data.scanKeystore;
+      console.log('pwd', this.data.password, this.data.scanKeystore);
+      const modal = importKeyStore(JSON.stringify(keystore), pwd, cfg);
+
+      const wallet = modal.wallet;
+      wx.$webox.setWallet(wallet);
+      const safeWallet = wx.$webox.getSafeWallet();
+
+      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet);
+      getApp().globalData[storeCnsts.KEYPAIR_OKEY] = modal.getKeypair();
+      getApp().globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
+      getApp().globalData[storeCnsts.DID_SKEY] = safeWallet.did;
+
+      wx.showToast({
+        icon: 'success',
+        title: '导入成功',
+        success: function () {
           wx.switchTab({
             url: '/pages/home/index',
           });
         },
+        duration: 2000,
       });
+      // wx.lin.showMessage({
+      //   type: 'success',
+      //   content: '创建成功',
+      //   duration: 1000,
+      //   success() {
+      //     // wx.switchTab({
+      //     //   url: '/pages/home/index',
+      //     // });
+      //   },
+      // });
     } catch (err) {
-      console.log(err);
-      this.showErrorMsg('创建失败', 3000);
+      console.log('parse Error:', err);
+      wx.showToast({
+        icon: 'error',
+        title: '密码不正确.',
+        duration: 3000,
+      });
     }
   },
   showErrorMsg(msg = '', duration = 2500) {
