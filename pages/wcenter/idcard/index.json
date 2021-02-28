@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "授权信息",
+  "navigationBarTitleText": "易ID",
   "usingComponents": {
     "text-rect": "/pages/widgets/textrect/textrect"
   }

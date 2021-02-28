@@ -4,20 +4,23 @@
     <view class="vp-headder--title">
       <view class="inner-title">我的</view>
       <view class="inner-icon">
-        <image src="/images/icons/se_icon.png" style="width:44rpx;height:44rpx;"></image>
-      </view>
-    </view>
-  </view>
-  <view class="vp-main vpx-12">
-    <view class="v-spacer-row-12"></view>
-    <view class="v-card head-bg">
-      <view class="v-card__body">
-        <text-rect label="姓名:"> 这个世界会好吗? </text-rect>
-        <text-rect label="身份证号:" content="110827***162" />
-        <text-rect-action label="授权他人:" vurl="/pages/authorization/index/index"> 黑色信封 </text-rect-action>
+        <image bindtap="openSettingHandle" src="/images/icons/se_icon.png" style="width:44rpx;height:44rpx;"></image>
       </view>
     </view>
 
+    <view class="v-card head-bg">
+      <view class="v-card__body">
+        <text-rect label="昵称:"> 这个世界会好吗? </text-rect>
+        <text-rect label="易ID号:" content="{{did}}" />
+        <!-- <text-rect-action label="授权他人:" vurl="/pages/authorization/index/index"> 黑色信封 </text-rect-action> -->
+
+        <vbtn-bar label="" vurl="/pages/authorization/index/index">授权他人</vbtn-bar>
+      </view>
+
+    </view>
+  </view>
+
+  <view class="vp-main vpx-12">
     <view class="v-spacer-row-12"></view>
     <!-- state card -->
     <view class="v-card">
@@ -31,7 +34,7 @@
       </view>
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
-        <v-list title="身份管理" url="{{'/pages/home/index'}}" linkType="switchTab"></v-list>
+        <v-list title="身份管理" url="{{'/pages/manager/index'}}" linkType="navigateTo"></v-list>
         <v-list title="免密" linkType="navigateTo" bind:lintap="gotoInternalUrl" data-url="/pages/wcenter/settings/index">
         </v-list>
         <v-list wx:if="{{fingerSupport}}" title="指纹识别" isLink="{{false}}" bottomLine="{{false}}">

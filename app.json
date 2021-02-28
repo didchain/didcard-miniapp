@@ -2,7 +2,6 @@
   "pages": [
     "pages/home/index",
     "pages/midoperator/index",
-    "pages/logs/logs",
     "pages/wcenter/index/index",
     "pages/creator/index/index",
     "pages/creator/generator/index",
@@ -65,9 +64,9 @@
     "l-list": "/libs/lin-ui/list/index",
     "v-list": "/libs/lin-ui/vlist/index"
   },
-  "permission":{
-    "scope.userLocation":{
-      "desc":"开锁位置校验"
+  "permission": {
+    "scope.userLocation": {
+      "desc": "开锁位置校验"
     }
   },
   "sitemapLocation": "sitemap.json"

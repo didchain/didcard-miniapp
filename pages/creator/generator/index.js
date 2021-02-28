@@ -15,7 +15,7 @@ Page({
   /** Cust methods begin */
   generateSubmit(event) {
     const webox = wx.$webox;
-    console.log('>>>>>>>>>>>>>>', webox, wx.Enc);
+    // console.log('>>>>>>>>>>>>>>', webox, wx.Enc);
     const password = this.data.password;
     if (!password || !this.data.confirm) {
       this.showErrorMsg('请输入密码');

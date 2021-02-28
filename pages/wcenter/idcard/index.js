@@ -1,5 +1,7 @@
 // pages/wcenter/idcard/index.js
 import drawQrcode from '../../../libs/qrcode/weapp.qrcode.js';
+
+const { storeCnsts } = require('../../../config/app-cnst');
 const qrOpts = {
   width: 200,
   height: 200,
@@ -16,15 +18,16 @@ const qrOpts = {
     dHeight: 80,
   },
 };
-
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    did: '',
     width: 200,
     height: 200,
-    qrText: 'https://developers.weixin.qq.com',
+    qrText: '',
   },
   /** Methods Begin */
   draw() {
@@ -69,6 +72,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const did = app.globalData[storeCnsts.DID_SKEY];
+    this.setData({ qrText: did });
+    this.setData({ did: did });
     this.draw();
   },
 
@@ -108,4 +114,5 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  shareHandle: function () {},
 });

@@ -1,0 +1,23 @@
+<!--pages/widgets/vbtn-bar/comp.wxml-->
+
+<view class="vbtn-bar">
+  <view class="vbtn-bar--rect">
+    <view class="v-label">
+      <label>{{label}}</label>
+    </view>
+    <view wx:if="{{!content}}" class="v-text">
+      <slot />
+    </view>
+    <view wx:else class="v-text">
+      <span>{{content}}</span>
+    </view>
+  </view>
+
+  <view class="vbtn-action">
+    <view class="vbtn-action--inner">
+      <view class="v-icon" mut-bind:tap="tapaction" data-v-url="{{vurl}}" data-v-type="{{vtype}}">
+        <view class="v-icon-circle"></view>
+      </view>
+    </view>
+  </view>
+</view>

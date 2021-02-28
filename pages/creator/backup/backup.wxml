@@ -20,6 +20,7 @@
         <li>无法找回</li>
       </ul>
     </view>
+    
     <view class="v-spacer-row-shrink"></view>
   </view>
   <view class="v-footer-wrap">
@@ -32,4 +33,7 @@
       </view>
     </view>
   </view>
+</view>
+<view class="export-box-hide">
+  <canvas style="width: 500px;height: 500px;background:#f1f1f1;" canvas-id="expDidCanvas" />
 </view>

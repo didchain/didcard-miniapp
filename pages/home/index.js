@@ -351,11 +351,11 @@ Page({
       const id = webox.getSafeWallet().did;
       const qrcodeText = await that.builddrawQrcodeTextByPk(id, locationData, pk);
       const size = this.setCanvasSize();
-      console.log('W>>>>>>>>', qrcodeText);
+      // console.log('W>>>>>>>>', qrcodeText);
       this.setData({ opened: true });
       QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
     } catch (err) {
-      console.log('reDrawQrcodeHandle>>>>>>>', err);
+      // console.log('reDrawQrcodeHandle>>>>>>>', err);
       this.setData({ opened: false });
       wx.showToast({
         title: '密码失效,请重试',
@@ -411,5 +411,11 @@ Page({
     } catch (err) {
       throw { errCode: 'PWD_INCORRECT' };
     }
+  },
+
+  testNavHandle: function () {
+    wx.navigateTo({
+      url: '/pages/creator/backup/backup',
+    });
   },
 });

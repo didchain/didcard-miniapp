@@ -24,6 +24,13 @@
 .vtext-rect .vtext {
   font-size: 30rpx;
   padding-top: 12rpx;
+  word-break: break-all;
+}
+
+.vtext-rect .vtext span {
+  display:block;
+  width:100%;
+  word-break: break-all;
 }
 
 .vtext-rect {

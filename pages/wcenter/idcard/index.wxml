@@ -4,12 +4,23 @@
 <view class="v-container v-flex-h100">
   <view class="vp-main vpx-48">
     <view class="v-spacer-row-48"></view>
-    <view class="v-card">
-      <view class="v-card__title v-flex-col">
-        <view class="text">
-          <text-rect label="身份证号:"> 13084519****10x </text-rect>
+    <view class="vp-sheet vp-white-bg">
+      <view class="v-rect-header">
+        <view class="v-label-rect">
+          <view class="label">
+            <label>{{'易ID号'}}</label>
+          </view>
+          <view class="content-rect">
+            <view class="v-text">
+              {{'did7fzMeDyGb4jpNGphXZ3cGQGBEb1MW8sABrQViDo4zr8h'}}
+            </view>
+          </view>
         </view>
       </view>
+    </view>
+    <view class="v-card">
+      <!-- <view class="v-card__title v-flex-col">
+      </view> -->
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
         <view class="inner-box">
@@ -21,7 +32,7 @@
   <view class="vp-footer">
     <view class="v-inner v-flex-row footer-btns">
       <view class="v-btn-wrap">
-        <l-button size="long" height="80">分享</l-button>
+        <l-button size="long" height="80" bind:lintap="shareHandle">分享</l-button>
       </view>
       <view class="v-btn-wrap">
         <l-button size="long" height="80" bgColor="#0C123D" bind:lintap="download">保存</l-button>

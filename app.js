@@ -19,8 +19,6 @@ App({
     this.bindHelper();
     const webox = this.checkAndInitWebox();
 
-    //
-
     // //has initialized verify
 
     const safeWallet = wx.getStorageSync(storeCnsts.WALLET_V3_OKEY);

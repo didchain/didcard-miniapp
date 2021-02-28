@@ -4,6 +4,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nickname: '',
+    did: '',
     checked: false,
     fingerSupport: false,
     facialSupport: false,
@@ -57,7 +59,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    if (wx.$webox.hasWallet()) {
+      this.setData({ did: wx.$webox.getSafeWallet().did });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -83,4 +89,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  openSettingHandle: function () {
+    wx.navigateTo({
+      url: '/pages/wcenter/settings/index',
+    });
+  },
 });

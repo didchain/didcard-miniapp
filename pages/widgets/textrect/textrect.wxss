@@ -22,5 +22,6 @@
 
 .vtext-rect .vtext > span {
   font-weight: 500;
-  line-height: 36rpx;
+  line-height: 32rpx;
+  word-break: break-all;
 }

@@ -3,7 +3,11 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    showToast: false,
+    toastTitle: '易身份导入成功',
+    toastImage: '/images/import_success.png',
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -44,4 +48,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  impQRHandle: function () {
+    const that = this;
+    wx.scanCode({
+      onlyFromCamera: false,
+      scanType: ['qrCode'],
+      success: function (res) {
+        console.log('result', res, that.setData);
+        that.setData({ showToast: true });
+      },
+      fail: function (e) {
+        console.log(e);
+      },
+    });
+  },
 });

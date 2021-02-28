@@ -1,7 +1,50 @@
 <!--pages/wcenter/settings/index.wxml-->
 <l-message top="{{20}}"></l-message>
 <l-toast />
-<view class="v-container">
-  <view class="vp-main vpx-12">Hello</view>
+
+<view class="v-container vp-set-h100">
+  <view class="vp-main vpx-12">
+
+  </view>
+
+  <button open-type="contact" bindcontact="contactCallbackHandle" class="v-btnext" size="long">
+    <view class="v-btn--inner">
+      <view class="v-btnext--title">客服</view>
+      <view class="v-btnext-icon">
+        <view class="vicon-arrow-right"></view>
+      </view>
+    </view>
+    <view class="v-btnext-inset"></view>
+  </button>
+  <button class="v-btnext" size="long">
+    <view class="v-btn--inner">
+      <view class="v-btnext--title">意见反馈</view>
+      <view class="v-btnext-icon">
+        <view class="vicon-arrow-right"></view>
+      </view>
+    </view>
+    <view class="v-btnext-inset"></view>
+  </button>
+  <button class="v-btnext" size="long">
+    <view class="v-btn--inner">
+      <view class="v-btnext--title">关于我们</view>
+      <view class="v-btnext-icon">
+        <view class="vicon-arrow-right"></view>
+      </view>
+    </view>
+    <view class="v-btnext-inset"></view>
+  </button>
+  <button class="v-btnext" size="long">
+    <view class="v-btn--inner">
+      <view class="v-btnext--title">帮助</view>
+      <view class="v-btnext-icon">
+        <view class="vicon-arrow-right"></view>
+      </view>
+    </view>
+    <view class="v-btnext-inset"></view>
+  </button>
+
+
+
   <view class="vp-footer vpx-12"></view>
 </view>
