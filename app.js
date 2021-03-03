@@ -17,6 +17,7 @@ App({
   onLaunch() {
     // bind wx
     this.bindHelper();
+    this.initSystemInfo();
     const webox = this.checkAndInitWebox();
 
     // //has initialized verify
@@ -103,16 +104,32 @@ App({
       fail: (e) => {},
     });
   },
+  initSystemInfo: function () {
+    var that = this;
+    wx.getSystemInfo({
+      success: function (e) {
+        var a = e.model;
+        if (a.indexOf('iPhone') != -1 && a.indexOf('X') != -1) {
+          //是不是包含iphoneX
+          that.globalData.isIphoneX = true;
+        } else {
+          that.globalData.isIphoneX = false;
+        }
+      },
+    });
+  },
 
   /**
    *
    */
   globalData: {
+    isIphoneX: false,
     scopeULocAuthed: false,
     [storeCnsts.KEYPAIR_OKEY]: null, //keypair
     [storeCnsts.WALLET_V3_OKEY]: null, //safWallet
     userInfo: null,
     externalUrl: 'https://wechat.baschain.cn/test.html',
+    tmpScanData: '',
   },
   /** private methods */
   bindHelper() {

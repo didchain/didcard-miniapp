@@ -4,7 +4,10 @@
     style="{{height?'line-height:'+height+'rpx;height:'+height+'rpx;':''}}{{plain?'color:'+fontColor+';border-color:'+fontColor:'background-color:'+bgColor+';color:'+fontColor}}"
     mut-bind:tap="handleTap"
   >
-    <view class="{{location==='left'?'content':'content-l'}}" style="{{iconName?'line-height:0':''}}">
+    <view
+      class="{{location==='left'?'content':'content-l'}}"
+      style="{{iconName?'line-height:0':''}}"
+    >
       <l-icon
         wx:if="{{icon}}"
         style="{{location==='left'?'margin-right:5rpx':'margin-left:5rpx'}}"

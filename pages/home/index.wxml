@@ -5,9 +5,7 @@
       <view class="app-title"><span>{{appTitle}}</span></view>
       <view class="sub-title text-dark--light">{{subtitle}}</view>
       <view class="did-warp">
-        <view class="did-text">
-          {{did}}
-        </view>
+        <view class="did-text"> {{did}} </view>
       </view>
     </view>
   </view>
@@ -21,8 +19,17 @@
           </view>
           <view wx:if="{{!opened}}" class="locked-desc">
             <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback" class="v-auth-btn">点击授权</button> -->
-            <button open-type="openSetting" wx:if="{{!hasLocationPermission}}" bindgetuserinfo="getUserInfoCallback"  class="v-auth-btn">{{noLocationAuthTips}}</button>
-            <button  wx:if="{{hasLocationPermission}}" bindtap="showModalHandle"  class="v-auth-btn">{{lockedTips}}</button>
+            <button
+              open-type="openSetting"
+              wx:if="{{!hasLocationPermission}}"
+              bindgetuserinfo="getUserInfoCallback"
+              class="v-auth-btn"
+            >
+              {{noLocationAuthTips}}
+            </button>
+            <button wx:if="{{hasLocationPermission}}" bindtap="showModalHandle" class="v-auth-btn">
+              {{lockedTips}}
+            </button>
           </view>
           <view wx:if="{{opened}}" class="qrcode-did">
             <view class="qrcode-show-box">
@@ -35,7 +42,7 @@
         </view>
       </view>
       <view class="bottom-desc text-dark--light" bindtap="reDrawQrcodeHandle">
-          {{qrcodeTips}}
+        {{qrcodeTips}}
       </view>
     </view>
   </view>
@@ -51,7 +58,11 @@
       <view class="v-card__body v-flex-row">
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image class="image-region" mode="aspectFit" src="{{'/images/icons/notice_icon.png'}}"></image>
+            <image
+              class="image-region"
+              mode="aspectFit"
+              src="{{'/images/icons/notice_icon.png'}}"
+            ></image>
           </view>
           <view class="region-line region-text">
             <text bindtap="testNavHandle">公告</text>
@@ -59,7 +70,11 @@
         </view>
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hospital_icon.png'}}"></image>
+            <image
+              class="image-region"
+              mode="aspectFit"
+              src="{{'/images/icons/hospital_icon.png'}}"
+            ></image>
           </view>
           <view class="region-text">
             <text>挂号预约</text>
@@ -67,7 +82,11 @@
         </view>
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hotel_icon.png'}}"></image>
+            <image
+              class="image-region"
+              mode="aspectFit"
+              src="{{'/images/icons/hotel_icon.png'}}"
+            ></image>
           </view>
 
           <view class="region-text">
@@ -80,24 +99,37 @@
 </view>
 
 <view class="canvas-box">
-  <canvas style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas" />
+  <canvas style="width: 686rpx; height: 686rpx; background: #f1f1f1" canvas-id="mycanvas" />
 </view>
 
+<!-- <v-tabbar tabbar="{{tabbar}}" bindtap="tabbarHandle"></v-tabbar> -->
 <!-- Modal Box -->
 <view class="v-modal-mask" wx:if="{{!modalHide}}" bindtap="hideModalHandle"></view>
 <view class="v-modal-box" wx:if="{{!modalHide}}">
   <view class="modal-inner">
-    <view class="modal-title">
-      请输入密码
-    </view>
+    <view class="modal-title"> 请输入密码 </view>
     <view class="v-modal-form">
       <view class="v-input">
-        <input type="text" name="auth" model:value="{{auth}}" bindinput="setAuth" placeholder="请输入密码"/>
+        <input
+          type="text"
+          name="auth"
+          model:value="{{auth}}"
+          bindinput="setAuth"
+          placeholder="请输入密码"
+        />
       </view>
     </view>
     <view class="v-modal-actions">
       <!-- <button type="warn" bindtap="openWalletHandle" class="v-btn-warn">解锁</button> -->
-      <l-button size="long" bind:lintap="openWalletHandle" l-class="open-btn" disabled="{{!auth}}" type="warning" style="color:#0C123D;">解锁</l-button>
+      <l-button
+        size="long"
+        bind:lintap="openWalletHandle"
+        l-class="open-btn"
+        disabled="{{!auth}}"
+        type="warning"
+        style="color: #0c123d"
+        >解锁</l-button
+      >
     </view>
   </view>
 </view>

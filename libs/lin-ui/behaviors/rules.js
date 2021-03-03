@@ -38,7 +38,9 @@ export default Behavior({
         }),
         this.data.schema.validate(t, (t) => {
           if (
-            (this.setData({ errors: t || [] }), this.triggerEvent('linvalidate', { errors: t, isError: !!t }), t && a)
+            (this.setData({ errors: t || [] }),
+            this.triggerEvent('linvalidate', { errors: t, isError: !!t }),
+            t && a)
           ) {
             const e = r[a],
               i = s[a];

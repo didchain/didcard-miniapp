@@ -33,7 +33,9 @@ Page({
     drawQrcode(options);
   },
   redraw() {
-    const options = Object.assign({}, qrOpts, { text: this.data.xqs[this.data.index] + new Date().getTime() });
+    const options = Object.assign({}, qrOpts, {
+      text: this.data.xqs[this.data.index] + new Date().getTime(),
+    });
     drawQrcode(options);
   },
   download() {
@@ -70,7 +72,7 @@ Page({
     console.log(detail);
     const idx = detail.value ? parseInt(detail.value) : 0;
     this.setData({ index: idx });
-    this.redraw()
+    this.redraw();
   },
   /** Methods End */
   /**

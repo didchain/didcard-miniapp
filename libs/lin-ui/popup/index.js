@@ -8,7 +8,11 @@ Component({
     show: { type: Boolean, value: !1 },
     animation: { type: Boolean, value: !0 },
     transition: { type: Boolean, value: null },
-    contentAlign: { type: String, value: 'center', options: ['top', 'right', 'left', 'bottom', 'center'] },
+    contentAlign: {
+      type: String,
+      value: 'center',
+      options: ['top', 'right', 'left', 'bottom', 'center'],
+    },
     direction: { type: String, value: null, options: ['top', 'right', 'left', 'bottom', 'center'] },
     locked: { type: Boolean, value: !1 },
   },
@@ -25,7 +29,12 @@ Component({
     _init() {
       (wx.lin = wx.lin || {}),
         (wx.lin.showPopup = (t) => {
-          const { zIndex: e = 99, animation: o = !0, contentAlign: i = 'center', locked: a = !1 } = { ...t };
+          const {
+            zIndex: e = 99,
+            animation: o = !0,
+            contentAlign: i = 'center',
+            locked: a = !1,
+          } = { ...t };
           this.setData({ zIndex: e, animation: o, contentAlign: i, locked: a, show: !0 });
         }),
         (wx.lin.hidePopup = () => {

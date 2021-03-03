@@ -17,7 +17,14 @@
   <view wx:else class="v-sheet">
     <view class="v-row-item">
       <l-form-item nopadding="{{true}}" name="password" tipType="message">
-        <l-input type="password" id="creatorPassword" hide-label model:value="{{password}}" placeholder="输入密码" showEye>
+        <l-input
+          type="password"
+          id="creatorPassword"
+          hide-label
+          model:value="{{password}}"
+          placeholder="输入密码"
+          showEye
+        >
         </l-input>
       </l-form-item>
     </view>

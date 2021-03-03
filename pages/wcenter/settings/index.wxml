@@ -3,9 +3,7 @@
 <l-toast />
 
 <view class="v-container vp-set-h100">
-  <view class="vp-main vpx-12">
-
-  </view>
+  <view class="vp-main vpx-12"> </view>
 
   <button open-type="contact" bindcontact="contactCallbackHandle" class="v-btnext" size="long">
     <view class="v-btn--inner">
@@ -43,8 +41,6 @@
     </view>
     <view class="v-btnext-inset"></view>
   </button>
-
-
 
   <view class="vp-footer vpx-12"></view>
 </view>

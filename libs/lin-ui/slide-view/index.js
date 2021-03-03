@@ -48,7 +48,9 @@ Component({
             ? (this.setData({ x: -this._slideWidth, popup: !0, close: !1 }), this.onOpenTap())
             : (i - e < s && i - e > 0 && !0 !== this.data.popup) || e - i >= s
             ? (this.setData({ x: 0 }), this.onCloseTap())
-            : e - i < s && e - i > 0 && (this.setData({ x: -this._slideWidth, close: !1 }), this.onOpenTap()));
+            : e - i < s &&
+              e - i > 0 &&
+              (this.setData({ x: -this._slideWidth, close: !1 }), this.onOpenTap()));
     },
     onChange(t) {
       !this.data.out && t.detail.x < -this._threshold

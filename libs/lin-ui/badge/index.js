@@ -28,11 +28,16 @@ Component({
         case 'overflow':
           this.setData({
             finalCount:
-              Number(this.data.value) > Number(this.data.maxCount) ? this.data.maxCount + '+' : this.data.value,
+              Number(this.data.value) > Number(this.data.maxCount)
+                ? this.data.maxCount + '+'
+                : this.data.value,
           });
           break;
         case 'ellipsis':
-          this.setData({ finalCount: Number(this.data.value) > Number(this.data.maxCount) ? '...' : this.data.value });
+          this.setData({
+            finalCount:
+              Number(this.data.value) > Number(this.data.maxCount) ? '...' : this.data.value,
+          });
           break;
         case 'limit':
           this.setData({

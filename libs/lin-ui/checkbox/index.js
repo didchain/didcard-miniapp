@@ -28,7 +28,11 @@ Component({
       if (this.properties.checked) {
         if (this.isOverflow('minSelected')) return;
       } else if (this.isOverflow('maxSelected')) return;
-      const t = { checked: !this.properties.checked, key: this.properties.key, cell: this.properties.cell };
+      const t = {
+        checked: !this.properties.checked,
+        key: this.properties.key,
+        cell: this.properties.cell,
+      };
       e && e.onEmitEventHandle(t);
     },
     isOverflow(e) {
@@ -40,7 +44,11 @@ Component({
       if (o) {
         let i = 'minSelected' === e ? 'min_selected' : 'max_selected';
         t.onEmitOverflowHandle &&
-          t.onEmitOverflowHandle({ key: this.properties.key, limitNumber: l, type: 'overflow_' + i });
+          t.onEmitOverflowHandle({
+            key: this.properties.key,
+            limitNumber: l,
+            type: 'overflow_' + i,
+          });
       }
       return o;
     },

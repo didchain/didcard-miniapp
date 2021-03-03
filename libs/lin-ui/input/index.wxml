@@ -3,14 +3,22 @@
   style="width:{{width===null?'auto':width+'rpx'}}"
 >
   <view class="mask" wx:if="{{disabled}}"></view>
-  <view class="row l-row-class" hidden="{{ showRow ? '' : 'hidden' }}" style="width:{{width}}rpx;"></view>
+  <view
+    class="row l-row-class"
+    hidden="{{ showRow ? '' : 'hidden' }}"
+    style="width:{{width}}rpx;"
+  ></view>
   <view
     wx:if="{{label && !labelCustom}}"
     hidden="{{hideLabel}}"
     class="form-label l-label-class form-label-{{labelLayout}}"
     style='{{labelLayout !== "top" ? "width:"+ labelWidth+ "rpx;" : "" }} height:{{labelLayout=== "top" ? labelWidth + "rpx" : "" }}'
   >
-    <text><text class="text-require" wx:if="{{required}}">* </text>{{label}}<text wx:if="{{colon}}">：</text> </text>
+    <text
+      ><text class="text-require" wx:if="{{required}}">* </text>{{label}}<text wx:if="{{colon}}"
+        >：</text
+      >
+    </text>
   </view>
   <view
     wx:else
@@ -53,12 +61,22 @@
     bindblur="handleInputBlur"
     bindconfirm="handleInputConfirm"
   />
-  <l-icon wx:if="{{showEye&&value}}" name="eye" catch:tap="onTapEyeIcon" size="40" l-class="l-eye l-eye-{{type}}" />
+  <l-icon
+    wx:if="{{showEye&&value}}"
+    name="eye"
+    catch:tap="onTapEyeIcon"
+    size="40"
+    l-class="l-eye l-eye-{{type}}"
+  />
   <view class="close" wx:if="{{clear&&value}}" mut-bind:tap="onClearTap">
     <view class="close-icon">
       <l-icon name="close" color="#fff" size="16" />
     </view>
   </view>
   <slot name="right" />
-  <l-error-tip l-error-text-class="l-error-text l-error-text-class" errorText="{{errorText}}" wx:if="{{errorText}}" />
+  <l-error-tip
+    l-error-text-class="l-error-text l-error-text-class"
+    errorText="{{errorText}}"
+    wx:if="{{errorText}}"
+  />
 </label>

@@ -18,6 +18,9 @@ function range(e, l, n, m, t) {
       ? m.push(util.format(t.messages[f].min, e.fullField, e.min))
       : a && !r && s > e.max
       ? m.push(util.format(t.messages[f].max, e.fullField, e.max))
-      : r && a && (s < e.min || s > e.max) && m.push(util.format(t.messages[f].range, e.fullField, e.min, e.max));
+      : r &&
+        a &&
+        (s < e.min || s > e.max) &&
+        m.push(util.format(t.messages[f].range, e.fullField, e.min, e.max));
 }
 export default range;

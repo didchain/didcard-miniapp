@@ -12,7 +12,8 @@ function Schema(e) {
     if (!e) throw new Error('Cannot configure a schema with no rules');
     if ('object' != typeof e || Array.isArray(e)) throw new Error('Rules must be an object');
     let t, s;
-    for (t in ((this.rules = {}), e)) e.hasOwnProperty(t) && ((s = e[t]), (this.rules[t] = Array.isArray(s) ? s : [s]));
+    for (t in ((this.rules = {}), e))
+      e.hasOwnProperty(t) && ((s = e[t]), (this.rules[t] = Array.isArray(s) ? s : [s]));
   },
   validate(e, t = {}, s) {
     let r,
@@ -20,7 +21,10 @@ function Schema(e) {
       o = e,
       i = t,
       n = s;
-    if (('function' == typeof i && ((n = i), (i = {})), !this.rules || 0 === Object.keys(this.rules).length))
+    if (
+      ('function' == typeof i && ((n = i), (i = {})),
+      !this.rules || 0 === Object.keys(this.rules).length)
+    )
       return void (n && n());
     if (i.messages) {
       let e = this.messages();
@@ -32,13 +36,15 @@ function Schema(e) {
         (a = o[t]),
         r.forEach((s) => {
           let r = s;
-          'function' == typeof r.transform && (o === e && (o = { ...o }), (a = o[t] = r.transform(a))),
+          'function' == typeof r.transform &&
+            (o === e && (o = { ...o }), (a = o[t] = r.transform(a))),
             (r = 'function' == typeof r ? { validator: r } : { ...r }),
             (r.validator = this.getValidationMethod(r)),
             (r.field = t),
             (r.fullField = r.fullField || t),
             (r.type = this.getType(r)),
-            r.validator && ((l[t] = l[t] || []), l[t].push({ rule: r, value: a, source: o, field: t }));
+            r.validator &&
+              ((l[t] = l[t] || []), l[t].push({ rule: r, value: a, source: o, field: t }));
         });
     });
     const f = {};
@@ -75,7 +81,8 @@ function Schema(e) {
                 t(n)
               );
             let r = {};
-            if (s.defaultField) for (const t in e.value) e.value.hasOwnProperty(t) && (r[t] = s.defaultField);
+            if (s.defaultField)
+              for (const t in e.value) e.value.hasOwnProperty(t) && (r[t] = s.defaultField);
             r = { ...r, ...e.rule.fields };
             for (const e in r)
               if (r.hasOwnProperty(e)) {
@@ -84,7 +91,8 @@ function Schema(e) {
               }
             const o = new Schema(r);
             o.messages(i.messages),
-              e.rule.options && ((e.rule.options.messages = i.messages), (e.rule.options.error = i.error)),
+              e.rule.options &&
+                ((e.rule.options.messages = i.messages), (e.rule.options.error = i.error)),
               o.validate(e.value, e.rule.options || i, (e) => {
                 t(e && e.length ? n.concat(e) : e);
               });
@@ -105,9 +113,11 @@ function Schema(e) {
             s,
             r = [],
             a = {};
-          for (t = 0; t < e.length; t++) (o = e[t]), Array.isArray(o) ? (r = r.concat.apply(r, o)) : r.push(o);
+          for (t = 0; t < e.length; t++)
+            (o = e[t]), Array.isArray(o) ? (r = r.concat.apply(r, o)) : r.push(o);
           var o;
-          if (r.length) for (t = 0; t < r.length; t++) (s = r[t].field), (a[s] = a[s] || []), a[s].push(r[t]);
+          if (r.length)
+            for (t = 0; t < r.length; t++) (s = r[t].field), (a[s] = a[s] || []), a[s].push(r[t]);
           else (r = null), (a = null);
           n(r, a);
         })(e);
@@ -128,12 +138,15 @@ function Schema(e) {
       s = t.indexOf('message');
     return (
       -1 !== s && t.splice(s, 1),
-      1 === t.length && 'required' === t[0] ? validators.required : validators[this.getType(e)] || !1
+      1 === t.length && 'required' === t[0]
+        ? validators.required
+        : validators[this.getType(e)] || !1
     );
   },
 }),
   (Schema.register = function (e, t) {
-    if ('function' != typeof t) throw new Error('Cannot register a validator by type, validator is not a function');
+    if ('function' != typeof t)
+      throw new Error('Cannot register a validator by type, validator is not a function');
     validators[e] = t;
   }),
   (Schema.messages = defaultMessages);

@@ -2,6 +2,7 @@
 import { promisifyAll, promisify } from 'miniprogram-api-promise';
 import { APP_NAME, storeCnsts } from '../../config/app-cnst';
 import { helper, tools } from '@wecrpto/weaccount';
+import { tabbar } from '../../utils/tabbar';
 const { buildSignData, appendSignature } = require('../../utils/util');
 //see https://github.com/demi520/wxapp-qrcode
 const QR = require('../../libs/qrcode/weqrcode');
@@ -27,6 +28,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tabbar,
     precheckLocationed: false,
     appTitle: APP_NAME,
     subtitle: '身份证号:',
@@ -107,8 +109,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
+    this.showCustTabbar(0);
     const that = this;
     that.initPageData();
+  },
+  showCustTabbar: function (idx = 0) {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: idx,
+      });
+    }
   },
   initPageData: async function () {
     const webox = wx.$webox;
@@ -126,7 +136,7 @@ Page({
 
       //draw QRcode
       const size = this.setCanvasSize();
-      console.log('W>>>>>>>>', qrcodeText);
+      // console.log('W>>>>>>>>', qrcodeText);
       this.setData({ opened: true });
       QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
     } catch (err) {
@@ -245,12 +255,6 @@ Page({
       throw { errCode: 'ERR_OPEN_SETTINGS' };
     }
   },
-  getUserInfoCallback: function (data) {
-    console.log('getUserInfoCallback>>>', data);
-  },
-  getUserInfo: async function () {
-    const settings = await promisify(wx.getSetting)();
-  },
   checkUserAuth: function () {
     wx.getSetting({
       success: async (res) => {
@@ -259,7 +263,7 @@ Page({
             const uRes = await wxp.getUserInfo({
               lang: 'en',
             });
-            console.log('>>>>>>>>>>>>>>>', uRes);
+            // console.log('>>>>>>>>>>>>>>>', uRes);
             app.globalData.userInfo = uRes.userInfo;
           } catch (error) {
             wx.showToast({
@@ -317,7 +321,7 @@ Page({
       const qrcodeText = await this.builddrawQrcodeText(latitude, longitude, auth);
       // TODO Draw QRcode
       const size = this.setCanvasSize();
-      console.log('W>>>>>>>>', qrcodeText, size);
+      // console.log('W>>>>>>>>', qrcodeText, size);
       QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, this, this.canvasToTempImage);
 
       this.setData({ opened: true });
@@ -325,7 +329,7 @@ Page({
 
       // this.
     } catch (e) {
-      console.log('openWalletHandle>>>>>>>', e);
+      // console.log('openWalletHandle>>>>>>>', e);
       // throw err;
       if (e && e.errCode) {
         wx.showToast({
@@ -384,7 +388,7 @@ Page({
 
       return JSON.stringify(qrcodeData);
     } catch (e) {
-      console.log('builddrawQrcode>>>>', e);
+      // console.log('builddrawQrcode>>>>', e);
       throw { errCode: 'PWD_INCORRECT' };
     }
   },
@@ -406,6 +410,7 @@ Page({
       const signature = helper.signMessage(plaintext, pk);
 
       const qrcodeData = appendSignature(signData, signature);
+      console.log('signature>>>>', signature);
 
       return JSON.stringify(qrcodeData);
     } catch (err) {
@@ -414,8 +419,8 @@ Page({
   },
 
   testNavHandle: function () {
-    wx.navigateTo({
-      url: '/pages/creator/backup/backup',
-    });
+    // wx.navigateTo({
+    //   url: '/pages/creator/backup/backup',
+    // });
   },
 });

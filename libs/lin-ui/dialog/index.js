@@ -4,7 +4,14 @@ import hover from '../behaviors/hover';
 import validator from '../behaviors/validator';
 Component({
   behaviors: [computeOffset, zIndex, hover, validator],
-  externalClasses: ['l-class', 'l-title-class', 'l-content-class', 'l-confirm-class', 'l-cancel-class', 'l-bg-class'],
+  externalClasses: [
+    'l-class',
+    'l-title-class',
+    'l-content-class',
+    'l-confirm-class',
+    'l-cancel-class',
+    'l-bg-class',
+  ],
   properties: {
     show: { type: Boolean, value: !1 },
     type: { type: String, value: 'alert', options: ['alert', 'confirm'] },

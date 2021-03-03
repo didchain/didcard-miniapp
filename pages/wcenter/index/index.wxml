@@ -4,7 +4,11 @@
     <view class="vp-headder--title">
       <view class="inner-title">我的</view>
       <view class="inner-icon">
-        <image bindtap="openSettingHandle" src="/images/icons/se_icon.png" style="width:44rpx;height:44rpx;"></image>
+        <image
+          bindtap="openSettingHandle"
+          src="/images/icons/se_icon.png"
+          style="width: 44rpx; height: 44rpx"
+        ></image>
       </view>
     </view>
 
@@ -16,7 +20,6 @@
 
         <vbtn-bar label="" vurl="/pages/authorization/index/index">授权他人</vbtn-bar>
       </view>
-
     </view>
   </view>
 
@@ -35,12 +38,27 @@
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
         <v-list title="身份管理" url="{{'/pages/manager/index'}}" linkType="navigateTo"></v-list>
-        <v-list title="免密" linkType="navigateTo" bind:lintap="gotoInternalUrl" data-url="/pages/wcenter/settings/index">
+        <v-list
+          title="免密"
+          linkType="navigateTo"
+          bind:lintap="gotoInternalUrl"
+          data-url="/pages/wcenter/settings/index"
+        >
         </v-list>
-        <v-list wx:if="{{fingerSupport}}" title="指纹识别" isLink="{{false}}" bottomLine="{{false}}">
+        <v-list
+          wx:if="{{fingerSupport}}"
+          title="指纹识别"
+          isLink="{{false}}"
+          bottomLine="{{false}}"
+        >
           <view slot="right-section">
-            <switch bindchange="toggleFinger" class="v-switch" checked="{{checked}}"
-              color="{{checked ? '#0C123D' :'#F8F8F9'}}" type="switch">
+            <switch
+              bindchange="toggleFinger"
+              class="v-switch"
+              checked="{{checked}}"
+              color="{{checked ? '#0C123D' :'#F8F8F9'}}"
+              type="switch"
+            >
             </switch>
           </view>
         </v-list>

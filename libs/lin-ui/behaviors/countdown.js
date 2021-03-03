@@ -68,7 +68,9 @@ export default Behavior({
             ? console.error(`countdownType为${n}类型时，不可设置timeType值为second`)
             : ((s = 'string' == typeof t ? s.replace(/-/g, '/') : s),
               (s = Math.ceil((new Date().getTime() - new Date(s).getTime()) / 1e3)),
-              s >= 0 ? (this.getLatestForCountDown(s), this.init.call(this)) : console.error('time传值错误'))
+              s >= 0
+                ? (this.getLatestForCountDown(s), this.init.call(this))
+                : console.error('time传值错误'))
           : console.error('错误的countdownType类型');
     },
     getLatestForAddTime(t) {
@@ -76,7 +78,8 @@ export default Behavior({
       e !== Math.abs(t) && (e++, this._getTimeValue(e), this.setData({ initAddTime: e }));
     },
     getLatestForCountDown(t) {
-      this._getTimeValue(t), this.setData({ time: 'second' === this.data.timeType ? --t : this.data.time });
+      this._getTimeValue(t),
+        this.setData({ time: 'second' === this.data.timeType ? --t : this.data.time });
     },
     _getTimeValue(t) {
       const { format: e } = this.data,

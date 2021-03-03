@@ -34,7 +34,10 @@
     max-count="{{badgeMaxCount}}"
     number-type="{{badgeCountType}}"
   >
-    <template is="cell-right-main" data="{{rightDesc,tagContent,tagPosition,isLink,tagColor,tagShape,tagPlain}}" />
+    <template
+      is="cell-right-main"
+      data="{{rightDesc,tagContent,tagPosition,isLink,tagColor,tagShape,tagPlain}}"
+    />
   </l-badge>
   <template
     is="cell-right-main"

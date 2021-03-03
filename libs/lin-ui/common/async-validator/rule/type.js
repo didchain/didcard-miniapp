@@ -20,7 +20,10 @@ const pattern = {
         return !1;
       }
     },
-    date: (e) => 'function' == typeof e.getTime && 'function' == typeof e.getMonth && 'function' == typeof e.getYear,
+    date: (e) =>
+      'function' == typeof e.getTime &&
+      'function' == typeof e.getMonth &&
+      'function' == typeof e.getYear,
     number: (e) => !isNaN(e) && '' !== e,
     object: (e) => 'object' == typeof e && !types.array(e),
     method: (e) => 'function' == typeof e,
@@ -31,7 +34,19 @@ const pattern = {
 function type(e, t, r, a, f) {
   if (e.required && void 0 === t) return void required(e, t, r, a, f);
   const p = e.type;
-  ['integer', 'float', 'array', 'regexp', 'object', 'method', 'email', 'number', 'date', 'url', 'hex'].indexOf(p) > -1
+  [
+    'integer',
+    'float',
+    'array',
+    'regexp',
+    'object',
+    'method',
+    'email',
+    'number',
+    'date',
+    'url',
+    'hex',
+  ].indexOf(p) > -1
     ? types[p](t) || a.push(util.format(f.messages.types[p], e.fullField, e.type))
     : p && typeof t !== e.type && a.push(util.format(f.messages.types[p], e.fullField, e.type));
 }

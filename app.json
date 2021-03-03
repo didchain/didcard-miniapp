@@ -17,15 +17,12 @@
     "pages/qrcodeshow/index/index",
     "pages/creator/scaner/index",
     "pages/test/nacl/generator",
-    "pages/test/qrcode/index"
+    "pages/test/qrcode/index",
+    "pages/scan/scan",
+    "pages/scan/scanok/index"
   ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "易ID",
-    "navigationBarTextStyle": "black"
-  },
   "tabBar": {
+    "custom": true,
     "color": "rgba(12, 18, 61, 1)",
     "selectedColor": "#F6C330",
     "borderStyle": "white",
@@ -38,10 +35,11 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/midoperator/index",
+        "pagePath": "pages/scan/scan",
         "iconPath": "images/nav/Qr_tab_icon@3x.png",
         "selectedIconPath": "images/nav/Qr_tab_icon@3x.png",
-        "text": ""
+        "text": "",
+        "tabtype": "scanCode"
       },
       {
         "pagePath": "pages/wcenter/index/index",
@@ -50,6 +48,12 @@
         "text": "我的"
       }
     ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "易ID",
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "useExtendedLib": {

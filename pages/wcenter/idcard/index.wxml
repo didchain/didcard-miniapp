@@ -11,9 +11,7 @@
             <label>{{'易ID号'}}</label>
           </view>
           <view class="content-rect">
-            <view class="v-text">
-              {{'did7fzMeDyGb4jpNGphXZ3cGQGBEb1MW8sABrQViDo4zr8h'}}
-            </view>
+            <view class="v-text"> {{did}} </view>
           </view>
         </view>
       </view>

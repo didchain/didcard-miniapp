@@ -1,4 +1,8 @@
-<view class="container {{mask?'containerShowMask':'containerNoMask'}}" hidden="{{!status}}" style="z-index:{{zIndex}}">
+<view
+  class="container {{mask?'containerShowMask':'containerNoMask'}}"
+  hidden="{{!status}}"
+  style="z-index:{{zIndex}}"
+>
   <view class="l-bg-class toast-bg" wx:if="{{mask}}"></view>
   <view
     class="l-class toast toast-{{placement || 'bottom'}}"

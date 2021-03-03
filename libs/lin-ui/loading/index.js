@@ -8,7 +8,11 @@ Component({
     opacity: { type: String, value: '1' },
     bgColor: String,
     zIndex: { type: String, value: '776' },
-    type: { type: String, value: 'rotate', options: ['flash', 'flip', 'change', 'rotate', 'circle'] },
+    type: {
+      type: String,
+      value: 'rotate',
+      options: ['flash', 'flip', 'change', 'rotate', 'circle'],
+    },
     color: { type: String, value: '' },
     size: { type: String, value: 'medium' },
     custom: Boolean,
@@ -34,7 +38,15 @@ Component({
             size: s = 'medium',
             opacity: l = '1',
           } = { ...e };
-          this.setData({ custom: t, fullScreen: o, color: i, type: a, size: s, opacity: l, show: !0 });
+          this.setData({
+            custom: t,
+            fullScreen: o,
+            color: i,
+            type: a,
+            size: s,
+            opacity: l,
+            show: !0,
+          });
         }),
         (wx.lin.hideLoading = () => {
           this.setData({ show: !1 });

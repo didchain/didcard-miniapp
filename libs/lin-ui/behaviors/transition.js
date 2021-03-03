@@ -40,7 +40,9 @@ export default (e) =>
             })
             .then(nextTick)
             .then(() => {
-              this.checkStatus('enter'), (this.transitionEnded = !1), this.setData({ classes: s['enter-to'] });
+              this.checkStatus('enter'),
+                (this.transitionEnded = !1),
+                this.setData({ classes: s['enter-to'] });
             })
             .catch(() => {});
       },

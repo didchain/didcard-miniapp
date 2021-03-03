@@ -91,7 +91,9 @@ export function asyncMap(t, e, r, n) {
 }
 export function complementError(t) {
   return (e) =>
-    e && e.message ? ((e.field = e.field || t.fullField), e) : { message: e, field: e.field || t.fullField };
+    e && e.message
+      ? ((e.field = e.field || t.fullField), e)
+      : { message: e, field: e.field || t.fullField };
 }
 export function deepMerge(t, e) {
   if (e)

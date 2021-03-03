@@ -22,7 +22,14 @@
         </l-input>
       </lv-form-item>
       <lv-form-item name="confirm" tipType="message">
-        <l-input type="password" id="confirm" hide-label model:value="{{confirm}}" placeholder="再次输入" showEye>
+        <l-input
+          type="password"
+          id="confirm"
+          hide-label
+          model:value="{{confirm}}"
+          placeholder="再次输入"
+          showEye
+        >
         </l-input>
       </lv-form-item>
       <lv-form-item slot="submit">

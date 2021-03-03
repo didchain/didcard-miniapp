@@ -32,7 +32,9 @@ export default Behavior({
       const { placement: e, currentIndex: t } = this.data;
       this.getRect('.l-tabs-item', !0)
         .then((r) => {
-          -1 !== ['top', 'bottom'].indexOf(e) ? this.queryScrollNode(r, t) : this.queryScrollNode(r, t, 'height');
+          -1 !== ['top', 'bottom'].indexOf(e)
+            ? this.queryScrollNode(r, t)
+            : this.queryScrollNode(r, t, 'height');
         })
         .catch((e) => {
           console.error(e);

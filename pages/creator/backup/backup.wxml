@@ -10,9 +10,8 @@
     </view>
     <view class="v-spacer-row-24"></view>
     <view class="tips-text-warp">
-
       <view class="tips-row">
-        <p class="tip-text  tip-prefix">删除APP</p>
+        <p class="tip-text tip-prefix">删除APP</p>
       </view>
       <view class="tips-row">
         <p class="tip-text">无密码</p>
@@ -23,7 +22,6 @@
       <view class="tips-row">
         <p class="tip-text">无法找回</p>
       </view>
-
     </view>
 
     <view class="v-spacer-row-shrink"></view>
@@ -40,5 +38,5 @@
   </view>
 </view>
 <view class="export-box-hide">
-  <canvas style="width: 500px;height: 500px;background:#f1f1f1;" canvas-id="expDidCanvas" />
+  <canvas style="width: 500px; height: 500px; background: #f1f1f1" canvas-id="expDidCanvas" />
 </view>

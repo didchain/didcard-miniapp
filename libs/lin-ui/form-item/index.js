@@ -1,10 +1,20 @@
 import rules from '../behaviors/rules';
 Component({
   options: { multipleSlots: !0 },
-  externalClasses: ['l-form-item-class', 'l-form-label-class', 'l-form-content-class', 'l-error-text-class'],
+  externalClasses: [
+    'l-form-item-class',
+    'l-form-label-class',
+    'l-form-content-class',
+    'l-error-text-class',
+  ],
   behaviors: [rules],
   relations: {
-    '../form/index': { type: 'parent', linked: function () {}, linkChanged: function () {}, unlinked: function () {} },
+    '../form/index': {
+      type: 'parent',
+      linked: function () {},
+      linkChanged: function () {},
+      unlinked: function () {},
+    },
   },
   properties: {
     label: String,

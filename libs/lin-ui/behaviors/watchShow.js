@@ -9,7 +9,9 @@ export default Behavior({
       this.setData({ status: !0 }),
         this.data.timer && clearTimeout(this.data.timer),
         (this.data.timer = setTimeout(() => {
-          this.setData({ status: !1 }), this.data.success && this.data.success(), (this.data.timer = null);
+          this.setData({ status: !1 }),
+            this.data.success && this.data.success(),
+            (this.data.timer = null);
         }, this.properties.duration));
     },
   },

@@ -60,8 +60,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.showCustTabbar(2);
     if (wx.$webox.hasWallet()) {
       this.setData({ did: wx.$webox.getSafeWallet().did });
+    }
+  },
+  showCustTabbar: function (idx = 0) {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: idx,
+      });
     }
   },
 

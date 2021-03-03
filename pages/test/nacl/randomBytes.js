@@ -6,5 +6,5 @@ function randomBytes(arr) {
 }
 
 module.exports = {
-  randomBytes: randomBytes
+  randomBytes: randomBytes,
 };

@@ -1,7 +1,12 @@
 import eventBus from '../core/utils/event-bus.js';
 import eventUtil from '../core/utils/event-util';
 Component({
-  externalClasses: ['l-form-container-class', 'l-form-submit-class', 'l-form-reset-class', 'l-form-btn-class'],
+  externalClasses: [
+    'l-form-container-class',
+    'l-form-submit-class',
+    'l-form-reset-class',
+    'l-form-btn-class',
+  ],
   options: { multipleSlots: !0 },
   relations: {
     '../form-item/index': {

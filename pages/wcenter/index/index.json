@@ -3,6 +3,6 @@
   "usingComponents": {
     "text-rect": "/pages/widgets/textrect/textrect",
     "text-rect-action": "/pages/widgets/textrect-action/index",
-    "vbtn-bar":"/pages/widgets/vbtn-bar/comp"
+    "vbtn-bar": "/pages/widgets/vbtn-bar/comp"
   }
 }

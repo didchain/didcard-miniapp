@@ -4,7 +4,14 @@ import rules from '../behaviors/rules';
 Component({
   options: { multipleSlots: !0 },
   behaviors: ['wx://form-field', validator, rules],
-  externalClasses: ['l-class', 'l-label-class', 'l-error-text', 'l-error-text-class', 'l-input-class', 'l-row-class'],
+  externalClasses: [
+    'l-class',
+    'l-label-class',
+    'l-error-text',
+    'l-error-text-class',
+    'l-input-class',
+    'l-row-class',
+  ],
   properties: {
     label: String,
     hideLabel: Boolean,
@@ -12,7 +19,11 @@ Component({
     showRow: { type: Boolean, value: !1 },
     required: Boolean,
     placeholder: String,
-    type: { type: String, value: 'text', options: ['text', 'idcard', 'digit', 'password', 'number'] },
+    type: {
+      type: String,
+      value: 'text',
+      options: ['text', 'idcard', 'digit', 'password', 'number'],
+    },
     value: String,
     colon: Boolean,
     focus: Boolean,
@@ -59,7 +70,9 @@ Component({
     },
     onTapEyeIcon() {
       const e = this.data.type;
-      'text' === e ? this.setData({ type: 'password' }) : 'password' === e && this.setData({ type: 'text' });
+      'text' === e
+        ? this.setData({ type: 'password' })
+        : 'password' === e && this.setData({ type: 'text' });
     },
   },
 });
