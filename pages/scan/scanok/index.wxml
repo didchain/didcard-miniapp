@@ -1,0 +1,6 @@
+<!--pages/scan/scanok/index.wxml-->
+<view class="v-container vp-full-screen">
+  <view class="v-mid-box">
+    <view class="inner-text"> {{json}} </view>
+  </view>
+</view>

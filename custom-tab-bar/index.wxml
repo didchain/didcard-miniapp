@@ -1,0 +1,21 @@
+<!--pages/widgets/vtab-bar/cust-tabbar.wxml-->
+<cover-view class="v-tabbar" style="{{isIphoneX ? 154:120}}rpx;">
+  <cover-view class="vtab-border"></cover-view>
+  <cover-view
+    wx:for="{{list}}"
+    wx:key="index"
+    class="vtab-item"
+    data-path="{{item.pagePath}}"
+    data-index="{{index}}"
+    data-tabtype="{{!item.tabtype ? false : item.tabtype}}"
+    bindtap="switchTab"
+  >
+    <cover-image
+      wx:if="{{item.tabtype != null && item.tabtype}}"
+      src="{{item.iconPath}}"
+      class="vtab-center-img"
+    ></cover-image>
+    <cover-image wx:else class="vtab-cover-img" src="{{selected === index ? item.selectedIconPath : item.iconPath}}" width="56rpx" height="56rpx"></cover-image>
+    <cover-view class="vtab-text" style="color: {{selected === index ? selectorColor : color}};">{{item.text||''}}</cover-view>
+  </cover-view>
+</cover-view>
