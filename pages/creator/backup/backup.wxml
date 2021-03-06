@@ -11,17 +11,22 @@
     <view class="v-spacer-row-24"></view>
     <view class="tips-text-warp">
       <view class="tips-row">
-        <p class="tip-text tip-prefix">删除APP</p>
+        <p class="tip-text tip-prefix">删除小程序会导致账号丢失</p>
       </view>
-      <view class="tips-row">
-        <p class="tip-text">无密码</p>
-      </view>
-      <view class="tips-row">
+
+      <!-- <view class="tips-row">
         <p class="tip-text">与比特币钱包一致</p>
+      </view> -->
+      <view class="tips-row">
+        <p class="tip-text">微信数据清理可能会导致数据被清除</p>
       </view>
       <view class="tips-row">
-        <p class="tip-text">无法找回</p>
+        <p class="tip-text">本小程序账号无密码找回功能</p>
+      </view> 
+      <view class="tips-row">
+        <p class="tip-text error">建议先备份</p>
       </view>
+
     </view>
 
     <view class="v-spacer-row-shrink"></view>

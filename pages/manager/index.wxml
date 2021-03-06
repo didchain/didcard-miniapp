@@ -5,8 +5,8 @@
     <view class="inner-box">
       <v-list title="新建身份"></v-list>
       <v-list title="导入身份" bind:lintap="impQRHandle"></v-list>
-      <v-list title="导出身份" url="/pages/wcenter/idcard/index"></v-list>
-      <v-list title="修改密码"></v-list>
+      <v-list title="导出身份" url="/pages/idcard/export/index"></v-list>
+      <v-list title="修改密码" ></v-list>
     </view>
   </view>
 </view>

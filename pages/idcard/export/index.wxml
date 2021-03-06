@@ -1,0 +1,30 @@
+<!--pages/idcard/export/index.wxml-->
+<view class="vp-full" style="display:flex;flex-direction: column;">
+  <view class="v-upbox">
+    <view class="inner-box">
+      <view class="title-box">
+        <view class="label">{{didLabel}}:</view>
+        <view class="did-text">
+          did8gkvfVGag6i4BdpF1KJEMHBbZKUpkS1r78o3Z9eHdmKQ
+        </view>
+      </view>
+      <view class="v-splitor"></view>
+      <view class="qrcode-box">
+        <!-- <canvas style="width: 220px; height: 220px;background: #f1f1f1;" canvas-id="idcardQrcode" ></canvas> -->
+        <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- down -->
+  <view class="v-btn-box">
+    <view class="inner-box">
+      <button  class="v-btn-warn" size="long">分享</button>
+      <button size="long" class="v-btn-dark" bindtap="saveQrcodeHandle">保存</button>
+    </view>
+  </view>
+</view>
+<!-- <view class="qr-mask"></view> -->
+<view class="v-canvas-box">
+  <canvas style="width: 686px; height: 686px;background: #f1f1f1;" canvas-id="idcardQrcode" ></canvas>
+</view>

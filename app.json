@@ -5,11 +5,10 @@
     "pages/wcenter/index/index",
     "pages/creator/index/index",
     "pages/creator/generator/index",
-    "pages/wcenter/settings/index",
+    "pages/sett/index/index",
     "pages/creator/backup/backup",
     "pages/widgets/vimg-icon/image",
     "pages/manager/index",
-    "pages/manager/qrimportor/import",
     "pages/wcenter/idcard/index",
     "pages/authorization/authorize",
     "pages/authorization/index/index",
@@ -19,7 +18,11 @@
     "pages/test/nacl/generator",
     "pages/test/qrcode/index",
     "pages/scan/scan",
-    "pages/scan/scanok/index"
+    "pages/scan/scanok/index",
+    "pages/manager/additem/index",
+    "pages/sett/about/index",
+    "pages/idcard/export/index",
+    "pages/sett/feedback/index"
   ],
   "tabBar": {
     "custom": true,
@@ -66,11 +69,12 @@
     "l-message": "/libs/lin-ui/message/index",
     "l-button": "/libs/lin-ui/button/index",
     "l-list": "/libs/lin-ui/list/index",
-    "v-list": "/libs/lin-ui/vlist/index"
+    "v-list": "/libs/lin-ui/vlist/index",
+    "l-mask": "/libs/lin-ui/mask/index"
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "开锁位置校验"
+      "desc": "用于生成二维码校验服务"
     }
   },
   "sitemapLocation": "sitemap.json"

@@ -11,7 +11,7 @@
   </view>
 
   <view class="home-qrcode-warp">
-    <view class="inner-box did-box-bg">
+    <view class="inner-box did-box-bg" style="min-height:{{isIphoneX ? '620rpx':'530rpx'}}">
       <view class="qrcode-box">
         <view class="qrcode-box--inner">
           <view wx:if="{{!opened}}" class="locked-icon-box">

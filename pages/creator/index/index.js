@@ -1,6 +1,7 @@
 // pages/creator/index/index.js
 import { importKeyStore } from '@wecrpto/weaccount';
-const { storeCnsts } = require('../../../config/app-cnst');
+
+import { STORAGE_KEYS } from '../../../config/app-cnst';
 
 const app = getApp();
 Page({
@@ -72,10 +73,10 @@ Page({
       wx.$webox.setWallet(wallet);
       const safeWallet = wx.$webox.getSafeWallet();
 
-      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet);
-      getApp().globalData[storeCnsts.KEYPAIR_OKEY] = modal.getKeypair();
-      getApp().globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
-      getApp().globalData[storeCnsts.DID_SKEY] = safeWallet.did;
+      wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
+      getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = modal.getKeypair();
+      getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+      getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
 
       wx.showToast({
         icon: 'success',

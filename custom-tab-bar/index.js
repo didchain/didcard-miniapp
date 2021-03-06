@@ -4,7 +4,12 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    tabtype: {
+      type: String,
+      value: '',
+    },
+  },
 
   /**
    * 组件的初始数据

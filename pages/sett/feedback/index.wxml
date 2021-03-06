@@ -1,0 +1,25 @@
+<!--pages/sett/feedback/index.wxml-->
+<view class="vp-ysa-bg">
+  <view class="v-banner">
+    <image mode="scaleToFill" src="/images/nav/acc_on_icon@3x.png" class="img-box"></image>
+  </view>
+
+  <view class="v-content-box">
+    <view class="v-title">
+      <text class="app-name">联系我们</text>
+    </view>
+    <view class="v-text">
+      <view class="text">
+        欢迎将使用本小程过程中发现的Bug或建议反馈给我们.
+      </view>
+    </view>
+
+    <view class="v-text">
+      <view class="text">
+       请发送到: <span>{{serviceEmail}}</span>   
+      </view>
+    </view>
+  </view>
+
+
+</view>

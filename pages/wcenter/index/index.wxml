@@ -14,8 +14,13 @@
 
     <view class="v-card head-bg">
       <view class="v-card__body">
-        <text-rect label="昵称:"> 这个世界会好吗? </text-rect>
-        <text-rect label="易ID号:" content="{{did}}" />
+        <text-rect label="昵称:">
+          <view class="v-rect-content">
+            <span class="text">{{nickname ||'' }}</span>
+            <button wx:if="{{!!needAuthorized}}" open-type="getUserInfo" bindgetuserinfo="userInfoCallback" >授权显示微信昵称</button>
+          </view>
+        </text-rect>
+        <text-rect label="{{didLabel}}:" content="{{did}}" />
         <!-- <text-rect-action label="授权他人:" vurl="/pages/authorization/index/index"> 黑色信封 </text-rect-action> -->
 
         <vbtn-bar label="" vurl="/pages/authorization/index/index">授权他人</vbtn-bar>
@@ -37,13 +42,17 @@
       </view>
       <view class="v-card--splitor"></view>
       <view class="v-card__body">
-        <v-list title="身份管理" url="{{'/pages/manager/index'}}" linkType="navigateTo"></v-list>
+        <v-list title="身份管理" url="{{'/pages/idcard/export/index'}}" linkType="navigateTo"></v-list>
         <v-list
           title="免密"
+          is-link="{{false}}"
           linkType="navigateTo"
           bind:lintap="gotoInternalUrl"
-          data-url="/pages/wcenter/settings/index"
+          data-url=""
         >
+        <view class="unneed-auth-wrap" slot="right-section">
+          <switch checked="{{noSecret}}" bindchange="needAuthChangedHandle" ></switch>
+        </view>
         </v-list>
         <v-list
           wx:if="{{fingerSupport}}"
@@ -67,13 +76,18 @@
 
     <!-- Help center -->
     <view class="v-spacer-row-12"></view>
-    <view wx:if="{{false}}" class="v-card">
-      <view class="v-card__body">
-        <v-list title="客服"></v-list>
-        <v-list title="意见反馈"></v-list>
-        <v-list title="关于我们"></v-list>
-        <v-list title="帮助" linkType="switchTab" bottomLine="{{false}}"></v-list>
-      </view>
-    </view>
   </view>
 </view>
+<l-mask show="{{maskShow}}" locked="{{true}}" center="{{true}}" opacity="0.3">
+  <view class="mask-inner-box">
+    <view class="mask-toolbar">
+      <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
+    </view>
+    <view class="input-wrap">
+      <input type="text" id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+    </view>
+    <view class="button-wrap">
+      <button size="long" bindtap="saveAeskeyHandle">确定</button>
+    </view>
+  </view>
+</l-mask>

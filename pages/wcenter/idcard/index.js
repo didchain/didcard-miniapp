@@ -1,7 +1,7 @@
 // pages/wcenter/idcard/index.js
 import drawQrcode from '../../../libs/qrcode/weapp.qrcode.js';
+import { STORAGE_KEYS } from '../../../config/app-cnst';
 
-const { storeCnsts } = require('../../../config/app-cnst');
 const qrOpts = {
   width: 200,
   height: 200,
@@ -72,7 +72,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const did = app.globalData[storeCnsts.DID_SKEY];
+    const did = app.globalData[STORAGE_KEYS.DID_SKEY];
     this.setData({ qrText: did });
     this.setData({ did: did });
     this.draw();

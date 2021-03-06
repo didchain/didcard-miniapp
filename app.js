@@ -1,6 +1,6 @@
 // app.js
 import { promisifyAll } from 'miniprogram-api-promise';
-const { storeCnsts } = require('./config/app-cnst');
+import { STORAGE_KEYS } from './config/app-cnst';
 const { Buffer } = require('buffer/index');
 const { randomBytes } = require('./utils/util');
 let nacl = require('@wecrpto/nacl');
@@ -21,16 +21,27 @@ App({
     const webox = this.checkAndInitWebox();
 
     // //has initialized verify
-
-    const safeWallet = wx.getStorageSync(storeCnsts.WALLET_V3_OKEY);
-    // // console.log('App launch>>>shortJson>>', wx.getStorageSync(storeCnsts.WALLET_V3_OKEY));
+    this.getUserInfo((userInfo) => {
+      console.log('UserInfo', userInfo);
+    });
+    const safeWallet = wx.getStorageSync(STORAGE_KEYS.WALLET_V3_OKEY);
     if (safeWallet) {
       wx.$webox.loadSafeWallet(safeWallet);
-      this.globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
-      this.globalData[storeCnsts.DID_SKEY] = safeWallet.did;
-    } else {
-      console.log('Wallet not initialization.');
 
+      try {
+        const aeskey = this.getAeskey();
+        if (aeskey) {
+          let _wallet = wx.$webox.openByAeskey(new Uint8Array(aeskey));
+          wx.$webox.setWallet(_wallet);
+        }
+      } catch (error) {
+        this.cleanAeskey();
+      }
+
+      this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+      this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
+    } else {
+      // console.log('Wallet not initialization.');
       wx.navigateTo({
         url: 'pages/creator/index/index',
       });
@@ -118,15 +129,30 @@ App({
       },
     });
   },
-
+  getAeskey: function () {
+    const aeskeybase = wx.getStorageSync(STORAGE_KEYS.AESKEY_HKEY);
+    if (!aeskeybase) return false;
+    try {
+      return wx.base64ToArrayBuffer(aeskeybase);
+    } catch (e) {
+      return false;
+    }
+  },
+  cleanAeskey: function () {
+    wx.setStorageSync(STORAGE_KEYS.AESKEY_HKEY, '');
+  },
+  setAeskey: function (keybuf) {
+    const aeskeybase = wx.arrayBufferToBase64(keybuf);
+    wx.setStorageSync(STORAGE_KEYS.AESKEY_HKEY, aeskeybase);
+  },
   /**
    *
    */
   globalData: {
     isIphoneX: false,
     scopeULocAuthed: false,
-    [storeCnsts.KEYPAIR_OKEY]: null, //keypair
-    [storeCnsts.WALLET_V3_OKEY]: null, //safWallet
+    [STORAGE_KEYS.KEYPAIR_OKEY]: null, //keypair
+    [STORAGE_KEYS.WALLET_V3_OKEY]: null, //safWallet
     userInfo: null,
     externalUrl: 'https://wechat.baschain.cn/test.html',
     tmpScanData: '',

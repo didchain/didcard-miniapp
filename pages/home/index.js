@@ -1,6 +1,6 @@
 // pages/home/index.js
 import { promisifyAll, promisify } from 'miniprogram-api-promise';
-import { APP_NAME, storeCnsts } from '../../config/app-cnst';
+import { APP_NAME, STORAGE_KEYS } from '../../config/app-cnst';
 import { helper, tools } from '@wecrpto/weaccount';
 import { tabbar } from '../../utils/tabbar';
 const { buildSignData, appendSignature } = require('../../utils/util');
@@ -28,10 +28,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isIphoneX: false,
     tabbar,
     precheckLocationed: false,
     appTitle: APP_NAME,
-    subtitle: '身份证号:',
+    subtitle: 'DID号:',
     lockedTips: '点击解锁',
     noLocationAuthTips: '点击授权获取位置',
     did: '',
@@ -54,7 +55,8 @@ Page({
    */
   onLoad: async function (options) {
     const id = wx.$webox.getSafeWallet() ? wx.$webox.getSafeWallet().did : '';
-    this.setData({ did: id || app.globalData[storeCnsts.DID_SKEY] || '' });
+    this.setData({ did: id || app.globalData[STORAGE_KEYS.DID_SKEY] || '' });
+    this.setData({ isIphoneX: app.globalData.isIphoneX || false });
     const initQrcodeWhenOpen = async function (res) {
       console.log('Callback>>>>', this, res);
     };
@@ -128,6 +130,7 @@ Page({
       const id = webox.getSafeWallet().did;
       this.setData({ did: id });
       const locationData = await this.checkLocationAuth();
+
       if (!webox.hasOpened()) {
         throw { errCode: 'WALLET_CLOSED' };
       }

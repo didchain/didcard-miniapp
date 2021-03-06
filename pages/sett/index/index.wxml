@@ -14,7 +14,7 @@
     </view>
     <view class="v-btnext-inset"></view>
   </button>
-  <button class="v-btnext" size="long">
+  <button class="v-btnext" size="long" bindtap="nav2Feedback">
     <view class="v-btn--inner">
       <view class="v-btnext--title">意见反馈</view>
       <view class="v-btnext-icon">
@@ -23,16 +23,16 @@
     </view>
     <view class="v-btnext-inset"></view>
   </button>
-  <button class="v-btnext" size="long">
+  <button class="v-btnext" size="long" bindtap="nav2About">
     <view class="v-btn--inner">
       <view class="v-btnext--title">关于我们</view>
-      <view class="v-btnext-icon">
+      <view class="v-btnext-icon" >
         <view class="vicon-arrow-right"></view>
       </view>
     </view>
     <view class="v-btnext-inset"></view>
   </button>
-  <button class="v-btnext" size="long">
+  <button wx:if="{{showHelpBtn}}" class="v-btnext" size="long">
     <view class="v-btn--inner">
       <view class="v-btnext--title">帮助</view>
       <view class="v-btnext-icon">

@@ -28,10 +28,10 @@ function buildSignData(did, latitude, longitude) {
     throw new Error('Parameter did required.');
   }
   const data = {
-    time_stamp: new Date().getTime(),
-    latitude: latitude || '',
-    longitude: longitude || '',
     did: did,
+    time_stamp: new Date().getTime(),
+    latitude: latitude,
+    longitude: longitude,
   };
 
   return data;
@@ -49,11 +49,11 @@ function appendSignature(signData, signature) {
   }
 
   return {
+    did: signData.did,
     time_stamp: signData.time_stamp,
     latitude: signData.latitude,
     longitude: signData.longitude,
-    signature: signature || '',
-    did: signData.did,
+    sig: signature || '',
   };
 }
 

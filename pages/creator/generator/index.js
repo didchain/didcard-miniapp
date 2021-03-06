@@ -1,5 +1,5 @@
 // pages/creator/generator/index.js
-const { storeCnsts } = require('../../../config/app-cnst');
+import { STORAGE_KEYS } from '../../../config/app-cnst';
 const { pwdRules } = require('../../../config/validator-rules');
 const app = getApp();
 Page({
@@ -33,17 +33,17 @@ Page({
       if (!safeWallet) {
         throw new Error('Generate Account Error');
       }
-      wx.setStorageSync(storeCnsts.WALLET_V3_OKEY, safeWallet);
-      getApp().globalData[storeCnsts.KEYPAIR_OKEY] = inst.getKeypair();
-      getApp().globalData[storeCnsts.WALLET_V3_OKEY] = safeWallet;
-      getApp().globalData[storeCnsts.DID_SKEY] = safeWallet.did;
+      wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
+      getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = inst.getKeypair();
+      getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+      getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
 
-      // wx.setStorageSync(storeCnsts.SHORT_SECRET_OKEY, {
+      // wx.setStorageSync(STORAGE_KEYS.SHORT_SECRET_OKEY, {
       //   enshort: this.data.password,
       //   entype: 'base64',
       // });
-      // wx.setStorageSync(storeCnsts.INITIALIZED_BKEY, true);
-      // wx.setStorageSync(storeCnsts.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
+      // wx.setStorageSync(STORAGE_KEYS.INITIALIZED_BKEY, true);
+      // wx.setStorageSync(STORAGE_KEYS.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
       wx.lin.showMessage({
         type: 'success',
         content: '创建成功',
