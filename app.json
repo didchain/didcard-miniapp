@@ -10,8 +10,6 @@
     "pages/widgets/vimg-icon/image",
     "pages/manager/index",
     "pages/wcenter/idcard/index",
-    "pages/authorization/authorize",
-    "pages/authorization/index/index",
     "pages/webview/index",
     "pages/qrcodeshow/index/index",
     "pages/creator/scaner/index",
@@ -22,7 +20,9 @@
     "pages/manager/additem/index",
     "pages/sett/about/index",
     "pages/idcard/export/index",
-    "pages/sett/feedback/index"
+    "pages/sett/feedback/index",
+    "pages/community/index/index",
+    "pages/community/add/index"
   ],
   "tabBar": {
     "custom": true,

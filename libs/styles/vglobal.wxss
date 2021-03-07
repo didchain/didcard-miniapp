@@ -228,3 +228,19 @@ page {
   background-size: cover;
 }
 
+/* buttons */
+
+button.v-btn-dark {
+  font-weight: 400;
+  font-size: 32rpx;
+  flex: 1 1 auto;
+  color:#fff;
+  background: #0c123d;
+}
+button.v-btn-warn {
+  font-weight: 400;
+  font-size: 32rpx;
+  flex: 1 1 auto;
+  color:#fff;
+  background: #f6c330;
+}

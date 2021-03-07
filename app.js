@@ -27,7 +27,6 @@ App({
     const safeWallet = wx.getStorageSync(STORAGE_KEYS.WALLET_V3_OKEY);
     if (safeWallet) {
       wx.$webox.loadSafeWallet(safeWallet);
-
       try {
         const aeskey = this.getAeskey();
         if (aeskey) {
@@ -145,6 +144,47 @@ App({
     const aeskeybase = wx.arrayBufferToBase64(keybuf);
     wx.setStorageSync(STORAGE_KEYS.AESKEY_HKEY, aeskeybase);
   },
+  saveKeyStore: function (safeWallet) {
+    wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
+    if (safeWallet) {
+      this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+      this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
+    }
+  },
+  getCommunity: function () {
+    let coms = wx.getStorageSync(STORAGE_KEYS.COMUNITY_AKRY);
+    !coms && (coms = []);
+    return coms;
+  },
+  addCommunity: function (text) {
+    let coms = wx.getStorageSync(STORAGE_KEYS.COMUNITY_AKRY);
+    !coms && (coms = []);
+    const key = wx.str2base64(text);
+    const idx = coms.findIndex((c) => c.key === key);
+    if (idx >= 0) {
+      coms.splice(idx, 1, { key, text });
+    } else {
+      coms.push({ key, text });
+    }
+    wx.setStorageSync(STORAGE_KEYS.COMUNITY_AKRY, coms);
+    return coms;
+  },
+  delCommunity: function (key) {
+    let coms = wx.getStorageSync(STORAGE_KEYS.COMUNITY_AKRY);
+    !coms && (coms = []);
+    // const key = wx.str2base64(text);
+    const idx = coms.findIndex((c) => c.key === key);
+    if (idx >= 0) {
+      coms.splice(idx, 1);
+      wx.setStorageSync(STORAGE_KEYS.COMUNITY_AKRY, coms);
+    }
+
+    return coms;
+  },
+  cleanCommunity: function () {
+    wx.setStorageSync(STORAGE_KEYS.COMUNITY_AKRY, []);
+  },
+
   /**
    *
    */
@@ -164,6 +204,9 @@ App({
     wx.$nacl = nacl;
     helper && (wx.helper = helper);
     tools && (wx.tools = tools);
-    tools && tools.enc && (wx.Enc = tools.enc);
+    tools &&
+      tools.enc &&
+      (wx.Enc = tools.enc) &&
+      (wx.str2base64 = (text) => tools.enc.Utf8.parse(text).toString(tools.enc.Base64));
   },
 });

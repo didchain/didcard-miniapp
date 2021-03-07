@@ -7,6 +7,7 @@ export const LABELS = {
 };
 
 export const STORAGE_KEYS = {
+  COMUNITY_AKRY: 'CommunityArraysKey',
   INITIALIZED_BKEY: 'InitializedBKey',
   HAS_BACKED_UP_BKEY: 'HasBakedUpBKey',
   WALLET_ADDR_SKEY: 'WalletAddressKey',
@@ -17,7 +18,7 @@ export const STORAGE_KEYS = {
   NO_SECRET_BKEY: 'NoSecretRequired',
   DID_SKEY: 'DidKey',
 };
-export const weaccConfig = { idPrefix: 'Did', remembered: true, useSigned: true };
+export const weaccConfig = { idPrefix: 'did', remembered: true, useSigned: true };
 export const FEATURES_CTRL = {
   HOME_BMFW: false,
   MGR_SF_CREATE: false,

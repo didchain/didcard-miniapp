@@ -40,13 +40,19 @@
   border-top: 2rpx solid #f0f1f3;
 }
 .qrcode-box {
+  display: flex;
+  flex-direction: column;
   justify-self: center;
-  border: 1px solid #f6c330;
+  align-items: center;
+  /* border: 1px solid #f6c330; */
+  /* padding:6px; */
 }
 
 .qrcode-box image {
-  width: 442rpx;
-  height: 442rpx;
+  width: 440rpx;
+  height: 440rpx;
+  border: 4rpx solid #F5C95C;
+  border-radius: 8rpx;
 }
 
 /** Down */
@@ -92,6 +98,9 @@
   width: 100%;
   height: 100%;
   opacity: 0;
+}
+page {
+  overflow: hidden;
 }
 .canvas-box {
   position: fixed;

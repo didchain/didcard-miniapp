@@ -1,9 +1,11 @@
-// pages/authorization/authorize.js
+// pages/community/add/index.js
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    commText: '',
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -18,7 +20,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    this.setData({ commText: '' });
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -44,4 +48,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  commTextInputHandle: function (e) {
+    this.setData({ commText: e.detail.value });
+  },
+  addCommuntyHandle: function () {
+    const text = this.data.commText;
+    console.log('....', text);
+    if(!text ||!text.length){
+      wx.showToast({
+        title: '请输入小区名称',
+      })
+      return;
+    }
+    const res = getApp().addCommunity(text);
+    if(res){
+      wx.showToast({
+        title: '添加成功',
+        success:function(){
+          wx.navigateBack({
+            delta: res,
+          })
+        }
+      })
+    }
+  },
 });

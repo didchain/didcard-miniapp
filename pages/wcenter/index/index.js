@@ -93,17 +93,25 @@ Page({
     wx.authorize({
       scope: 'scope.userInfo',
       success: function (res) {
+        console.log('user>>>>>', res);
         let userInfo = res.userInfo;
+
         that.setData({ needAuthorized: false });
         that.setData({ nickname: userInfo.nickName });
       },
       fail: function (e) {
         that.setData({ needAuthorized: true });
+        console.log('authorize', e);
       },
     });
   },
-  userInfoCallback: function (res) {
-    // console.log('settingCallBackHandle>>>>>>', res);
+  userInfoCallback: function (e) {
+    console.log('settingCallBackHandle>>>>>>', e);
+    const userInfo = e.detail.userInfo;
+    if (userInfo) {
+      this.setData({ nickname: userInfo.nickName });
+      this.setData({ needAuthorized: false });
+    }
   },
   showCustTabbar: function (idx = 0) {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -147,6 +155,7 @@ Page({
   },
   maskHideHandle: function () {
     this.setData({ maskShow: false });
+    this.setData({ authPassword: '' });
     this.setData({ noSecret: false });
   },
   needAuthChangedHandle: function (e) {

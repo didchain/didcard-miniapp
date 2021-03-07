@@ -15,14 +15,16 @@
 
     <view class="v-spacer-row-12"></view>
     <view class="v-card">
-      <view class="v-card__body">
-        <v-list title="xxx小区" isLink="{{false}}"></v-list>
-        <v-list title="富丽园C区" isLink="{{false}}"></v-list>
-        <v-list title="华润西山" isLink="{{false}}"></v-list>
-        <v-list title="HelloKitty 社区" isLink="{{false}}"></v-list>
+      <view wx:for="{{communities}}" wx:key="key" class="v-card__body">
+        <v-list wx:for-item="item"  title="{{item.text}}" isLink="{{false}}">
+          <view class="right-action" slot="right-section">
+            <icon data-commid="{{item.key}}" class="icon-small icon-close" type="cancel" bindtap="delCommunityHandle"></icon>
+          </view>
+        </v-list>
+
       </view>
       <view class="v-card__footer">
-        <l-button size="long">添加</l-button>
+        <l-button size="long" bind:lintap="addCommuntyHandle">添加</l-button>
       </view>
     </view>
   </view>

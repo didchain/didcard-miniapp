@@ -3,7 +3,9 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    communities: [],
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -18,7 +20,10 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    const coms = getApp().getCommunity();
+    this.setData({ communities: coms });
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -44,4 +49,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+  addCommuntyHandle: function () {
+    wx.navigateTo({
+      url: '/pages/community/add/index',
+    });
+  },
+  delCommunityHandle: function (e) {
+    const key = e.currentTarget.dataset.commid;
+    // console.log(e.currentTarget.dataset.commid);
+    if (key) {
+      const coms = getApp().delCommunity(key);
+      this.setData({ communities: coms });
+    }
+  },
 });

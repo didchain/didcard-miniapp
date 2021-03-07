@@ -2,3 +2,67 @@
 .bg-white {
   background: #fff;
 }
+
+/** mask Modal start */
+.mask-inner-box {
+  /* min-height: 25vh; */
+  background: #fff;
+  padding: 24rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32rpx;
+}
+
+.mask-inner-box .mask-toolbar {
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+  margin-top: -18rpx;
+  margin-right: -18rpx;
+  padding-bottom: 20rpx;
+}
+
+.mask-inner-box input {
+  width: 590rpx;
+  padding:0rpx 12rpx;
+}
+
+.mask-inner-box .input-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 24rpx;
+}
+
+.mask-inner-box .button-wrap{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 24rpx;
+}
+
+.button-wrap button[size="long"] {
+  width:100%;
+  background:#F5C95C;
+}
+
+.mask-inner-box view:last-child {
+  padding-bottom: 32rpx;
+}
+
+.mask-inner-box .tips-text {
+  flex: 0 0 100%;
+  font-size: 24rpx;
+  color: red;
+  padding-bottom: 32rpx;
+  /* border: 1px solid #344; */
+}
+
+/** mask Modal end */

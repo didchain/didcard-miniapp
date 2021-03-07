@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    did: '',
     imagePath: '',
     didLabel: LABELS.DID_LABEL,
   },
@@ -13,7 +14,7 @@ Page({
     var size = { w: 215, h: 215 };
     try {
       var res = wx.getSystemInfoSync();
-      var scale = 812 / 686; //不同屏幕下canvas的适配比例；设计稿是750宽
+      var scale = 375 / 686; //不同屏幕下canvas的适配比例；设计稿是750宽
       var width = res.windowWidth / scale;
       var height = width; //canvas画布为正方形
       size.w = width;
@@ -40,14 +41,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const jsonText = wx.$webox.hasOpened() ? wx.$webox.keyStoreJsonfy() : '';
-    if (jsonText) {
-      console.log('>>>>>>>>', jsonText);
-      QR.api.draw(jsonText, 'idcardQrcode', 686, 686, this, this.canvasToTempImage);
+    const safeWallet = wx.$webox.hasWallet() ? wx.$webox.getSafeWallet() : null;
+    if (safeWallet) {
+      this.setData({ did: safeWallet.did });
+      const jsonText = wx.$webox.keyStoreJsonfy();
+      const size = this.setCanvasSize();
+      QR.api.draw(jsonText, 'idcardQrcode', size.w, size.h, this, this.canvasToTempImage);
     }
   },
   canvasToTempImage: function (canvasId) {
-    console.log('>>>>>>>>>>', canvasId);
     const that = this;
     wx.canvasToTempFilePath(
       {
@@ -95,5 +97,29 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
-  saveQrcodeHandle: function () {},
+  saveQrcodeHandle: function () {
+    const that = this;
+    wx.authorize({
+      scope: 'scope.writePhotosAlbum',
+      success: function (res) {
+        console.log('res', res);
+        const didKeystore = 'didKeystore';
+        wx.saveImageToPhotosAlbum({
+          filePath: that.data.imagePath,
+          success: function () {
+            wx.showToast({
+              title: '保存成功',
+            });
+          },
+        });
+      },
+      fail: function (e) {
+        // console.log(e);
+        wx.showToast({
+          icon: 'error',
+          title: '请前往设置授权',
+        });
+      },
+    });
+  },
 });

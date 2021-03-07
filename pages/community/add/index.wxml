@@ -1,0 +1,26 @@
+<!--pages/community/add/index.wxml-->
+<view class="vp-ysa-bg">
+  <view class="v-banner">
+    <image mode="scaleToFill" src="/images/nav/acc_on_icon@3x.png" class="img-box"></image>
+  </view>
+
+  <view class="v-content-box">
+    <view class="v-title">
+      <text class="nav-title">添加小区</text>
+    </view>
+  </view>
+
+  <view class="v-form-box">
+    <view class="input-warp">
+      <input type="text" id="commText" class="v-input" placeholder="请输入小区名称" bindinput="commTextInputHandle" />
+    </view>
+    <view class="v-btns-warp">
+      <l-button size="long" bind:lintap="addCommuntyHandle">添加</l-button>
+    </view>
+  </view>
+
+
+
+
+
+</view>

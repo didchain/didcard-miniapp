@@ -55,4 +55,7 @@ Page({
       url: '/pages/sett/feedback/index',
     });
   },
+  settingCallback: function (res) {
+    console.log('>>>>>>>>>>>>>>>>', res);
+  },
 });

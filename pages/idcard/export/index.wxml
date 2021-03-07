@@ -5,7 +5,7 @@
       <view class="title-box">
         <view class="label">{{didLabel}}:</view>
         <view class="did-text">
-          did8gkvfVGag6i4BdpF1KJEMHBbZKUpkS1r78o3Z9eHdmKQ
+          {{did}}
         </view>
       </view>
       <view class="v-splitor"></view>
@@ -19,7 +19,7 @@
   <!-- down -->
   <view class="v-btn-box">
     <view class="inner-box">
-      <button  class="v-btn-warn" size="long">分享</button>
+      <button wx:if="{{false}}" class="v-btn-warn" size="long">分享</button>
       <button size="long" class="v-btn-dark" bindtap="saveQrcodeHandle">保存</button>
     </view>
   </view>

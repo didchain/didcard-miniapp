@@ -3,11 +3,44 @@
   <view class="vp-main vpx-24">
     <view class="v-spacer-row-12"></view>
     <view class="inner-box">
-      <v-list title="新建身份"></v-list>
+      <v-list title="新建身份" bind:lintap="openCreateMaskModal"></v-list>
       <v-list title="导入身份" bind:lintap="impQRHandle"></v-list>
       <v-list title="导出身份" url="/pages/idcard/export/index"></v-list>
-      <v-list title="修改密码" ></v-list>
+      <v-list wx:if="{{false}}" title="修改密码" ></v-list>
     </view>
   </view>
 </view>
 <l-toast show="{{showToast}}" title="{{toastTitle}}" duration="{{5000}}" icon="success"></l-toast>
+<l-mask show="{{maskShow}}" locked="{{true}}" center="{{true}}" opacity="0.3">
+  <view class="mask-inner-box">
+    <view class="mask-toolbar">
+      <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
+    </view>
+    <view wx:if="{{false}}" class="tips-text">
+      <p class="text">注意:新身份将覆盖原身份信息.</p> 
+    </view>
+    <view class="input-wrap">
+      <input type="text" password="{{true}}" id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+    </view>
+    <view class="button-wrap">
+      <button size="long" bindtap="openWalletHandle">确定</button>
+    </view>
+  </view>
+</l-mask>
+
+<l-mask show="{{maskNewShow}}" locked="{{true}}" center="{{true}}" opacity="0.3">
+  <view class="mask-inner-box">
+    <view class="mask-toolbar">
+      <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
+    </view>
+    <view wx:if="{{false}}" class="tips-text">
+      <p class="text">注意:新身份将覆盖原身份信息.</p> 
+    </view>
+    <view class="input-wrap">
+      <input type="text" password="{{true}}" id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+    </view>
+    <view class="button-wrap">
+      <button size="long" bindtap="createNewWeaccount">确定</button>
+    </view>
+  </view>
+</l-mask>

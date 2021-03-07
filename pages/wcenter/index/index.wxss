@@ -66,6 +66,7 @@
   color: #0c123d;
 }
 
+/** mask Modal start */
 .mask-inner-box {
   /* min-height: 25vh; */
   background: #fff;
@@ -77,14 +78,10 @@
   border-radius: 32rpx;
 }
 
-
-
 .mask-inner-box .mask-toolbar {
   width: 100%;
   display: inline-block;
   text-align: right;
-  /* padding-top:10rpx; */
-  /* border: 1px solid #f5c95c; */
   margin-top: -18rpx;
   margin-right: -18rpx;
   padding-bottom: 20rpx;
@@ -123,6 +120,8 @@
   padding-bottom: 32rpx;
 }
 
+/** mask Modal end */
+
 .unneed-auth-wrap {
   padding: 20rpx 0rpx;
 }
@@ -130,8 +129,6 @@
 .wx-switch-input {
   width:98rpx !important;
   height:56rpx !important;
-  /* background: rgba(12, 18, 61, 0.85) !important;
-  border:2rpx solid #ccc !important; */
 }
 
 
@@ -142,9 +139,6 @@
 }
 
 .wx-switch-input::after{
-  /* margin-left: 2rpx !important;
-  margin-right: 2rpx !important; */
   width: 52rpx !important;
   height: 50rpx !important;
-  /* color: red !important; */
 }
