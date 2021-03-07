@@ -128,7 +128,15 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    if (!wx.$webox.hasWallet()) {
+      wx.hideTabBar({
+        success: (res) => {
+          console.log('disable goback', res);
+        },
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
