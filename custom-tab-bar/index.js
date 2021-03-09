@@ -61,20 +61,36 @@ Component({
         wx.scanCode({
           onlyFromCamera: true,
           success: function (res) {
-            console.log('Scaner>>>>', res);
+            // console.log('Scaner>>>>', res);
             // wx.navigateTo({
             //   url: path,
             // });
             const scantext = res.result;
+            let did = '二维码中ID信息不正确';
+            let didOk = false;
+            try {
+              const keystore = JSON.parse(scantext);
+              if (typeof keystore === 'object' && keystore.did) {
+                did = keystore.did;
+                didOk = true;
+              }
+            } catch (e) {}
+
             wx.showModal({
               cancelColor: '#F5C95C',
               cancelText: '取消',
               confirmText: '开锁',
               title: '',
-              content: scantext,
+              content: did,
               success: function (res) {
                 if (res.cancel) {
                 } else if (res.confirm) {
+                  if (!didOk) {
+                    wx.showToast({
+                      icon: 'error',
+                      title: '二维码不正确',
+                    });
+                  }
                 }
               },
             });

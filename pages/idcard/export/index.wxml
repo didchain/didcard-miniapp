@@ -1,12 +1,10 @@
 <!--pages/idcard/export/index.wxml-->
-<view class="vp-full" style="display:flex;flex-direction: column;">
+<view class="vp-full" style="display: flex; flex-direction: column">
   <view class="v-upbox">
     <view class="inner-box">
       <view class="title-box">
         <view class="label">{{didLabel}}:</view>
-        <view class="did-text">
-          {{did}}
-        </view>
+        <view class="did-text"> {{did}} </view>
       </view>
       <view class="v-splitor"></view>
       <view class="qrcode-box">
@@ -26,5 +24,8 @@
 </view>
 <!-- <view class="qr-mask"></view> -->
 <view class="v-canvas-box">
-  <canvas style="width: 686px; height: 686px;background: #f1f1f1;" canvas-id="idcardQrcode" ></canvas>
+  <canvas
+    style="width: 686px; height: 686px; background: #f1f1f1"
+    canvas-id="idcardQrcode"
+  ></canvas>
 </view>

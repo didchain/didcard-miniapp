@@ -1,0 +1,19 @@
+<!--pages/services/hotel/index.wxml-->
+<view class="vp-ysa-bg ann-container">
+  <view class="v-banner">
+    <image mode="aspectFit" src="/images/icons/hotel_icon.png" class="img-box"></image>
+  </view>
+
+  <view class="v-content-box">
+    <view class="v-title">
+      <text class="app-name">酒店预约</text>
+    </view>
+    <view class="v-text">
+      <view class="text">通过腰牌预约酒店,可最大程度减少你的个人隐私信息泄露. </view>
+    </view>
+
+    <view class="v-text">
+      <view class="text">在未入住前酒店只能获取您授权使用的个人信息.</view>
+    </view>
+  </view>
+</view>

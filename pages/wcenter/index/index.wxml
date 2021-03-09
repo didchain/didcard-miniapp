@@ -16,8 +16,10 @@
       <view class="v-card__body">
         <text-rect label="昵称:">
           <view class="v-rect-content">
-            <span  wx:if="{{!needAuthorized}}" class="text">{{nickname ||'' }}</span>
-            <button wx:else open-type="getUserInfo" bindgetuserinfo="userInfoCallback" >授权显示微信昵称</button>
+            <span wx:if="{{!needAuthorized}}" class="text">{{nickname ||'' }}</span>
+            <button wx:else open-type="getUserInfo" bindgetuserinfo="userInfoCallback">
+              授权显示微信昵称
+            </button>
           </view>
         </text-rect>
         <text-rect label="{{didLabel}}:" content="{{did}}" />
@@ -50,9 +52,9 @@
           bind:lintap="gotoInternalUrl"
           data-url=""
         >
-        <view class="unneed-auth-wrap" slot="right-section">
-          <switch checked="{{noSecret}}" bindchange="needAuthChangedHandle" ></switch>
-        </view>
+          <view class="unneed-auth-wrap" slot="right-section">
+            <switch checked="{{noSecret}}" bindchange="needAuthChangedHandle"></switch>
+          </view>
         </v-list>
         <v-list
           wx:if="{{fingerSupport}}"
@@ -84,7 +86,14 @@
       <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
     </view>
     <view class="input-wrap">
-      <input type="text" password id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+      <input
+        type="text"
+        password
+        id="authPassword"
+        name="authPassword"
+        placeholder="请输入密码..."
+        bindinput="authPasswordInputHandle"
+      />
     </view>
     <view class="button-wrap">
       <button size="long" bindtap="saveAeskeyHandle">确定</button>

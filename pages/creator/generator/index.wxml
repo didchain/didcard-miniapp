@@ -39,6 +39,8 @@
   </view>
   <view class="v-sheet v-generator--footer vpx-24">
     <text class="v-tips">提示:</text>
-    <text class="v-tips-desc"> 本身份为隐私保护身份系统，创建时无网络无需验证，无密码找回功能. </text>
+    <text class="v-tips-desc">
+      本身份为隐私保护身份系统，创建时无网络无需验证，无密码找回功能.
+    </text>
   </view>
 </view>

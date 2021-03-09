@@ -9,17 +9,11 @@
       <text class="app-name">联系我们</text>
     </view>
     <view class="v-text">
-      <view class="text">
-        欢迎将使用本小程过程中发现的Bug或建议反馈给我们.
-      </view>
+      <view class="text"> 欢迎将使用本小程序过程中发现的Bug或建议反馈给我们. </view>
     </view>
 
     <view class="v-text">
-      <view class="text">
-       请发送到: <span>{{serviceEmail}}</span>   
-      </view>
+      <view class="text"> 请发送邮件到: <span>{{serviceEmail}}</span> </view>
     </view>
   </view>
-
-
 </view>

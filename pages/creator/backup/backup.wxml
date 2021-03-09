@@ -22,11 +22,10 @@
       </view>
       <view class="tips-row">
         <p class="tip-text">本小程序账号无密码找回功能</p>
-      </view> 
+      </view>
       <view class="tips-row">
         <p class="tip-text error">建议先备份</p>
       </view>
-
     </view>
 
     <view class="v-spacer-row-shrink"></view>

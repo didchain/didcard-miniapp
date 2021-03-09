@@ -16,12 +16,16 @@
     <view class="v-spacer-row-12"></view>
     <view class="v-card">
       <view wx:for="{{communities}}" wx:key="key" class="v-card__body">
-        <v-list wx:for-item="item"  title="{{item.text}}" isLink="{{false}}">
+        <v-list wx:for-item="item" title="{{item.text}}" isLink="{{false}}">
           <view class="right-action" slot="right-section">
-            <icon data-commid="{{item.key}}" class="icon-small icon-close" type="cancel" bindtap="delCommunityHandle"></icon>
+            <icon
+              data-commid="{{item.key}}"
+              class="icon-small icon-close"
+              type="cancel"
+              bindtap="delCommunityHandle"
+            ></icon>
           </view>
         </v-list>
-
       </view>
       <view class="v-card__footer">
         <l-button size="long" bind:lintap="addCommuntyHandle">添加</l-button>

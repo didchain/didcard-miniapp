@@ -22,7 +22,10 @@
     "pages/idcard/export/index",
     "pages/sett/feedback/index",
     "pages/community/index/index",
-    "pages/community/add/index"
+    "pages/community/add/index",
+    "pages/services/announcement/index",
+    "pages/services/guahao/index",
+    "pages/services/hotel/index"
   ],
   "tabBar": {
     "custom": true,
@@ -55,7 +58,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "易ID",
+    "navigationBarTitleText": "腰牌",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",

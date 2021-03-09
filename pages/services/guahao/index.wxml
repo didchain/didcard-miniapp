@@ -1,0 +1,19 @@
+<!--pages/services/guahao/index.wxml-->
+<view class="vp-ysa-bg ann-container">
+  <view class="v-banner">
+    <image mode="aspectFit" src="/images/icons/hospital_icon.png" class="img-box"></image>
+  </view>
+
+  <view class="v-content-box">
+    <view class="v-title">
+      <text class="app-name">挂号预约</text>
+    </view>
+    <view class="v-text">
+      <view class="text">腰牌小程序账号只是您的身份识别ID,您挂号时通过您的授权给指定主体使用,挂号中间服务者只负责传递授权码.</view>
+    </view>
+
+    <!-- <view class="v-text">
+      <view class="text">智能门禁服务对接中.</view>
+    </view> -->
+  </view>
+</view>

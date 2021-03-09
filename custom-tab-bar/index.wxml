@@ -15,7 +15,15 @@
       src="{{item.iconPath}}"
       class="vtab-center-img"
     ></cover-image>
-    <cover-image wx:else class="vtab-cover-img" src="{{selected === index ? item.selectedIconPath : item.iconPath}}" width="56rpx" height="56rpx"></cover-image>
-    <cover-view class="vtab-text" style="color: {{selected === index ? selectorColor : color}};">{{item.text||''}}</cover-view>
+    <cover-image
+      wx:else
+      class="vtab-cover-img"
+      src="{{selected === index ? item.selectedIconPath : item.iconPath}}"
+      width="56rpx"
+      height="56rpx"
+    ></cover-image>
+    <cover-view class="vtab-text" style="color: {{selected === index ? selectorColor : color}};"
+      >{{item.text||''}}</cover-view
+    >
   </cover-view>
 </cover-view>

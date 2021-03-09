@@ -1,0 +1,19 @@
+<!--pages/services/announcement/index.wxml-->
+<view class="vp-ysa-bg ann-container">
+  <view class="v-banner">
+    <image mode="aspectFit" src="/images/icons/notice_icon.png" class="img-box"></image>
+  </view>
+
+  <view class="v-content-box">
+    <view class="v-title">
+      <text class="app-name">公告</text>
+    </view>
+    <view class="v-text">
+      <view class="text"> 腰牌认证流程服务线下对接中. </view>
+    </view>
+
+    <view class="v-text">
+      <view class="text">智能门禁服务对接中.</view>
+    </view>
+  </view>
+</view>

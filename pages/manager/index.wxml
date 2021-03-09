@@ -6,7 +6,7 @@
       <v-list title="新建身份" bind:lintap="openCreateMaskModal"></v-list>
       <v-list title="导入身份" bind:lintap="impQRHandle"></v-list>
       <v-list title="导出身份" url="/pages/idcard/export/index"></v-list>
-      <v-list wx:if="{{false}}" title="修改密码" ></v-list>
+      <v-list wx:if="{{false}}" title="修改密码"></v-list>
     </view>
   </view>
 </view>
@@ -17,10 +17,17 @@
       <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
     </view>
     <view wx:if="{{false}}" class="tips-text">
-      <p class="text">注意:新身份将覆盖原身份信息.</p> 
+      <p class="text">注意:新身份将覆盖原身份信息.</p>
     </view>
     <view class="input-wrap">
-      <input type="text" password="{{true}}" id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+      <input
+        type="text"
+        password="{{true}}"
+        id="authPassword"
+        name="authPassword"
+        placeholder="请输入密码..."
+        bindinput="authPasswordInputHandle"
+      />
     </view>
     <view class="button-wrap">
       <button size="long" bindtap="openWalletHandle">确定</button>
@@ -34,10 +41,17 @@
       <icon class="icon-small icon-close" type="cancel" bindtap="maskHideHandle"></icon>
     </view>
     <view wx:if="{{false}}" class="tips-text">
-      <p class="text">注意:新身份将覆盖原身份信息.</p> 
+      <p class="text">注意:新身份将覆盖原身份信息.</p>
     </view>
     <view class="input-wrap">
-      <input type="text" password="{{true}}" id="authPassword" name="authPassword" placeholder="请输入密码..." bindinput="authPasswordInputHandle"/>
+      <input
+        type="text"
+        password="{{true}}"
+        id="authPassword"
+        name="authPassword"
+        placeholder="请输入密码..."
+        bindinput="authPasswordInputHandle"
+      />
     </view>
     <view class="button-wrap">
       <button size="long" bindtap="createNewWeaccount">确定</button>

@@ -11,8 +11,15 @@
         <label>Private Key [used auth: {{pwd}}] </label>
       </view>
       <view class="vp-form-control">
-        <textarea name="priKey" id="priKey" auto-height="{{true}}" placeholder="privateKey" cols="30"
-          rows="1" model:value="{{privateKey}}"></textarea>
+        <textarea
+          name="priKey"
+          id="priKey"
+          auto-height="{{true}}"
+          placeholder="privateKey"
+          cols="30"
+          rows="1"
+          model:value="{{privateKey}}"
+        ></textarea>
       </view>
     </view>
 
@@ -21,23 +28,28 @@
         <label>Public Key</label>
       </view>
       <view class="vp-form-control">
-        <input name="pubKey" id="pubKey" placeholder="public key" type="text" rows="1" model:value="{{publicKey}}"></input>
+        <input
+          name="pubKey"
+          id="pubKey"
+          placeholder="public key"
+          type="text"
+          rows="1"
+          model:value="{{publicKey}}"
+        />
       </view>
     </view>
     <view class="vp-form-item">
       <view class="vp-label">
         <label>ID</label>
       </view>
-      <view class="vp-form-control break-all">
-        {{did}}
-      </view>
+      <view class="vp-form-control break-all"> {{did}} </view>
     </view>
     <view class="vp-form-item">
       <view class="vp-label">
         <label>Message</label>
       </view>
       <view class="vp-form-control">
-        <input name="msg" id="msg" placeholder="Message" type="text" model:value="{{msg}}"></input>
+        <input name="msg" id="msg" placeholder="Message" type="text" model:value="{{msg}}" />
       </view>
     </view>
 
@@ -51,18 +63,14 @@
       <view class="vp-label">
         <label>Sign Text</label>
       </view>
-      <view class="vp-form-control break-all">
-       {{signature}}
-      </view>
+      <view class="vp-form-control break-all"> {{signature}} </view>
     </view>
 
     <view class="vp-form-item">
       <view class="vp-label">
         <label>Verify Result</label>
       </view>
-      <view class="vp-form-control">
-        {{verified}}
-      </view>
+      <view class="vp-form-control"> {{verified}} </view>
     </view>
   </view>
 </view>

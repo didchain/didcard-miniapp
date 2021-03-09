@@ -26,7 +26,7 @@
   <button class="v-btnext" size="long" bindtap="nav2About">
     <view class="v-btn--inner">
       <view class="v-btnext--title">关于我们</view>
-      <view class="v-btnext-icon" >
+      <view class="v-btnext-icon">
         <view class="vicon-arrow-right"></view>
       </view>
     </view>
@@ -42,10 +42,16 @@
     <view class="v-btnext-inset"></view>
   </button>
 
-  <button class="v-btnext" open-type="openSetting" size="long" bindtap="nav2About" bindopensetting="settingCallback">
+  <button
+    class="v-btnext"
+    open-type="openSetting"
+    size="long"
+    bindtap="nav2About"
+    bindopensetting="settingCallback"
+  >
     <view class="v-btn--inner">
       <view class="v-btnext--title">我的微信授权</view>
-      <view class="v-btnext-icon" >
+      <view class="v-btnext-icon">
         <view class="vicon-arrow-right"></view>
       </view>
     </view>

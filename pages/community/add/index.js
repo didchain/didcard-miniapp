@@ -54,22 +54,22 @@ Page({
   addCommuntyHandle: function () {
     const text = this.data.commText;
     console.log('....', text);
-    if(!text ||!text.length){
+    if (!text || !text.length) {
       wx.showToast({
         title: '请输入小区名称',
-      })
+      });
       return;
     }
     const res = getApp().addCommunity(text);
-    if(res){
+    if (res) {
       wx.showToast({
         title: '添加成功',
-        success:function(){
+        success: function () {
           wx.navigateBack({
             delta: res,
-          })
-        }
-      })
+          });
+        },
+      });
     }
   },
 });

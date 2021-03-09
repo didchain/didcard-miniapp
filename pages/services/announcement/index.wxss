@@ -1,0 +1,53 @@
+/* pages/services/announcement/index.wxss */
+
+.v-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 64rpx 24rpx;
+  /* border:1px solid #FECA32; */
+}
+
+.v-banner image.img-box {
+  width: 160rpx;
+  height: 160rpx;
+  padding: auto;
+  /* border:1px solid #FECA32; */
+}
+
+.v-content-box {
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  flex: 1 1 100%;
+  padding: 24rpx 24rpx;
+  justify-content: center;
+  align-self: center;
+}
+
+.v-title .app-name {
+  text-align: center;
+  padding: 24rpx 24rpx;
+  font-size: 44rpx;
+  font-weight: 600;
+  /* border:1px solid #FECA32; */
+}
+
+.v-text view.text {
+  word-break: break-all;
+  color: rgba(12, 18, 61, 0.85);
+  padding: 0rpx 24rpx;
+}
+
+.v-text view.text > span {
+  color:rgba(12, 18, 61, 1);
+}
+
+.v-content-box .v-text:first-child {
+  padding-top: 24rpx;
+}
+
+.v-content-box .v-text:not(:last-child) {
+  padding-bottom: 12rpx;
+}

@@ -57,14 +57,31 @@ Page({
     const id = wx.$webox.getSafeWallet() ? wx.$webox.getSafeWallet().did : '';
     this.setData({ did: id || app.globalData[STORAGE_KEYS.DID_SKEY] || '' });
     this.setData({ isIphoneX: app.globalData.isIphoneX || false });
-    const initQrcodeWhenOpen = async function (res) {
-      console.log('Callback>>>>', this, res);
-    };
-    this.precheckLocation(initQrcodeWhenOpen);
+
+    await this.preCheckSetting();
+    // const initQrcodeWhenOpen = async function (res) {
+    //   console.log('Callback>>>>', this, res);
+    // };
+    // this.precheckLocation(initQrcodeWhenOpen);
 
     // 检查size
     const size = this.setCanvasSize();
     this.setData({ size: size });
+  },
+  preCheckSetting: async function () {
+    try {
+      const resp = await promisify(wx.getSetting)({
+        withSubscriptions: false,
+      });
+      const { authSetting } = resp;
+      if (typeof authSetting['scope.userLocation'] === 'undefined') {
+        const localResp = await promisify(wx.getLocation)({ type: 'wgs84' });
+        // console.log('localResp>>>>>>>', localResp);
+      }
+    } catch (e) {
+      this.setData({ hasLocationPermission: false });
+      // console.log('localResp>>>>>>>', e);
+    }
   },
   /**
    * 加载时检查
@@ -97,8 +114,20 @@ Page({
       const setDataRes = await wxp.getSetting({});
       return Boolean(setDataRes.authSetting['scope.userLocation']);
     } catch (e) {
-      console.log('checkLocationPermission fail', e);
+      // console.log('checkLocationPermission fail', e);
       return false;
+    }
+  },
+
+  settingCallback: function (e) {
+    const that = this;
+    const { authSetting } = e.detail;
+    console.log('settingCallback', e.detail);
+    if (!!authSetting['scope.userLocation']) {
+      that.setData({ hasLocationPermission: true });
+      that.reDrawQrcodeHandle.call(that);
+    } else {
+      that.setData({ hasLocationPermission: false });
     }
   },
 
@@ -143,6 +172,47 @@ Page({
       this.setData({ opened: true });
       QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
     } catch (err) {
+      // console.log('initial fail', err);
+      if (err && err.errCode === 'NO_WALLET') {
+        // wx.navigateTo({
+        //   url: '',
+        // })
+      } else if (err && err.errCode === 'WALLET_CLOSED') {
+        this.setData({ opened: false });
+        this.setData({ opentips: Tips.unlock });
+      } else if (err && err.errCode === 'ERR_OPEN_SETTINGS') {
+        that.setData({ opened: false }); //
+        that.setData({ opentips: Tips.locationAuth });
+      } else {
+        const msg = err.errCode ? ERR_CODES[err.errCode] : err.message || '错误';
+        wx.showToast({
+          icon: 'error',
+          title: msg,
+          duration: 3000,
+        });
+      }
+    }
+  },
+  redrawQRcode: async function () {
+    const webox = wx.$webox;
+    const that = this;
+    try {
+      if (!webox.hasWallet()) throw { errCode: 'NO_WALLET' };
+      const id = webox.getSafeWallet().did;
+      this.setData({ did: id });
+      const locationData = await this.checkLocationAuth();
+
+      if (!webox.hasOpened()) {
+        throw { errCode: 'WALLET_CLOSED' };
+      }
+      const pk = webox.getKeypair().secretKey;
+      const qrcodeText = await that.builddrawQrcodeTextByPk(id, locationData, pk);
+
+      //draw QRcode
+      const size = this.setCanvasSize();
+      this.setData({ opened: true });
+      QR.api.draw(qrcodeText, 'mycanvas', size.w, size.h, that, that.canvasToTempImage);
+    } catch (err) {
       console.log('initial fail', err);
       if (err && err.errCode === 'NO_WALLET') {
         // wx.navigateTo({
@@ -179,7 +249,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    console.log('onPullDownRefresh>>>>>>>>>>' + new Date());
+    // console.log('onPullDownRefresh>>>>>>>>>>' + new Date());
   },
 
   /**
@@ -413,7 +483,7 @@ Page({
       const signature = helper.signMessage(plaintext, pk);
 
       const qrcodeData = appendSignature(signData, signature);
-      console.log('signature>>>>', signature);
+      // console.log('signature>>>>', signature);
 
       return JSON.stringify(qrcodeData);
     } catch (err) {
@@ -425,5 +495,14 @@ Page({
     // wx.navigateTo({
     //   url: '/pages/creator/backup/backup',
     // });
+  },
+  nav2Page: function (e) {
+    console.log(e);
+    const dataset = e.currentTarget.dataset;
+    if (dataset.path) {
+      wx.navigateTo({
+        url: dataset.path,
+      });
+    }
   },
 });

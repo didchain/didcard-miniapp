@@ -19,12 +19,8 @@
           </view>
           <view wx:if="{{!opened}}" class="locked-desc">
             <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback" class="v-auth-btn">点击授权</button> -->
-            <button
-              open-type="openSetting"
-              wx:if="{{!hasLocationPermission}}"
-              bindgetuserinfo="getUserInfoCallback"
-              class="v-auth-btn"
-            >
+            <button open-type="openSetting" wx:if="{{!hasLocationPermission}}" bindopensetting="settingCallback"
+              class="v-auth-btn">
               {{noLocationAuthTips}}
             </button>
             <button wx:if="{{hasLocationPermission}}" bindtap="showModalHandle" class="v-auth-btn">
@@ -58,39 +54,30 @@
       <view class="v-card__body v-flex-row">
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image
-              class="image-region"
-              mode="aspectFit"
-              src="{{'/images/icons/notice_icon.png'}}"
-            ></image>
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/notice_icon.png'}}"
+              data-path="/pages/services/announcement/index" bindtap="nav2Page"></image>
           </view>
           <view class="region-line region-text">
-            <text bindtap="testNavHandle">公告</text>
+            <text data-path="/pages/services/announcement/index" bindtap="nav2Page">公告</text>
           </view>
         </view>
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image
-              class="image-region"
-              mode="aspectFit"
-              src="{{'/images/icons/hospital_icon.png'}}"
-            ></image>
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hospital_icon.png'}}"
+              data-path="/pages/services/guahao/index" bindtap="nav2Page"></image>
           </view>
           <view class="region-text">
-            <text>挂号预约</text>
+            <text data-path="/pages/services/guahao/index" bindtap="nav2Page">挂号预约</text>
           </view>
         </view>
         <view class="v-icon-region">
           <view class="v-line-inner">
-            <image
-              class="image-region"
-              mode="aspectFit"
-              src="{{'/images/icons/hotel_icon.png'}}"
-            ></image>
+            <image class="image-region" mode="aspectFit" src="{{'/images/icons/hotel_icon.png'}}"
+              data-path="/pages/services/hotel/index" bindtap="nav2Page"></image>
           </view>
 
           <view class="region-text">
-            <text>酒店预约</text>
+            <text data-path="/pages/services/hotel/index" bindtap="nav2Page">酒店预约</text>
           </view>
         </view>
       </view>
@@ -110,26 +97,13 @@
     <view class="modal-title"> 请输入密码 </view>
     <view class="v-modal-form">
       <view class="v-input">
-        <input
-          type="text"
-          name="auth"
-          model:value="{{auth}}"
-          bindinput="setAuth"
-          placeholder="请输入密码"
-        />
+        <input type="text" name="auth" model:value="{{auth}}" bindinput="setAuth" placeholder="请输入密码" />
       </view>
     </view>
     <view class="v-modal-actions">
       <!-- <button type="warn" bindtap="openWalletHandle" class="v-btn-warn">解锁</button> -->
-      <l-button
-        size="long"
-        bind:lintap="openWalletHandle"
-        l-class="open-btn"
-        disabled="{{!auth}}"
-        type="warning"
-        style="color: #0c123d"
-        >解锁</l-button
-      >
+      <l-button size="long" bind:lintap="openWalletHandle" l-class="open-btn" disabled="{{!auth}}" type="warning"
+        style="color: #0c123d">解锁</l-button>
     </view>
   </view>
 </view>

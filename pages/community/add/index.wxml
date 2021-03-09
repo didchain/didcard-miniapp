@@ -12,15 +12,16 @@
 
   <view class="v-form-box">
     <view class="input-warp">
-      <input type="text" id="commText" class="v-input" placeholder="请输入小区名称" bindinput="commTextInputHandle" />
+      <input
+        type="text"
+        id="commText"
+        class="v-input"
+        placeholder="请输入小区名称"
+        bindinput="commTextInputHandle"
+      />
     </view>
     <view class="v-btns-warp">
       <l-button size="long" bind:lintap="addCommuntyHandle">添加</l-button>
     </view>
   </view>
-
-
-
-
-
 </view>

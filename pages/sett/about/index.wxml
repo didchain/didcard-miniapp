@@ -9,17 +9,11 @@
       <text class="app-name">关于我们</text>
     </view>
     <view class="v-text">
-      <p class="text">
-        致力于通过技术手段解决用户隐私泄露问题.
-      </p>
+      <p class="text">致力于通过技术手段解决用户隐私泄露问题.</p>
     </view>
 
     <view class="v-text">
-      <p class="text">
-        提供易用的用户唯一身份识别账号体系.
-      </p>
+      <p class="text">提供易用的用户唯一身份识别账号体系.</p>
     </view>
   </view>
-
-
 </view>
