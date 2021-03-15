@@ -48,16 +48,11 @@
   border-radius: 8rpx;
 }
 
-/* .qrcode-box {
-  width: 440rpx;
-  height: 440rpx;
-  sborder: 4rpx solid #F5C95C;
-  border-radius: 8rpx; 
-} */
-
-.qrcode-box image {
-  width: 440rpx;
-  height: 440rpx;
+.qrcode-box wx-image {
+  flex: 1 1 100%;
+  padding: 0;
+  width: 496rpx;
+  height: 496rpx;
 }
 
 /** Down */
@@ -76,7 +71,7 @@
 }
 
 .v-btn-box .inner-box button {
-  width:45%;
+  width: 45%;
   font-weight: 400;
   font-size: 32rpx;
 }
@@ -86,12 +81,12 @@
 
 .v-btn-dark {
   flex: 1 1 auto;
-  color:#fff;
+  color: #fff;
   background: #0c123d;
 }
 .v-btn-warn {
   flex: 1 1 auto;
-  color:#0c123d;
+  color: #0c123d;
   background: #f6c330;
 }
 

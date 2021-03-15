@@ -9,7 +9,7 @@
       <view class="v-splitor"></view>
       <view class="qrcode-box">
         <!-- <canvas type="2d" style="width: 220px; height: 220px;" id="didQr2D" ></canvas> -->
-        <image bindtap="previewImg" mode="aspectFill" src="{{imagePath}}" width="440rpx" height="440rpx"></image>
+        <image bindtap="previewImg" mode="aspectFill" src="{{imagePath}}" ></image>
       </view>
     </view>
   </view>
