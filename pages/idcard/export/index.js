@@ -1,4 +1,4 @@
-import { LABELS, STORAGE_KEYS } from '../../../config/app-cnst';
+import { LABELS } from '../../../config/app-cnst';
 import QR from '../../../libs/qrcode/weqrcode';
 import drawQrcode from '../../../libs/qrcode/weapp.qrcode.js';
 const baseOpts = {
