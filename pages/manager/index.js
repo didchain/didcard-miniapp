@@ -2,7 +2,8 @@
 import { importKeyStore } from '@wecrpto/weaccount';
 import { promisify } from 'miniprogram-api-promise';
 import { checkKeystore } from '../../utils/util';
-import { STORAGE_KEYS, weaccConfig } from '../../config/app-cnst';
+import { weaccConfig } from '../../config/app-cnst';
+import Log from '../../libs/log/index.js';
 
 Page({
   /**
@@ -34,6 +35,7 @@ Page({
   onShow: function () {
     this.setData({ keystore: null });
     this.setData({ authPassword: '' });
+    Log.setFilterMsg('didcreator');
   },
 
   /**
@@ -148,8 +150,8 @@ Page({
     try {
       wx.$webox.reset();
       const modal = wx.$webox.generate(auth);
-      console.log(modal.keyStoreJsonfy());
       getApp().saveKeyStore(wx.$webox.getSafeWallet());
+      Log.info('create new did', modal.keyStoreJsonfy(), new Date());
       wx.showToast({
         title: '创建成功',
         success: function () {
@@ -157,8 +159,9 @@ Page({
         },
       });
     } catch (e) {
+      console.error(e);
+      Log.error('create fail', e, new Date());
       wx.$webox.loadSafeWallet(backSafeWallet);
-      console.log(e);
     }
   },
 });

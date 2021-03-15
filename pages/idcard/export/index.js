@@ -1,5 +1,13 @@
 import { LABELS, STORAGE_KEYS } from '../../../config/app-cnst';
 import QR from '../../../libs/qrcode/weqrcode';
+import drawQrcode from '../../../libs/qrcode/weapp.qrcode.js';
+const baseOpts = {
+  canvas: null,
+  canvasId: '',
+  backgroud: '#ffffff',
+  foreground: '#000000',
+  text: '',
+};
 
 Page({
   /**
@@ -11,7 +19,7 @@ Page({
     didLabel: LABELS.DID_LABEL,
   },
   setCanvasSize: function () {
-    var size = { w: 215, h: 215 };
+    var size = { w: 686, h: 686 };
     try {
       var res = wx.getSystemInfoSync();
       var scale = 375 / 686; //不同屏幕下canvas的适配比例；设计稿是750宽
@@ -29,7 +37,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const size = this.setCanvasSize();
+    // const size = this.setCanvasSize();
   },
 
   /**
@@ -45,9 +53,51 @@ Page({
     if (safeWallet) {
       this.setData({ did: safeWallet.did });
       const jsonText = wx.$webox.keyStoreJsonfy();
+      // this.drawQrcode2D(jsonText);
       const size = this.setCanvasSize();
+      console.log(size);
       QR.api.draw(jsonText, 'idcardQrcode', size.w, size.h, this, this.canvasToTempImage);
     }
+  },
+  drawQrcode2D: function (text) {
+    const canvasId = 'didQr2D';
+    const selector = '#' + canvasId;
+    let opts = Object.assign({}, baseOpts, {
+      text: text,
+      width: 220,
+      height: 220,
+      canvasId: canvasId,
+    });
+
+    const query = wx.createSelectorQuery();
+    // const cvas2d = query.select(selector);
+
+    query
+      .select(selector)
+      .fields({
+        node: true,
+        size: true,
+      })
+      .exec((res) => {
+        var canvas = res[0].node;
+        opts.canvas = canvas;
+        try {
+          drawQrcode(
+            {
+              canvas: canvas,
+              canvasId: canvasId,
+              width: 200,
+              padding: 20,
+              background: '#ffffff',
+              foreground: '#87d068',
+              text: 'asdfsadfasdfdas',
+            },
+            true
+          );
+        } catch (err) {
+          console.log('Qr>>>>>>>>>>>>>>>>>>>', err);
+        }
+      });
   },
   canvasToTempImage: function (canvasId) {
     const that = this;

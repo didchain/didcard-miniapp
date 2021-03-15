@@ -15,7 +15,8 @@
           type="password"
           id="creatorPassword"
           hide-label
-          model:value="{{password}}"
+          value="{{password}}"
+          bind:lininput="pwdInputHandle"
           placeholder="输入密码"
           showEye
         >
@@ -26,7 +27,8 @@
           type="password"
           id="confirm"
           hide-label
-          model:value="{{confirm}}"
+          value="{{confirm}}"
+          bind:lininput="confirmInputHandle"
           placeholder="再次输入"
           showEye
         >

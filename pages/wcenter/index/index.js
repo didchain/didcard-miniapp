@@ -16,6 +16,7 @@ Page({
     needAuthorized: true,
     authPassword: '',
     showHelpBtn: FEATURES_CTRL.SETT_HELP,
+    onlineVer: '',
   },
   /** Methods begin */
   gotoInternalUrl(event) {
@@ -67,9 +68,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    const accInfo = wx.getAccountInfoSync();
+
+    let miniVer = accInfo.miniProgram.version;
+    if (!miniVer && accInfo.miniProgram.envVersion) {
+      miniVer = accInfo.miniProgram.envVersion;
+    }
+
+    this.setData({ onlineVer: miniVer });
     this.setData({ authorize: '' });
     let aeskey = getApp().getAeskey();
-    // console.log('aeskey>>>>', aeskey);
+
     this.setData({ noSecret: !!aeskey });
     this.showCustTabbar(2);
     const that = this;
@@ -93,7 +102,7 @@ Page({
     wx.authorize({
       scope: 'scope.userInfo',
       success: function (res) {
-        console.log('user>>>>>', res);
+        // console.log('user>>>>>', res);
         let userInfo = res.userInfo;
 
         that.setData({ needAuthorized: false });
@@ -106,7 +115,7 @@ Page({
     });
   },
   userInfoCallback: function (e) {
-    console.log('settingCallBackHandle>>>>>>', e);
+    // console.log('settingCallBackHandle>>>>>>', e);
     const userInfo = e.detail.userInfo;
     if (userInfo) {
       this.setData({ nickname: userInfo.nickName });

@@ -73,6 +73,11 @@
             </switch>
           </view>
         </v-list>
+        <v-list title="当前版本" is-link="{{false}}">
+          <view slot="right-section" class="m-version">
+            <text>{{onlineVer}} </text>
+          </view>
+        </v-list>
       </view>
     </view>
 

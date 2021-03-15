@@ -3,6 +3,8 @@ import { importKeyStore } from '@wecrpto/weaccount';
 
 import { STORAGE_KEYS } from '../../../config/app-cnst';
 
+import Log from '../../../libs/log/index.js';
+
 const app = getApp();
 Page({
   /**
@@ -31,7 +33,6 @@ Page({
       success(res) {
         try {
           const keystore = JSON.parse(res.result);
-          console.log('keystore>>>>', keystore);
           if (typeof keystore !== 'object' || !keystore.did || !keystore.cipher_txt) {
             wx.showToast({
               icon: 'error',
@@ -52,7 +53,6 @@ Page({
   },
 
   importHandle() {
-    // TODO set
     const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
     const pwd = this.data.password;
     if (!pwd) {
@@ -66,16 +66,14 @@ Page({
 
     try {
       const keystore = this.data.scanKeystore;
-      console.log('pwd', this.data.password, this.data.scanKeystore);
       const modal = importKeyStore(JSON.stringify(keystore), pwd, cfg);
 
       const wallet = modal.wallet;
       wx.$webox.setWallet(wallet);
       const safeWallet = wx.$webox.getSafeWallet();
-
+      getApp().setSafeWallet(safeWallet);
       wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
       getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = modal.getKeypair();
-      getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
       getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
 
       wx.showToast({
@@ -88,16 +86,6 @@ Page({
         },
         duration: 2000,
       });
-      // wx.lin.showMessage({
-      //   type: 'success',
-      //   content: '创建成功',
-      //   duration: 1000,
-      //   success() {
-      //     // wx.switchTab({
-      //     //   url: '/pages/home/index',
-      //     // });
-      //   },
-      // });
     } catch (err) {
       console.log('parse Error:', err);
       wx.showToast({
@@ -129,10 +117,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    Log.info('Creator Index.');
     if (!wx.$webox.hasWallet()) {
       wx.hideTabBar({
         success: (res) => {
-          console.log('disable goback', res);
+          Log.info('Hide nav bar goback.', res);
         },
       });
     }

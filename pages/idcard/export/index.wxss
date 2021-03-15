@@ -44,15 +44,20 @@
   flex-direction: column;
   justify-self: center;
   align-items: center;
-  /* border: 1px solid #f6c330; */
-  /* padding:6px; */
+  border: 4rpx solid #F5C95C;
+  border-radius: 8rpx;
 }
+
+/* .qrcode-box {
+  width: 440rpx;
+  height: 440rpx;
+  sborder: 4rpx solid #F5C95C;
+  border-radius: 8rpx; 
+} */
 
 .qrcode-box image {
   width: 440rpx;
   height: 440rpx;
-  border: 4rpx solid #F5C95C;
-  border-radius: 8rpx;
 }
 
 /** Down */

@@ -8,8 +8,8 @@
       </view>
       <view class="v-splitor"></view>
       <view class="qrcode-box">
-        <!-- <canvas style="width: 220px; height: 220px;background: #f1f1f1;" canvas-id="idcardQrcode" ></canvas> -->
-        <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
+        <!-- <canvas type="2d" style="width: 220px; height: 220px;" id="didQr2D" ></canvas> -->
+        <image bindtap="previewImg" mode="aspectFill" src="{{imagePath}}" width="440rpx" height="440rpx"></image>
       </view>
     </view>
   </view>

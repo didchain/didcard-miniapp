@@ -1,6 +1,6 @@
 {
   "name": "didcard-miniapp",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "DID Card demo alpha",
   "main": "index.js",
   "scripts": {

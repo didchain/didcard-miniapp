@@ -11,8 +11,8 @@
   "setting": {
     "urlCheck": false,
     "es6": true,
-    "enhance": true,
-    "postcss": true,
+    "enhance": false,
+    "postcss": false,
     "preloadBackgroundData": false,
     "minified": true,
     "newFeature": false,
@@ -45,7 +45,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.15.0",
+  "libVersion": "2.14.0",
   "appid": "wx2d8b7c09b025d8f0",
   "projectname": "didcard-miniapp",
   "debugOptions": {

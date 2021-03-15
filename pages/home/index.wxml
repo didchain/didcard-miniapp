@@ -97,8 +97,12 @@
     <view class="modal-title"> 请输入密码 </view>
     <view class="v-modal-form">
       <view class="v-input">
-        <input type="text" name="auth" model:value="{{auth}}" bindinput="setAuth" placeholder="请输入密码" />
+        <!-- <input type="text" name="auth" model:value="{{auth}}" bindinput="setAuth" placeholder="请输入密码" /> -->
+        <l-input type="password" id="auth" hide-label value="{{auth}}" bind:lininput="setAuth" placeholder="输入密码"
+          showEye>
+        </l-input>
       </view>
+
     </view>
     <view class="v-modal-actions">
       <!-- <button type="warn" bindtap="openWalletHandle" class="v-btn-warn">解锁</button> -->

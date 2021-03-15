@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents":{
+    "lv-form-item": "/libs/lin-ui/vform-item/index",
+    "l-input": "/libs/lin-ui/input/index"
+  }
 }

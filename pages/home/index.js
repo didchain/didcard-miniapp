@@ -3,6 +3,7 @@ import { promisifyAll, promisify } from 'miniprogram-api-promise';
 import { APP_NAME, STORAGE_KEYS } from '../../config/app-cnst';
 import { helper, tools } from '@wecrpto/weaccount';
 import { tabbar } from '../../utils/tabbar';
+import Log from '../../libs/log/index.js';
 const { buildSignData, appendSignature } = require('../../utils/util');
 //see https://github.com/demi520/wxapp-qrcode
 const QR = require('../../libs/qrcode/weqrcode');
@@ -54,16 +55,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    Log.info('Index Home loaded', wx.$webox.getSafeWallet());
     const id = wx.$webox.getSafeWallet() ? wx.$webox.getSafeWallet().did : '';
     this.setData({ did: id || app.globalData[STORAGE_KEYS.DID_SKEY] || '' });
     this.setData({ isIphoneX: app.globalData.isIphoneX || false });
 
     await this.preCheckSetting();
-    // const initQrcodeWhenOpen = async function (res) {
-    //   console.log('Callback>>>>', this, res);
-    // };
-    // this.precheckLocation(initQrcodeWhenOpen);
-
     // 检查size
     const size = this.setCanvasSize();
     this.setData({ size: size });
@@ -142,6 +139,11 @@ Page({
   onShow: async function () {
     this.showCustTabbar(0);
     const that = this;
+    if (!wx.$webox.hasWallet()) {
+      wx.navigateTo({
+        url: '/pages/creator/index/index',
+      });
+    }
     that.initPageData();
   },
   showCustTabbar: function (idx = 0) {
@@ -379,7 +381,7 @@ Page({
     this.setData({ modalHide: true });
   },
   setAuth(e) {
-    this.data.auth = e.detail.value;
+    this.setData({ auth: e.detail.value });
   },
   /**
    *

@@ -1,6 +1,7 @@
 // pages/creator/generator/index.js
 import { STORAGE_KEYS } from '../../../config/app-cnst';
 const { pwdRules } = require('../../../config/validator-rules');
+import Log from '../../../libs/log/index.js';
 const app = getApp();
 Page({
   /**
@@ -11,9 +12,18 @@ Page({
     confirm: null,
     passwordRules: pwdRules,
     confirmRules: [...pwdRules],
+    loading: false,
   },
   /** Cust methods begin */
-  generateSubmit(event) {
+  pwdInputHandle: function (e) {
+    const value = e.detail.value;
+    this.setData({ password: value });
+  },
+  confirmInputHandle: function (e) {
+    const value = e.detail.value;
+    this.setData({ confirm: value });
+  },
+  generateSubmit: async function (event) {
     const webox = wx.$webox;
 
     const password = this.data.password;
@@ -27,31 +37,28 @@ Page({
     }
     const _this = this;
     try {
+      Log.info('Create start....');
+      _this.setData({ loading: true });
+      if (webox.hasWallet()) {
+        webox.reset();
+      }
       const inst = webox.generate(password);
-
+      Log.info('account create success');
       const safeWallet = inst.getSafeWallet();
       if (!safeWallet) {
         throw new Error('Generate Account Error');
       }
-      wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
+      getApp().setSafeWallet(safeWallet);
       getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = inst.getKeypair();
-      getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+      // getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
       getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
-
-      // wx.setStorageSync(STORAGE_KEYS.SHORT_SECRET_OKEY, {
-      //   enshort: this.data.password,
-      //   entype: 'base64',
-      // });
-      // wx.setStorageSync(STORAGE_KEYS.INITIALIZED_BKEY, true);
-      // wx.setStorageSync(STORAGE_KEYS.WALLET_ADDR_SKEY, '0x232BD76e2adcff8825C');
+      _this.setData({ loading: false });
+      Log.debug('create did success', safeWallet.did);
       wx.lin.showMessage({
         type: 'success',
         content: '创建成功',
         duration: 1000,
         success() {
-          // wx.switchTab({
-          //   url: '/pages/home/index',
-          // });
           wx.navigateTo({
             url: '/pages/creator/backup/backup',
           });
@@ -59,6 +66,8 @@ Page({
       });
     } catch (err) {
       console.log(err);
+      Log.error(err);
+      _this.setData({ loading: false });
       this.showErrorMsg('创建失败', 3000);
     }
   },
@@ -84,12 +93,17 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    Log.setFilterMsg('didcreator');
+    Log.info('Debug IOS can not created.');
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () {
+    Log.setFilterMsg('didcreator');
+  },
 
   /**
    * 生命周期函数--监听页面卸载

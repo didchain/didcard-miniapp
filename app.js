@@ -24,7 +24,7 @@ App({
     this.getUserInfo((userInfo) => {
       console.log('UserInfo', userInfo);
     });
-    const safeWallet = wx.getStorageSync(STORAGE_KEYS.WALLET_V3_OKEY);
+    const safeWallet = this.getSafeWallet();
     if (safeWallet) {
       wx.$webox.loadSafeWallet(safeWallet);
       try {
@@ -40,7 +40,6 @@ App({
       this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
       this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
     } else {
-      // console.log('Wallet not initialization.');
       wx.navigateTo({
         url: 'pages/creator/index/index',
       });
@@ -101,7 +100,6 @@ App({
             const uRes = await wxp.getUserInfo({
               lang: 'en',
             });
-            console.log('>>>>>>>>>>>>>>>', uRes);
             this.globalData.userInfo = uRes.userInfo;
           } catch (error) {
             wx.showToast({
@@ -184,7 +182,26 @@ App({
   cleanCommunity: function () {
     wx.setStorageSync(STORAGE_KEYS.COMUNITY_AKRY, []);
   },
-
+  setSafeWallet: function (safeWallet) {
+    if (!safeWallet) throw new Error('safewallet must not null.');
+    this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+    const data = JSON.stringify(safeWallet);
+    if (wx.setStorageSync) {
+      wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, data);
+    }
+    return data;
+  },
+  /**
+   *
+   */
+  getSafeWallet: function () {
+    let safeWallet = this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] || null;
+    if (!safeWallet && wx.getStorageSync) {
+      const data = wx.getStorageSync(STORAGE_KEYS.WALLET_V3_OKEY);
+      data && (safeWallet = JSON.parse(data));
+    }
+    return safeWallet;
+  },
   /**
    *
    */
