@@ -7,6 +7,7 @@ let nacl = require('@wecrpto/nacl');
 nacl.setPRNG(randomBytes); //make sure random key
 // nacl.util = require('@wecrpto/nacl-util');
 import { init as weaccInit, helper, tools } from '@wecrpto/weaccount';
+import Log from './libs/log/index';
 
 const wxp = {};
 promisifyAll(wx, wxp);
@@ -17,33 +18,36 @@ App({
   onLaunch() {
     // bind wx
     this.bindHelper();
-    this.initSystemInfo();
-    const webox = this.checkAndInitWebox();
+
+    const weaccCallback = initWeboxHandler.bind(this);
+
+    this.initSystemInfo(weaccCallback);
+    // const webox = this.checkAndInitWebox();
 
     // //has initialized verify
     this.getUserInfo((userInfo) => {
       console.log('UserInfo', userInfo);
     });
-    const safeWallet = this.getSafeWallet();
-    if (safeWallet) {
-      wx.$webox.loadSafeWallet(safeWallet);
-      try {
-        const aeskey = this.getAeskey();
-        if (aeskey) {
-          let _wallet = wx.$webox.openByAeskey(new Uint8Array(aeskey));
-          wx.$webox.setWallet(_wallet);
-        }
-      } catch (error) {
-        this.cleanAeskey();
-      }
+    // const safeWallet = this.getSafeWallet();
+    // if (safeWallet) {
+    //   wx.$webox.loadSafeWallet(safeWallet);
+    //   try {
+    //     const aeskey = this.getAeskey();
+    //     if (aeskey) {
+    //       let _wallet = wx.$webox.openByAeskey(new Uint8Array(aeskey));
+    //       wx.$webox.setWallet(_wallet);
+    //     }
+    //   } catch (error) {
+    //     this.cleanAeskey();
+    //   }
 
-      this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
-      this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
-    } else {
-      wx.navigateTo({
-        url: 'pages/creator/index/index',
-      });
-    }
+    //   this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
+    //   this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
+    // } else {
+    //   wx.navigateTo({
+    //     url: 'pages/creator/index/index',
+    //   });
+    // }
   },
   getUserInfo: function (cb) {
     const that = this;
@@ -63,33 +67,13 @@ App({
       });
     }
   },
-  // precheckLocation(cb) {
-  //   const that = this;
-  //   if (!this.globalData.scopeULocAuthed) {
-  //     typeof cb === 'function' && cb(true);
-  //   } else {
-  //     wx.getSetting({
-  //       withSubscriptions: false,
-  //       success: function (res) {
-  //         if (!res.authSetting['scope.userLocation']) {
-  //           wx.authorize({
-  //             scope: 'scope.userLocation',
-  //             success: function (res) {
-  //               that.globalData.scopeULocAuthed = true;
-  //               typeof cb === 'function' && cb(true);
-  //             },
-  //           });
-  //         }
-  //       },
-  //     });
-  //   }
-  // },
+
   /**
    * 初始化 webox
    * @param {*} cb
    */
   checkAndInitWebox: function (cb) {
-    const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
+    const cfg = { idPrefix: 'did', weaked: false, useSigned: true, round: 15 };
     wx.$webox = weaccInit(cfg);
   },
   checkUserAuth: () => {
@@ -112,7 +96,7 @@ App({
       fail: (e) => {},
     });
   },
-  initSystemInfo: function () {
+  initSystemInfo: function (cb) {
     var that = this;
     wx.getSystemInfo({
       success: function (e) {
@@ -123,6 +107,12 @@ App({
         } else {
           that.globalData.isIphoneX = false;
         }
+
+        let isIphone = false;
+        if (a.indexOf('iPhone') != -1) {
+          isIphone = true;
+        }
+        typeof cb === 'function' && cb({ isIphone: isIphone }, wx);
       },
     });
   },
@@ -141,13 +131,6 @@ App({
   setAeskey: function (keybuf) {
     const aeskeybase = wx.arrayBufferToBase64(keybuf);
     wx.setStorageSync(STORAGE_KEYS.AESKEY_HKEY, aeskeybase);
-  },
-  saveKeyStore: function (safeWallet) {
-    wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
-    if (safeWallet) {
-      this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
-      this.globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
-    }
   },
   getCommunity: function () {
     let coms = wx.getStorageSync(STORAGE_KEYS.COMUNITY_AKRY);
@@ -182,7 +165,12 @@ App({
   cleanCommunity: function () {
     wx.setStorageSync(STORAGE_KEYS.COMUNITY_AKRY, []);
   },
-  setSafeWallet: function (safeWallet) {
+  /**
+   * save safeWallet into storage and global
+   * @param {Object} safeWallet
+   * @returns {String} json
+   */
+  saveSafeWalletToStore: function (safeWallet) {
     if (!safeWallet) throw new Error('safewallet must not null.');
     this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
     const data = JSON.stringify(safeWallet);
@@ -192,13 +180,14 @@ App({
     return data;
   },
   /**
-   *
+   * @returns Object safeWallet
    */
-  getSafeWallet: function () {
+  getSafeWalletFromStore: function () {
     let safeWallet = this.globalData[STORAGE_KEYS.WALLET_V3_OKEY] || null;
     if (!safeWallet && wx.getStorageSync) {
       const data = wx.getStorageSync(STORAGE_KEYS.WALLET_V3_OKEY);
-      data && (safeWallet = JSON.parse(data));
+      console.log(data);
+      typeof data === 'string' && !!data && (safeWallet = JSON.parse(data));
     }
     return safeWallet;
   },
@@ -227,3 +216,43 @@ App({
       (wx.str2base64 = (text) => tools.enc.Utf8.parse(text).toString(tools.enc.Base64));
   },
 });
+
+/**
+ *
+ * @param {*} param0
+ * @param {*} wx
+ */
+function initWeboxHandler({ isIphone = false }, wx) {
+  const waccConfig = {
+    idPrefix: 'did',
+    weaked: false,
+    useSigned: true,
+    round: 15,
+  };
+  // console.log('initWeboxHandler>>>>', isIphone, this);
+  const _that = this;
+  if (isIphone) {
+    waccConfig.weaked = true;
+    waccConfig.round = 7;
+  }
+  const $modal = weaccInit(waccConfig);
+  wx.$webox = $modal;
+
+  const safeWallet = this.getSafeWalletFromStore();
+  if (safeWallet) {
+    try {
+      $modal.setSafeWallet(safeWallet);
+    } catch (err) {
+      Log.error('App load safeWallet fail,', err.message);
+    }
+    try {
+      const aeskey = this.getAeskey();
+      if (aeskey) {
+        $modal.openByAeskey(aeskey);
+      }
+    } catch (err) {
+      this.cleanAeskey();
+      Log.warn('Aeskey expired and clean');
+    }
+  }
+}

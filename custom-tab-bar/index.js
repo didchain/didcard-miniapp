@@ -1,5 +1,10 @@
 // pages/widgets/vtab-bar/cust-tabbar.js
+import { sigEid4Verify } from './sig-util.js';
+import Log from '../libs/log/index';
 const app = getApp();
+
+const BASE_URL = 'https://wechat.baschain.cn/api/';
+
 Component({
   /**
    * 组件的属性列表
@@ -58,45 +63,84 @@ Component({
       const tabtype = dataset.tabtype;
 
       if (!!tabtype) {
-        wx.scanCode({
-          onlyFromCamera: true,
-          success: function (res) {
-            // console.log('Scaner>>>>', res);
-            // wx.navigateTo({
-            //   url: path,
-            // });
-            const scantext = res.result;
-            let did = '二维码中ID信息不正确';
-            let didOk = false;
-            try {
-              const keystore = JSON.parse(scantext);
-              if (typeof keystore === 'object' && keystore.did) {
-                did = keystore.did;
-                didOk = true;
-              }
-            } catch (e) {}
-
-            wx.showModal({
-              cancelColor: '#F5C95C',
-              cancelText: '取消',
-              confirmText: '开锁',
-              title: '',
-              content: did,
-              success: function (res) {
-                if (res.cancel) {
-                } else if (res.confirm) {
-                  if (!didOk) {
+        const webox = wx.$webox;
+        if (webox.hasOpened()) {
+          let pk = webox.getKeypair().secretKey;
+          const did = webox.getSafeWallet().did;
+          wx.scanCode({
+            onlyFromCamera: true,
+            success: function (res) {
+              const scantext = res.result;
+              console.log('Scaner>>>>', scantext);
+              let tip = '二维码信息不正确';
+              let didOk = false;
+              try {
+                let dataObj = JSON.parse(scantext);
+                if (typeof dataObj !== 'object' || !dataObj.auth_url || !dataObj.random_token) {
+                  // did = keystore.did;
+                  didOk = true;
+                  throw new Error('miss property.');
+                }
+                const signedData = sigEid4Verify({ ...dataObj, did }, pk);
+                console.log('>>>>>>>>>>', signedData);
+                wx.request({
+                  url: BASE_URL + 'verify',
+                  data: signedData,
+                  method: 'POST',
+                  success: function (resp) {
+                    const { statusCode, data } = resp;
+                    console.log('Success>>>>', statusCode, data);
+                    if (!!data && statusCode === 200) {
+                      const bizCode = data.result_code; // 0 , 2
+                      if (bizCode === 0) {
+                        wx.showToast({
+                          icon: 'success',
+                          title: '校验成功',
+                        });
+                      } else if (bizCode === 2) {
+                        wx.showToast({
+                          icon: 'error',
+                          title: '账号不存在',
+                        });
+                      } else {
+                        wx.showToast({
+                          icon: 'error',
+                          title: '校验失败',
+                        });
+                      }
+                    } else {
+                      Log.error('API verify request fail', statusCode);
+                      wx.showToast({
+                        icon: 'error',
+                        title: '验证服务忙.',
+                      });
+                    }
+                  },
+                  fail: function (err) {
+                    // console.log('API fail', err);
+                    Log.error('API verify fail', err);
                     wx.showToast({
                       icon: 'error',
-                      title: '二维码不正确',
+                      title: '校验失败',
                     });
-                  }
-                }
-              },
-            });
-          },
-          complete: function () {},
-        });
+                  },
+                });
+              } catch (e) {
+                console.log(e);
+                wx.showToast({
+                  icon: 'error',
+                  title: '二维码不正确',
+                });
+              }
+            },
+            complete: function () {},
+          });
+        } else {
+          wx.showToast({
+            icon: 'error',
+            title: '请先解锁',
+          });
+        }
       } else {
         wx.switchTab({
           url: path,

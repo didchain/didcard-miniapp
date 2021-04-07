@@ -53,7 +53,7 @@ Page({
   },
 
   importHandle() {
-    const cfg = { idPrefix: 'Did', remembered: true, useSigned: true };
+    const cfg = wx.$webox.getCurrentConfig();
     const pwd = this.data.password;
     if (!pwd) {
       wx.showToast({
@@ -68,13 +68,9 @@ Page({
       const keystore = this.data.scanKeystore;
       const modal = importKeyStore(JSON.stringify(keystore), pwd, cfg);
 
-      const wallet = modal.wallet;
-      wx.$webox.setWallet(wallet);
-      const safeWallet = wx.$webox.getSafeWallet();
-      getApp().setSafeWallet(safeWallet);
-      wx.setStorageSync(STORAGE_KEYS.WALLET_V3_OKEY, safeWallet);
-      getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = modal.getKeypair();
-      getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
+      wx.$webox = modal;
+      const safeWallet = modal.getSafeWallet();
+      getApp().saveSafeWalletToStore(safeWallet);
 
       wx.showToast({
         icon: 'success',

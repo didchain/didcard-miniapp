@@ -191,10 +191,12 @@ Page({
       const aeskey = wallet.key.lockedKey;
       getApp().setAeskey(aeskey);
       this.setData({ maskShow: false });
+      this.setData({ authPassword: '' });
     } catch (e) {
+      this.setData({ authPassword: '' });
       wx.showToast({
         icon: 'error',
-        title: '密码不正确请重试.',
+        title: '密码不正确.',
       });
     }
   },

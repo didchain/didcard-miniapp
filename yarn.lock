@@ -45,10 +45,10 @@
   resolved "https://registry.npmjs.org/@wecrpto/nacl/-/nacl-0.1.0.tgz#f73b46410b77f0f195e597cc3d0259df917caddc"
   integrity sha512-s1hCT0tyT3KNuwpQ+qVHrrAqAbNw/gG9AbSZhzo+WTYj+c7156Wdv2fmgi4pgyuAYvdy9sxwk7RSc3U2F2oA8w==
 
-"@wecrpto/weaccount@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.npm.taobao.org/@wecrpto/weaccount/download/@wecrpto/weaccount-0.2.5.tgz#0895f557f64dd0bcf26d6a0931d4acc7c600e62d"
-  integrity sha1-CJX1V/ZN0LzybWoJMdSsx8YA5i0=
+"@wecrpto/weaccount@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/@wecrpto/weaccount/download/@wecrpto/weaccount-1.0.1.tgz#829e725fcb97b6b5025cd9cee95f3154c2938ffe"
+  integrity sha1-gp5yX8uXtrUCXNnO6V8xVMKTj/4=
   dependencies:
     "@wecrpto/nacl" "^0.1.0"
     "@wecrpto/nacl-util" "^0.1.1"

@@ -2,7 +2,6 @@
 import { importKeyStore } from '@wecrpto/weaccount';
 import { promisify } from 'miniprogram-api-promise';
 import { checkKeystore } from '../../utils/util';
-import { weaccConfig } from '../../config/app-cnst';
 import Log from '../../libs/log/index.js';
 
 Page({
@@ -101,7 +100,10 @@ Page({
     this.setData({ maskNewShow: false });
     this.setData({ authPassword: '' });
   },
-  openWalletHandle: function () {
+  /**
+   *
+   */
+  importHandler: function () {
     const keystore = this.data.keystore;
     const auth = this.data.authPassword;
     if (!auth) {
@@ -113,10 +115,19 @@ Page({
     }
     const that = this;
     try {
+      const webox = wx.$webox;
+      const keyparams = webox.getSafeKeyparams();
+      const weaccConfig = {
+        weaked: webox.weaked,
+        idPrefix: keyparams.idPrefix,
+        useSigned: keyparams.useSigned,
+        round: keyparams.round,
+      };
+
       const _modal = importKeyStore(JSON.stringify(keystore), auth, weaccConfig);
-      const wallet = _modal.wallet;
-      wx.$webox.setWallet(wallet);
-      getApp().saveKeyStore(wx.$webox.getSafeWallet());
+      const safeWallet = _modal.getSafeWallet();
+      wx.$webox = _modal;
+      getApp().saveSafeWalletToStore(safeWallet);
       wx.showToast({
         title: '导入成功',
         success: function () {
@@ -147,11 +158,15 @@ Page({
 
     const backSafeWallet = wx.$webox.getSafeWallet();
     const that = this;
+    const webox = wx.$webox;
     try {
-      wx.$webox.reset();
-      const modal = wx.$webox.generate(auth);
-      getApp().saveKeyStore(wx.$webox.getSafeWallet());
-      Log.info('create new did', modal.keyStoreJsonfy(), new Date());
+      webox.reset();
+      const modal = webox.generate(auth);
+      const newSafeWallet = modal.getSafeWallet();
+      getApp().saveSafeWalletToStore(newSafeWallet);
+
+      //TODO removal
+      Log.info('create new did', modal.keyStoreJsonfy());
       wx.showToast({
         title: '创建成功',
         success: function () {
@@ -160,8 +175,8 @@ Page({
       });
     } catch (e) {
       console.error(e);
-      Log.error('create fail', e, new Date());
-      wx.$webox.loadSafeWallet(backSafeWallet);
+      Log.error('create fail', e);
+      wx.$webox.setSafeWallet(backSafeWallet);
     }
   },
 });

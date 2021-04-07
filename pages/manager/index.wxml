@@ -30,7 +30,7 @@
       />
     </view>
     <view class="button-wrap">
-      <button size="long" bindtap="openWalletHandle">确定</button>
+      <button size="long" bindtap="importHandler">确定</button>
     </view>
   </view>
 </l-mask>

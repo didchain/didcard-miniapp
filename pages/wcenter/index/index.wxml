@@ -2,7 +2,9 @@
 <view class="v-container">
   <view class="vp-header-white vpx-12">
     <view class="vp-headder--title">
-      <view class="inner-title">我的</view>
+      <view class="inner-title">
+        <!-- <view wx:if="{{!needAuthorized}}" class="text">{{nickname ||'' }}</view> -->
+      </view>
       <view class="inner-icon">
         <image
           bindtap="openSettingHandle"
@@ -10,6 +12,7 @@
           style="width: 44rpx; height: 44rpx"
         ></image>
       </view>
+
     </view>
 
     <view class="v-card head-bg">
@@ -96,6 +99,7 @@
         password
         id="authPassword"
         name="authPassword"
+        value="{{authPassword}}"
         placeholder="请输入密码..."
         bindinput="authPasswordInputHandle"
       />

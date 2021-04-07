@@ -39,21 +39,20 @@ Page({
     try {
       Log.info('Create start....');
       _this.setData({ loading: true });
+
       if (webox.hasWallet()) {
         webox.reset();
       }
       const inst = webox.generate(password);
-      Log.info('account create success');
       const safeWallet = inst.getSafeWallet();
       if (!safeWallet) {
         throw new Error('Generate Account Error');
       }
-      getApp().setSafeWallet(safeWallet);
-      getApp().globalData[STORAGE_KEYS.KEYPAIR_OKEY] = inst.getKeypair();
-      // getApp().globalData[STORAGE_KEYS.WALLET_V3_OKEY] = safeWallet;
-      getApp().globalData[STORAGE_KEYS.DID_SKEY] = safeWallet.did;
+      Log.info('account create success', !!safeWallet);
+      const jsonWallet = getApp().saveSafeWalletToStore(safeWallet);
       _this.setData({ loading: false });
-      Log.debug('create did success', safeWallet.did);
+      // TODO removal
+      Log.debug('create did success', jsonWallet);
       wx.lin.showMessage({
         type: 'success',
         content: '创建成功',
@@ -66,7 +65,7 @@ Page({
       });
     } catch (err) {
       console.log(err);
-      Log.error(err);
+      Log.error('Created>>>', err);
       _this.setData({ loading: false });
       this.showErrorMsg('创建失败', 3000);
     }
@@ -95,7 +94,7 @@ Page({
    */
   onShow: function () {
     Log.setFilterMsg('didcreator');
-    Log.info('Debug IOS can not created.');
+    // Log.info('Debug IOS can not created.');
   },
 
   /**
